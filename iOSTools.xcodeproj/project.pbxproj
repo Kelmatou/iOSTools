@@ -17,6 +17,9 @@
 		554245181F22839B00D0E17A /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554245171F22839B00D0E17A /* StringExtension.swift */; };
 		5574E5BC1F25E939009A51D0 /* Reflexivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5574E5BB1F25E939009A51D0 /* Reflexivity.swift */; };
 		5574E5BE1F25EEC0009A51D0 /* Reflexivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5574E5BD1F25EEC0009A51D0 /* Reflexivity.swift */; };
+		55842A5A1F2A488E007E5050 /* Pixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55842A591F2A488E007E5050 /* Pixel.swift */; };
+		55842A5C1F2A4902007E5050 /* ColorWheel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55842A5B1F2A4902007E5050 /* ColorWheel.swift */; };
+		55842A5E1F2A4973007E5050 /* Drawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55842A5D1F2A4973007E5050 /* Drawing.swift */; };
 		55B7002E1F276D750086893F /* Requester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7002D1F276D750086893F /* Requester.swift */; };
 		55B700301F2773FE0086893F /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7002F1F2773FE0086893F /* Network.swift */; };
 		55B700331F2893C20086893F /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B700321F2893C20086893F /* Camera.swift */; };
@@ -49,6 +52,9 @@
 		554245171F22839B00D0E17A /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		5574E5BB1F25E939009A51D0 /* Reflexivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reflexivity.swift; sourceTree = "<group>"; };
 		5574E5BD1F25EEC0009A51D0 /* Reflexivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reflexivity.swift; sourceTree = "<group>"; };
+		55842A591F2A488E007E5050 /* Pixel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pixel.swift; sourceTree = "<group>"; };
+		55842A5B1F2A4902007E5050 /* ColorWheel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorWheel.swift; sourceTree = "<group>"; };
+		55842A5D1F2A4973007E5050 /* Drawing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Drawing.swift; sourceTree = "<group>"; };
 		55B7002D1F276D750086893F /* Requester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Requester.swift; sourceTree = "<group>"; };
 		55B7002F1F2773FE0086893F /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		55B700321F2893C20086893F /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
@@ -97,6 +103,7 @@
 		554244F01F223AC900D0E17A /* iOSTools */ = {
 			isa = PBXGroup;
 			children = (
+				55842A581F2A4861007E5050 /* Drawing */,
 				55B700601F28EF9E0086893F /* iPhoneCache */,
 				55B700311F2893A30086893F /* Photo */,
 				55B7002C1F276D540086893F /* Network */,
@@ -154,6 +161,16 @@
 				5574E5BB1F25E939009A51D0 /* Reflexivity.swift */,
 			);
 			name = Reflexivity;
+			sourceTree = "<group>";
+		};
+		55842A581F2A4861007E5050 /* Drawing */ = {
+			isa = PBXGroup;
+			children = (
+				55842A591F2A488E007E5050 /* Pixel.swift */,
+				55842A5B1F2A4902007E5050 /* ColorWheel.swift */,
+				55842A5D1F2A4973007E5050 /* Drawing.swift */,
+			);
+			name = Drawing;
 			sourceTree = "<group>";
 		};
 		55B7002C1F276D540086893F /* Network */ = {
@@ -298,10 +315,13 @@
 				554245111F224ADF00D0E17A /* IntExtension.swift in Sources */,
 				55B700331F2893C20086893F /* Camera.swift in Sources */,
 				554245161F227FD600D0E17A /* StringExtension.swift in Sources */,
+				55842A5A1F2A488E007E5050 /* Pixel.swift in Sources */,
 				55B700621F28F05D0086893F /* CacheManager.swift in Sources */,
 				55B700351F2893D70086893F /* PhotoLibrary.swift in Sources */,
 				55B7002E1F276D750086893F /* Requester.swift in Sources */,
 				5574E5BC1F25E939009A51D0 /* Reflexivity.swift in Sources */,
+				55842A5C1F2A4902007E5050 /* ColorWheel.swift in Sources */,
+				55842A5E1F2A4973007E5050 /* Drawing.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
