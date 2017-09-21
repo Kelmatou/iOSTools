@@ -20,6 +20,8 @@
 		55842A5A1F2A488E007E5050 /* Pixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55842A591F2A488E007E5050 /* Pixel.swift */; };
 		55842A5C1F2A4902007E5050 /* ColorWheel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55842A5B1F2A4902007E5050 /* ColorWheel.swift */; };
 		55842A5E1F2A4973007E5050 /* Drawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55842A5D1F2A4973007E5050 /* Drawing.swift */; };
+		55A15D341F73BA9400A3E442 /* ConsoleLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A15D331F73BA9400A3E442 /* ConsoleLogs.swift */; };
+		55A15D381F73BF6800A3E442 /* Logs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A15D371F73BF6800A3E442 /* Logs.swift */; };
 		55B7002E1F276D750086893F /* Requester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7002D1F276D750086893F /* Requester.swift */; };
 		55B700301F2773FE0086893F /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7002F1F2773FE0086893F /* Network.swift */; };
 		55B700331F2893C20086893F /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B700321F2893C20086893F /* Camera.swift */; };
@@ -55,6 +57,8 @@
 		55842A591F2A488E007E5050 /* Pixel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pixel.swift; sourceTree = "<group>"; };
 		55842A5B1F2A4902007E5050 /* ColorWheel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorWheel.swift; sourceTree = "<group>"; };
 		55842A5D1F2A4973007E5050 /* Drawing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Drawing.swift; sourceTree = "<group>"; };
+		55A15D331F73BA9400A3E442 /* ConsoleLogs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleLogs.swift; sourceTree = "<group>"; };
+		55A15D371F73BF6800A3E442 /* Logs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logs.swift; sourceTree = "<group>"; };
 		55B7002D1F276D750086893F /* Requester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Requester.swift; sourceTree = "<group>"; };
 		55B7002F1F2773FE0086893F /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		55B700321F2893C20086893F /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
@@ -103,6 +107,7 @@
 		554244F01F223AC900D0E17A /* iOSTools */ = {
 			isa = PBXGroup;
 			children = (
+				55A15D321F73BA7700A3E442 /* Logs */,
 				55842A581F2A4861007E5050 /* Drawing */,
 				55B700601F28EF9E0086893F /* iPhoneCache */,
 				55B700311F2893A30086893F /* Photo */,
@@ -127,6 +132,7 @@
 				5574E5BD1F25EEC0009A51D0 /* Reflexivity.swift */,
 				55B7002F1F2773FE0086893F /* Network.swift */,
 				55B700631F29D9A10086893F /* iPhoneCache.swift */,
+				55A15D371F73BF6800A3E442 /* Logs.swift */,
 			);
 			path = iOSToolsTests;
 			sourceTree = "<group>";
@@ -171,6 +177,14 @@
 				55842A5D1F2A4973007E5050 /* Drawing.swift */,
 			);
 			name = Drawing;
+			sourceTree = "<group>";
+		};
+		55A15D321F73BA7700A3E442 /* Logs */ = {
+			isa = PBXGroup;
+			children = (
+				55A15D331F73BA9400A3E442 /* ConsoleLogs.swift */,
+			);
+			name = Logs;
 			sourceTree = "<group>";
 		};
 		55B7002C1F276D540086893F /* Network */ = {
@@ -319,6 +333,7 @@
 				55B700621F28F05D0086893F /* CacheManager.swift in Sources */,
 				55B700351F2893D70086893F /* PhotoLibrary.swift in Sources */,
 				55B7002E1F276D750086893F /* Requester.swift in Sources */,
+				55A15D341F73BA9400A3E442 /* ConsoleLogs.swift in Sources */,
 				5574E5BC1F25E939009A51D0 /* Reflexivity.swift in Sources */,
 				55842A5C1F2A4902007E5050 /* ColorWheel.swift in Sources */,
 				55842A5E1F2A4973007E5050 /* Drawing.swift in Sources */,
@@ -332,6 +347,7 @@
 				55B700301F2773FE0086893F /* Network.swift in Sources */,
 				5542450E1F223D5400D0E17A /* Datetime.swift in Sources */,
 				554245131F224C8600D0E17A /* IntExtension.swift in Sources */,
+				55A15D381F73BF6800A3E442 /* Logs.swift in Sources */,
 				55B700641F29D9A10086893F /* iPhoneCache.swift in Sources */,
 				554245181F22839B00D0E17A /* StringExtension.swift in Sources */,
 				5574E5BE1F25EEC0009A51D0 /* Reflexivity.swift in Sources */,
