@@ -12,8 +12,8 @@ import AVFoundation
 @objc public protocol CameraDelegate: class {
   
   @objc optional func didFinishCapture(_ cameraView: CameraView, image: UIImage?)
-  @objc optional func didChangeCapturePosition(_ cameraView: CameraView, newOrientation: AVCaptureDevicePosition)
-  @objc optional func willChangeCapturePosition(_ cameraView: CameraView, newOrientation: AVCaptureDevicePosition)
+  @objc optional func didChangeCapturePosition(_ cameraView: CameraView, newOrientation: AVCaptureDevice.Position)
+  @objc optional func willChangeCapturePosition(_ cameraView: CameraView, newOrientation: AVCaptureDevice.Position)
 }
 
 public class CameraView: UIView, UIImagePickerControllerDelegate {
@@ -28,7 +28,7 @@ public class CameraView: UIView, UIImagePickerControllerDelegate {
   internal var receiverController: UIViewController?
   
   public weak var delegate: CameraDelegate?
-  public var capturePosition: AVCaptureDevicePosition = .back
+  public var capturePosition: AVCaptureDevice.Position = .back
   
   // MARK: - Init
   
@@ -53,27 +53,29 @@ public class CameraView: UIView, UIImagePickerControllerDelegate {
   }
   
   private func setupCamera() {
-    if let deviceSession = AVCaptureDeviceDiscoverySession(deviceTypes: [.builtInDualCamera, .builtInTelephotoCamera, .builtInWideAngleCamera], mediaType: AVMediaTypeVideo, position: capturePosition), let devices = deviceSession.devices {
-      for device in devices {
-        do {
-          let input = try AVCaptureDeviceInput(device: device)
-          if captureSession.canAddInput(input) {
-            captureSession.addInput(input)
-            if captureSession.canAddOutput(sessionOutput) {
-              captureSession.addOutput(sessionOutput)
-              previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-              previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-              previewLayer.connection.videoOrientation = .portrait
-              self.layer.addSublayer(previewLayer)
-              previewLayer.position = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
-              previewLayer.bounds = self.frame
-              captureSession.startRunning()
+    let deviceSession = AVCaptureDevice.DiscoverySession(deviceTypes: [AVCaptureDevice.DeviceType.builtInDualCamera, AVCaptureDevice.DeviceType.builtInTelephotoCamera, AVCaptureDevice.DeviceType.builtInWideAngleCamera], mediaType: AVMediaType.video, position: capturePosition)
+    let devices = deviceSession.devices
+    for device in devices {
+      do {
+        let input = try AVCaptureDeviceInput(device: device)
+        if captureSession.canAddInput(input) {
+          captureSession.addInput(input)
+          if captureSession.canAddOutput(sessionOutput) {
+            captureSession.addOutput(sessionOutput)
+            previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+            previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+            if let connection = previewLayer.connection {
+              connection.videoOrientation = .portrait
             }
+            self.layer.addSublayer(previewLayer)
+            previewLayer.position = CGPoint(x: self.frame.width / 2, y: self.frame.height / 2)
+            previewLayer.bounds = self.frame
+            captureSession.startRunning()
           }
         }
-        catch let error {
-          debugPrint("[ERROR]: Camera setup failure: \(error)")
-        }
+      }
+      catch let error {
+        debugPrint("[ERROR]: Camera setup failure: \(error)")
       }
     }
   }
@@ -87,30 +89,27 @@ public class CameraView: UIView, UIImagePickerControllerDelegate {
   
   // MARK: - Camera
   
-  public func switchCamera() {
+  @objc public func switchCamera() {
     if captureSession.isRunning {
-      if let currentCameraInput: AVCaptureInput = captureSession.inputs[0] as? AVCaptureInput {
-        captureSession.removeInput(currentCameraInput)
-        var newCamera: AVCaptureDevice
-        if let currentCameraInput = currentCameraInput as? AVCaptureDeviceInput, currentCameraInput.device.position == .front {
-          capturePosition = .back
-        } else {
-          capturePosition = .front
-        }
-        willChangeCapturePosition(self, newOrientation: capturePosition)
-        let deviceSession = AVCaptureDeviceDiscoverySession(deviceTypes: [.builtInDualCamera, .builtInTelephotoCamera, .builtInWideAngleCamera], mediaType: AVMediaTypeVideo, position: .unspecified)
-        if let deviceSession = deviceSession {
-          for device in deviceSession.devices {
-            if device.position == capturePosition {
-              newCamera = device
-              do {
-                let newVideoInput = try AVCaptureDeviceInput(device: newCamera)
-                captureSession.addInput(newVideoInput)
-                return
-              }
-              catch {
-              }
-            }
+      let currentCameraInput: AVCaptureInput = captureSession.inputs[0]
+      captureSession.removeInput(currentCameraInput)
+      var newCamera: AVCaptureDevice
+      if let currentCameraInput = currentCameraInput as? AVCaptureDeviceInput, currentCameraInput.device.position == .front {
+        capturePosition = .back
+      } else {
+        capturePosition = .front
+      }
+      willChangeCapturePosition(self, newOrientation: capturePosition)
+      let deviceSession = AVCaptureDevice.DiscoverySession(deviceTypes: [AVCaptureDevice.DeviceType.builtInDualCamera, AVCaptureDevice.DeviceType.builtInTelephotoCamera, AVCaptureDevice.DeviceType.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .unspecified)
+      for device in deviceSession.devices {
+        if device.position == capturePosition {
+          newCamera = device
+          do {
+            let newVideoInput = try AVCaptureDeviceInput(device: newCamera)
+            captureSession.addInput(newVideoInput)
+            return
+          }
+          catch {
           }
         }
       }
@@ -121,7 +120,7 @@ public class CameraView: UIView, UIImagePickerControllerDelegate {
 
 extension CameraView: AVCapturePhotoCaptureDelegate {
   
-  public func capture(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhotoSampleBuffer photoSampleBuffer: CMSampleBuffer?, previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?)
+  public func photoOutput(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?, previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?)
   {
     if let photoSampleBuffer = photoSampleBuffer {
       let blockBuffer = CMSampleBufferGetDataBuffer(photoSampleBuffer)
@@ -165,13 +164,13 @@ extension CameraView: CameraDelegate {
     }
   }
   
-  public func didChangeCapturePosition(_ cameraView: CameraView, newOrientation: AVCaptureDevicePosition) {
+  public func didChangeCapturePosition(_ cameraView: CameraView, newOrientation: AVCaptureDevice.Position) {
     if let delegate = delegate, let didChangeCapturePosition = delegate.didChangeCapturePosition {
       didChangeCapturePosition(cameraView, newOrientation)
     }
   }
   
-  public func willChangeCapturePosition(_ cameraView: CameraView, newOrientation: AVCaptureDevicePosition) {
+  public func willChangeCapturePosition(_ cameraView: CameraView, newOrientation: AVCaptureDevice.Position) {
     if let delegate = delegate, let willChangeCapturePosition = delegate.willChangeCapturePosition {
       willChangeCapturePosition(cameraView, newOrientation)
     }

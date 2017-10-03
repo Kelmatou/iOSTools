@@ -34,7 +34,7 @@ class NetworkTest: XCTestCase {
   }
   
   func testValidGetRequestImage() {
-    Requester.requestImage(.GET, url: "http://yugiohprices.com/api/card_image/Dark Magician (Arkana)") {
+    Requester.requestImage(.GET, url: "http://yugiohprices.com/api/card_image/Dark%20Magician%20(Arkana)") {
       (data, error) in
       XCTAssert(error == nil)
       XCTAssert(data != nil)

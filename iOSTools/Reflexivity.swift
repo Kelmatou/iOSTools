@@ -50,7 +50,7 @@ public class Reflexivity {
     }
     let parentMirror: Mirror? = mirror.superclassMirror
     if let parentMirror = parentMirror {
-      let newReflexivity: Reflexivity = Reflexivity()
+      let newReflexivity: Reflexivity = Reflexivity(())
       newReflexivity.mirror = parentMirror
       return newReflexivity
     }

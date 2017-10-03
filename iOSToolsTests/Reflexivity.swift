@@ -57,7 +57,7 @@ class ReflexivityTest: XCTestCase {
   }
   
   func testClassReflexivity() {
-    XCTAssert(Reflexivity.typeName(Reflexivity()) == "Reflexivity")
+    XCTAssert(Reflexivity.typeName(Reflexivity(())) == "Reflexivity")
   }
   
   func testClassOptionalName() {

@@ -31,7 +31,8 @@ public extension String {
       return nil
     }
     let startStringIndex: String.Index = self.index(self.startIndex, offsetBy: startIndex)
-    return substring(from: startStringIndex)
+    let substring: Substring = self[startStringIndex...]
+    return String(substring)
   }
   
   /**
@@ -52,7 +53,8 @@ public extension String {
     let endPosition: Int = startIndex + length > strLength ? strLength : startIndex + length
     let endStringIndex: String.Index = self.index(self.startIndex, offsetBy: endPosition)
     let range: Range<String.Index> = startStringIndex..<endStringIndex
-    return substring(with: range)
+    let substring: Substring = self[range]
+    return String(substring)
   }
   
   /**
