@@ -123,16 +123,18 @@ extension CameraView: AVCapturePhotoCaptureDelegate {
   
   public func capture(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhotoSampleBuffer photoSampleBuffer: CMSampleBuffer?, previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?)
   {
-    let blockBuffer = CMSampleBufferGetDataBuffer(photoSampleBuffer!)
-    var len = CMBlockBufferGetDataLength(blockBuffer!)
-    var data: UnsafeMutablePointer<Int8>?
-    CMBlockBufferGetDataPointer(blockBuffer!, 0, nil, &len, &data)
-    let d = Data.init(bytes: data!, count: len)
-    imageTaken = rotateUIImage(image: UIImage.init(data: d)!, angleDeg: 90.0)
-    if let imageBefore = imageTaken, capturePosition == .front {
-      imageTaken = mirrorUIImage(image: imageBefore)
+    if let photoSampleBuffer = photoSampleBuffer {
+      let blockBuffer = CMSampleBufferGetDataBuffer(photoSampleBuffer)
+      var len = CMBlockBufferGetDataLength(blockBuffer!)
+      var data: UnsafeMutablePointer<Int8>?
+      CMBlockBufferGetDataPointer(blockBuffer!, 0, nil, &len, &data)
+      let d = Data.init(bytes: data!, count: len)
+      imageTaken = rotateUIImage(image: UIImage.init(data: d)!, angleDeg: 90.0)
+      if let imageBefore = imageTaken, capturePosition == .front {
+        imageTaken = mirrorUIImage(image: imageBefore)
+      }
+      didFinishCapture(self, image: imageTaken)
     }
-    didFinishCapture(self, image: imageTaken)
   }
   
   private func rotateUIImage(image: UIImage, angleDeg: CGFloat) -> UIImage {
