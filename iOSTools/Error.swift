@@ -8,18 +8,18 @@
 
 import Foundation
 
-struct GenericErrorStruct: LocalizedError
+public struct GenericErrorStruct: LocalizedError
 {
-  var errorDescription: String? {
+  public var errorDescription: String? {
     return description
   }
-  var failureReason: String? {
+  public var failureReason: String? {
     return failure
   }
-  var recoverySuggestion: String? {
+  public var recoverySuggestion: String? {
     return recovery
   }
-  var helpAnchor: String? {
+  public var helpAnchor: String? {
     return help
   }
   
@@ -38,7 +38,7 @@ struct GenericErrorStruct: LocalizedError
 
 public class GenericError {
   
-  internal var internalError: GenericErrorStruct
+  public var internalError: GenericErrorStruct
   
   init(_ msg: String) {
     internalError = GenericErrorStruct(description: msg, failure: msg, recovery: "No recovery available", help: "No help available")
