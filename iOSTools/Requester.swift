@@ -25,7 +25,7 @@ public class Requester {
    - parameter body: the content of the message
    - parameter handler: allows the user to make actions just after request ended (Data, Error)
    */
-  public static func request(_ method: AccessMethod, url: String, headers: [String : String]? = nil, body: String? = nil, handler: @escaping (Data?, Error?) -> Void) {
+  public static func request(_ method: AccessMethod, url: String, headers: [String : String]? = nil, body: String? = nil, handler: @escaping (Data?, GenericError?) -> Void) {
     if let uri = URL(string: url) {
       var request: URLRequest = URLRequest(url: uri)
       request.httpMethod = method.rawValue
@@ -39,7 +39,12 @@ public class Requester {
       }
       let task = URLSession.shared.dataTask(with: request) {
         (data, response, error) in
-        handler(data, error)
+        if let error = error {
+          handler(data, RequesterError(error.localizedDescription))
+        }
+        else {
+          handler(data, nil)
+        }
       }
       task.resume()
     }
@@ -48,7 +53,7 @@ public class Requester {
     }
   }
   
-  public static func requestText(_ method: AccessMethod, url: String, headers: [String : String]? = nil, body: String? = nil, handler: @escaping (String?, Error?) -> Void) {
+  public static func requestText(_ method: AccessMethod, url: String, headers: [String : String]? = nil, body: String? = nil, handler: @escaping (String?, GenericError?) -> Void) {
     request(method, url: url, headers: headers, body: body) {
       (data, error) in
       var responseDecoded: String?
@@ -59,7 +64,7 @@ public class Requester {
     }
   }
   
-  public static func requestImage(_ method: AccessMethod, url: String, headers: [String : String]? = nil, body: String? = nil, handler: @escaping (UIImage?, Error?) -> Void) {
+  public static func requestImage(_ method: AccessMethod, url: String, headers: [String : String]? = nil, body: String? = nil, handler: @escaping (UIImage?, GenericError?) -> Void) {
     request(method, url: url, headers: headers, body: body) {
       (data, error) in
       var responseImage: UIImage?
@@ -68,28 +73,5 @@ public class Requester {
       }
       handler(responseImage, error)
     }
-  }
-}
-
-struct RequesterError: LocalizedError
-{
-  var errorDescription: String? {
-    return mMsg
-  }
-  var failureReason: String? {
-    return mMsg
-  }
-  var recoverySuggestion: String? {
-    return "Try to replace special characters"
-  }
-  var helpAnchor: String? {
-    return "Some characters have special translation '(' = %28, ')' = %29..."
-  }
-  
-  private var mMsg : String
-  
-  init(_ msg: String)
-  {
-    mMsg = msg
   }
 }
