@@ -55,7 +55,7 @@ public class ImageVision {
           break
         }
       }
-      
+      completion(resultsDictionnary, nil)
     }
     
     let handler = VNImageRequestHandler(ciImage: ciImage)
