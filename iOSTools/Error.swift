@@ -38,7 +38,7 @@ struct GenericErrorStruct: LocalizedError
 
 public class GenericError {
   
-  public var internalError: GenericErrorStruct
+  internal var internalError: GenericErrorStruct
   
   init(_ msg: String) {
     internalError = GenericErrorStruct(description: msg, failure: msg, recovery: "No recovery available", help: "No help available")
