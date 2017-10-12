@@ -10,16 +10,16 @@ import Foundation
 
 public struct GenericErrorStruct: LocalizedError
 {
-  public var errorDescription: String? {
+  public var errorDescription: String {
     return description
   }
-  public var failureReason: String? {
+  public var failureReason: String {
     return failure
   }
-  public var recoverySuggestion: String? {
+  public var recoverySuggestion: String {
     return recovery
   }
-  public var helpAnchor: String? {
+  public var helpAnchor: String {
     return help
   }
   

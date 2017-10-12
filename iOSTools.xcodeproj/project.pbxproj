@@ -21,6 +21,10 @@
 		557363FD1F8625E70070922E /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557363FC1F8625E70070922E /* Error.swift */; };
 		557363FF1F862B1A0070922E /* ImageVisionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557363FE1F862B1A0070922E /* ImageVisionError.swift */; };
 		557364011F862D5D0070922E /* RequesterError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557364001F862D5D0070922E /* RequesterError.swift */; };
+		557364031F8663550070922E /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557364021F8663550070922E /* Error.swift */; };
+		557364051F87B8380070922E /* MachineLearning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557364041F87B8380070922E /* MachineLearning.swift */; };
+		5573641A1F87CE670070922E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 557364191F87CE670070922E /* Assets.xcassets */; };
+		5573641B1F87D04A0070922E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 557364191F87CE670070922E /* Assets.xcassets */; };
 		5574E5BC1F25E939009A51D0 /* Reflexivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5574E5BB1F25E939009A51D0 /* Reflexivity.swift */; };
 		5574E5BE1F25EEC0009A51D0 /* Reflexivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5574E5BD1F25EEC0009A51D0 /* Reflexivity.swift */; };
 		55842A5A1F2A488E007E5050 /* Pixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55842A591F2A488E007E5050 /* Pixel.swift */; };
@@ -64,6 +68,9 @@
 		557363FC1F8625E70070922E /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		557363FE1F862B1A0070922E /* ImageVisionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageVisionError.swift; sourceTree = "<group>"; };
 		557364001F862D5D0070922E /* RequesterError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequesterError.swift; sourceTree = "<group>"; };
+		557364021F8663550070922E /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		557364041F87B8380070922E /* MachineLearning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineLearning.swift; sourceTree = "<group>"; };
+		557364191F87CE670070922E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5574E5BB1F25E939009A51D0 /* Reflexivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reflexivity.swift; sourceTree = "<group>"; };
 		5574E5BD1F25EEC0009A51D0 /* Reflexivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reflexivity.swift; sourceTree = "<group>"; };
 		55842A591F2A488E007E5050 /* Pixel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pixel.swift; sourceTree = "<group>"; };
@@ -147,6 +154,9 @@
 				55B7002F1F2773FE0086893F /* Network.swift */,
 				55B700631F29D9A10086893F /* iPhoneCache.swift */,
 				55A15D371F73BF6800A3E442 /* Logs.swift */,
+				557364021F8663550070922E /* Error.swift */,
+				557364041F87B8380070922E /* MachineLearning.swift */,
+				557364191F87CE670070922E /* Assets.xcassets */,
 			);
 			path = iOSToolsTests;
 			sourceTree = "<group>";
@@ -351,6 +361,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5573641B1F87D04A0070922E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,6 +369,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5573641A1F87CE670070922E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,6 +405,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				557364031F8663550070922E /* Error.swift in Sources */,
+				557364051F87B8380070922E /* MachineLearning.swift in Sources */,
 				55B700301F2773FE0086893F /* Network.swift in Sources */,
 				5542450E1F223D5400D0E17A /* Datetime.swift in Sources */,
 				554245131F224C8600D0E17A /* IntExtension.swift in Sources */,

@@ -26,34 +26,46 @@ class NetworkTest: XCTestCase {
   // MARK: - Get Test case
   
   func testValidGetRequestText() {
+    let asyncRequest = expectation(description: "Request Succeeded")
     Requester.requestText(.GET, url: "http://yugiohprices.com/api/card_data/Dark%20Magician%20(Arkana)") {
       (data, error) in
       XCTAssert(error == nil)
       XCTAssert(data == "{\"status\":\"success\",\"data\":{\"name\":\"Dark Magician (Arkana)\",\"text\":\"The ultimate wizard in terms of attack and defense.\",\"card_type\":\"monster\",\"type\":\"Spellcaster\",\"family\":\"dark\",\"atk\":2500,\"def\":2100,\"level\":7,\"property\":null}}")
+      asyncRequest.fulfill()
     }
+    waitForExpectations(timeout: 10.0) { (_) -> Void in }
   }
   
   func testValidGetRequestImage() {
+    let asyncRequest = expectation(description: "Request Succeeded")
     Requester.requestImage(.GET, url: "http://yugiohprices.com/api/card_image/Dark%20Magician%20(Arkana)") {
       (data, error) in
       XCTAssert(error == nil)
       XCTAssert(data != nil)
+      asyncRequest.fulfill()
     }
+    waitForExpectations(timeout: 10.0) { (_) -> Void in }
   }
   
   func testInvalidGetRequest() {
-    Requester.requestText(.GET, url: "http://yugiohprices.com/api/card_data/Dark%20Magician%20(Arkana)Nope") {
+    let asyncRequest = expectation(description: "Request Succeeded")
+    Requester.requestText(.GET, url: "http://yugiNOPEohprices.com/api/card_data/Dark%20Magician%20(Arkana)") {
       (data, error) in
       XCTAssert(error != nil)
       XCTAssert(data == nil)
+      asyncRequest.fulfill()
     }
+    waitForExpectations(timeout: 10.0) { (_) -> Void in }
   }
   
   func testEmptyGetRequest() {
+    let asyncRequest = expectation(description: "Request Succeeded")
     Requester.requestText(.GET, url: "") {
       (data, error) in
       XCTAssert(error != nil)
       XCTAssert(data == nil)
+      asyncRequest.fulfill()
     }
+    waitForExpectations(timeout: 10.0) { (_) -> Void in }
   }
 }

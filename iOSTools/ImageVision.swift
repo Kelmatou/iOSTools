@@ -49,10 +49,12 @@ public class ImageVision {
       }
       
       var resultsList: [(String, Float)] = []
-      for result in results {
-        resultsList.append((result.identifier, result.confidence * 100))
-        if resultsList.count == maxResult {
-          break
+      if maxResult == nil || maxResult! > 0 {
+        for result in results {
+          resultsList.append((result.identifier, result.confidence * 100))
+          if let maxResult = maxResult, resultsList.count >= maxResult {
+            break
+          }
         }
       }
       completion(resultsList, nil)
