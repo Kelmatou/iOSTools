@@ -32,6 +32,8 @@
 		55842A5E1F2A4973007E5050 /* Drawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55842A5D1F2A4973007E5050 /* Drawing.swift */; };
 		55A15D341F73BA9400A3E442 /* ConsoleLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A15D331F73BA9400A3E442 /* ConsoleLogs.swift */; };
 		55A15D381F73BF6800A3E442 /* Logs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A15D371F73BF6800A3E442 /* Logs.swift */; };
+		55A7A8721F8F72B300C5314D /* MemoryAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A7A8711F8F72B300C5314D /* MemoryAddress.swift */; };
+		55A7A8741F8F737F00C5314D /* MemoryAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A7A8731F8F737F00C5314D /* MemoryAddress.swift */; };
 		55B7002E1F276D750086893F /* Requester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7002D1F276D750086893F /* Requester.swift */; };
 		55B700301F2773FE0086893F /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7002F1F2773FE0086893F /* Network.swift */; };
 		55B700331F2893C20086893F /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B700321F2893C20086893F /* Camera.swift */; };
@@ -78,6 +80,8 @@
 		55842A5D1F2A4973007E5050 /* Drawing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Drawing.swift; sourceTree = "<group>"; };
 		55A15D331F73BA9400A3E442 /* ConsoleLogs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleLogs.swift; sourceTree = "<group>"; };
 		55A15D371F73BF6800A3E442 /* Logs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logs.swift; sourceTree = "<group>"; };
+		55A7A8711F8F72B300C5314D /* MemoryAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryAddress.swift; sourceTree = "<group>"; };
+		55A7A8731F8F737F00C5314D /* MemoryAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryAddress.swift; sourceTree = "<group>"; };
 		55B7002D1F276D750086893F /* Requester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Requester.swift; sourceTree = "<group>"; };
 		55B7002F1F2773FE0086893F /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		55B700321F2893C20086893F /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
@@ -147,16 +151,17 @@
 			isa = PBXGroup;
 			children = (
 				554244FE1F223AC900D0E17A /* Info.plist */,
+				557364191F87CE670070922E /* Assets.xcassets */,
 				5542450D1F223D5400D0E17A /* Datetime.swift */,
 				554245121F224C8600D0E17A /* IntExtension.swift */,
 				554245171F22839B00D0E17A /* StringExtension.swift */,
 				5574E5BD1F25EEC0009A51D0 /* Reflexivity.swift */,
+				55A7A8731F8F737F00C5314D /* MemoryAddress.swift */,
 				55B7002F1F2773FE0086893F /* Network.swift */,
 				55B700631F29D9A10086893F /* iPhoneCache.swift */,
 				55A15D371F73BF6800A3E442 /* Logs.swift */,
 				557364021F8663550070922E /* Error.swift */,
 				557364041F87B8380070922E /* MachineLearning.swift */,
-				557364191F87CE670070922E /* Assets.xcassets */,
 			);
 			path = iOSToolsTests;
 			sourceTree = "<group>";
@@ -216,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				5574E5BB1F25E939009A51D0 /* Reflexivity.swift */,
+				55A7A8711F8F72B300C5314D /* MemoryAddress.swift */,
 			);
 			name = Reflexivity;
 			sourceTree = "<group>";
@@ -394,6 +400,7 @@
 				55B7002E1F276D750086893F /* Requester.swift in Sources */,
 				55A15D341F73BA9400A3E442 /* ConsoleLogs.swift in Sources */,
 				5574E5BC1F25E939009A51D0 /* Reflexivity.swift in Sources */,
+				55A7A8721F8F72B300C5314D /* MemoryAddress.swift in Sources */,
 				55842A5C1F2A4902007E5050 /* ColorWheel.swift in Sources */,
 				557363FF1F862B1A0070922E /* ImageVisionError.swift in Sources */,
 				55842A5E1F2A4973007E5050 /* Drawing.swift in Sources */,
@@ -414,6 +421,7 @@
 				55B700641F29D9A10086893F /* iPhoneCache.swift in Sources */,
 				554245181F22839B00D0E17A /* StringExtension.swift in Sources */,
 				5574E5BE1F25EEC0009A51D0 /* Reflexivity.swift in Sources */,
+				55A7A8741F8F737F00C5314D /* MemoryAddress.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
