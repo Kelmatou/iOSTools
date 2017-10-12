@@ -8,6 +8,13 @@
 
 import Foundation
 
+/**
+ Get the address of any object
+ 
+ - parameter object: the object to get address from
+ 
+ - returns: a String containing the address (like: "0xb000000000000123")
+ */
 public func address<T>(of object: T) -> String {
   let objectAsObject = object as AnyObject
   let mutablePointer: UnsafeMutableRawPointer = Unmanaged.passUnretained(objectAsObject).toOpaque()

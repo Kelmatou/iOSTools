@@ -32,6 +32,105 @@ public extension Int {
     }
     return true
   }
+  
+  /**
+   Convert an Int value into hexadecimal format
+   
+   - returns: a String representing the hexadecimal value
+   */
+  public func toHexadecimal() -> String {
+    return Int.toHexadecimal(self)
+  }
+  
+  /**
+   Convert an Int value into binary format
+   
+   - parameter value: the value to convert
+   
+   - returns: a String representing the binary value
+   */
+  public func toBinary() -> String {
+    return Int.toBinary(self)
+  }
+  
+  /**
+   Convert an Int value into base format
+
+   - parameter base: the base to use
+   
+   - returns: a String representing the value encoded in base
+   */
+  public func toBase(_ base: Int) -> String {
+    return Int.toBase(self, base: base)
+  }
+  
+  /**
+   Convert an Int value into hexadecimal format
+   
+   - parameter value: the value to convert
+   
+   - returns: a String representing the hexadecimal value
+   */
+  public static func toHexadecimal(_ value: Int) -> String {
+    return String(value, radix: 16)
+  }
+  
+  /**
+   Convert an Int value into binary format
+   
+   - parameter value: the value to convert
+   
+   - returns: a String representing the binary value
+   */
+  public static func toBinary(_ value: Int) -> String {
+    return String(value, radix: 2)
+  }
+  
+  /**
+   Convert an Int value into base format
+   
+   - parameter value: the value to convert
+   - parameter base: the base to use
+   
+   - returns: a String representing the value encoded in base
+   */
+  public static func toBase(_ value: Int, base: Int) -> String {
+    return String(value, radix: base)
+  }
+  
+  /**
+   Convert a String representing the hexadecimal value into Int
+   
+   - parameter value: the value to convert
+   
+   - returns: an Int representing the hexadecimal value, nil if parameter was not a hexadecimal number
+   */
+  public static func fromHexadecimal(_ value: String) -> Int? {
+    return Int(value, radix: 16)
+  }
+  
+  /**
+   Convert a String representing the binary value into Int
+   
+   - parameter value: the value to convert
+   
+   - returns: an Int representing the binary value, nil if parameter was not a binary number
+   */
+  public static func fromBinary(_ value: String) -> Int? {
+    return Int(value, radix: 2)
+  }
+  
+  /**
+   Convert a String representing the value encoded in a base into Int
+   
+   - parameter value: the value to convert
+   - parameter base: the base to use
+   
+   - returns: an Int representing the value encoded in a base, nil if parameter was not a valid number in specified base
+   */
+  public static func fromBase(_ value: String, base: Int) -> Int? {
+    return Int(value, radix: base)
+  }
 
   /**
    Generates a random number in range [min, max]
