@@ -24,6 +24,12 @@ public class Logs {
     return output
   }
   
+  @discardableResult public static func debug(message: String?, time: Bool? = nil) -> String  {
+    let output: String = outputMessage(message: message, tag: "DEBUG", time: (time ?? Logs.alwaysPrintTime))
+    debugPrint(output)
+    return output
+  }
+  
   @discardableResult public static func warning(message: String?, time: Bool? = nil) -> String  {
     let output: String = outputMessage(message: message, tag: "WARNING", time: (time ?? Logs.alwaysPrintTime))
     debugPrint(output)

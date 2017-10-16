@@ -59,16 +59,30 @@ class LogsTest: XCTestCase {
     Logs.alwaysPrintTime = false
   }
   
-  func testWarning() {
-    let warning = Logs.warning(message: "This is an WARNING test")
-    XCTAssert(warning == "[WARNING]: This is an WARNING test")
-    let warningWithTime = Logs.warning(message: "This is an WARNING test with time set", time: true)
-    XCTAssert(warningWithTime == "[\(Datetime().toString())][WARNING]: This is an WARNING test with time set")
+  func testDebug() {
+    let debug = Logs.debug(message: "This is a DEBUG test")
+    XCTAssert(debug == "[DEBUG]: This is a DEBUG test")
+    let debugWithTime = Logs.debug(message: "This is a DEBUG test with time set", time: true)
+    XCTAssert(debugWithTime == "[\(Datetime().toString())][DEBUG]: This is a DEBUG test with time set")
     Logs.alwaysPrintTime = true
-    let alwaysTimeWarning = Logs.warning(message: "This is an WARNING test with alwaysPrintTime = true")
-    XCTAssert(alwaysTimeWarning == "[\(Datetime().toString())][WARNING]: This is an WARNING test with alwaysPrintTime = true")
-    let alwaysTimeWithTimeSetFalse = Logs.warning(message: "This is an WARNING test with alwaysPrintTime = true but set to false here", time: false)
-    XCTAssert(alwaysTimeWithTimeSetFalse == "[WARNING]: This is an WARNING test with alwaysPrintTime = true but set to false here")
+    let alwaysTimeDebug = Logs.debug(message: "This is a DEBUG test with alwaysPrintTime = true")
+    XCTAssert(alwaysTimeDebug == "[\(Datetime().toString())][DEBUG]: This is a DEBUG test with alwaysPrintTime = true")
+    let alwaysTimeWithTimeSetFalse = Logs.debug(message: "This is a DEBUG test with alwaysPrintTime = true but set to false here", time: false)
+    XCTAssert(alwaysTimeWithTimeSetFalse == "[DEBUG]: This is a DEBUG test with alwaysPrintTime = true but set to false here")
+    
+    Logs.alwaysPrintTime = false
+  }
+  
+  func testWarning() {
+    let warning = Logs.warning(message: "This is a WARNING test")
+    XCTAssert(warning == "[WARNING]: This is a WARNING test")
+    let warningWithTime = Logs.warning(message: "This is a WARNING test with time set", time: true)
+    XCTAssert(warningWithTime == "[\(Datetime().toString())][WARNING]: This is a WARNING test with time set")
+    Logs.alwaysPrintTime = true
+    let alwaysTimeWarning = Logs.warning(message: "This is a WARNING test with alwaysPrintTime = true")
+    XCTAssert(alwaysTimeWarning == "[\(Datetime().toString())][WARNING]: This is a WARNING test with alwaysPrintTime = true")
+    let alwaysTimeWithTimeSetFalse = Logs.warning(message: "This is a WARNING test with alwaysPrintTime = true but set to false here", time: false)
+    XCTAssert(alwaysTimeWithTimeSetFalse == "[WARNING]: This is a WARNING test with alwaysPrintTime = true but set to false here")
 
     Logs.alwaysPrintTime = false
   }

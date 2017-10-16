@@ -41,6 +41,10 @@ public class Datetime: Comparable, Equatable {
     return Calendar.current.component(.second, from: date)
   }
   
+  public var monthName: String {
+    return getMonthName()
+  }
+  
   public var weekday: String {
     return getWeekdayName()
   }
@@ -202,7 +206,7 @@ public class Datetime: Comparable, Equatable {
   /**
    Get current Datetime with string format: "yyyy/MM/dd hh:mm:ss"
    
-   - returns: a string representing Datetime object
+   - returns: a String representing Datetime object
    */
   public func toString() -> String {
     let yearFormat: String = (year < 0 ? "-" : "") + (year.isBetween(min: -999, max: 999) ? year.isBetween(min: -99, max: 99) ? year.isBetween(min: -9, max: 9) ? "000" : "00" : "0" : "") + "\(year < 0 ? -year : year)"
@@ -213,6 +217,23 @@ public class Datetime: Comparable, Equatable {
     let secondFormat: String = (second < 10 ? "0" : "") + "\(second)"
     return "\(yearFormat)/\(monthFormat)/\(dayFormat) \(hourFormat):\(minuteFormat):\(secondFormat)"
   }
+  
+  /**
+   Get current Datetime as String (default format is yyyy/MM/dd hh:mm:ss)
+   
+   - parameter format: the format of the String output
+   
+   - returns: a String representing Datetime object
+   */
+  /*public func toString(format: String = "yyyy/MM/dd hh:mm:ss") -> String {
+    let yearFormat: String = (year < 0 ? "-" : "") + (year.isBetween(min: -999, max: 999) ? year.isBetween(min: -99, max: 99) ? year.isBetween(min: -9, max: 9) ? "000" : "00" : "0" : "") + "\(year < 0 ? -year : year)"
+    let monthFormat: String = (month < 10 ? "0" : "") + "\(month)"
+    let dayFormat: String = (day < 10 ? "0" : "") + "\(day)"
+    let hourFormat: String = (hour < 10 ? "0" : "") + "\(hour)"
+    let minuteFormat: String = (minute < 10 ? "0" : "") + "\(minute)"
+    let secondFormat: String = (second < 10 ? "0" : "") + "\(second)"
+    return "\(yearFormat)/\(monthFormat)/\(dayFormat) \(hourFormat):\(minuteFormat):\(secondFormat)"
+  }*/
   
   // MARK: - Private methods
   
@@ -247,13 +268,11 @@ public class Datetime: Comparable, Equatable {
   }
   
   /**
-   Returns the index of a day in week
+   Returns the name of day in week
    0 = Monday
    6 = Sunday
    
-   - parameter date: the day
-   
-   - returns: Int representing the index of the day
+   - returns: a String representing day's name
    */
   private func getWeekdayName() -> String {
     let firstWeekDay = getDayIndexInWeek()
@@ -273,7 +292,45 @@ public class Datetime: Comparable, Equatable {
     case 6:
       return "Sunday"
     default:
-      return "Unknown"
+      return ""
+    }
+  }
+  
+  /**
+   Returns the name of month
+   1 = January
+   12 = December
+   
+   - returns: a String representing month's name
+   */
+  private func getMonthName() -> String {
+    switch month {
+    case 1:
+      return "January"
+    case 2:
+      return "February"
+    case 3:
+      return "March"
+    case 4:
+      return "April"
+    case 5:
+      return "May"
+    case 6:
+      return "June"
+    case 7:
+      return "July"
+    case 8:
+      return "August"
+    case 9:
+      return "Septembre"
+    case 10:
+      return "October"
+    case 11:
+      return "November"
+    case 12:
+      return "December"
+    default:
+      return ""
     }
   }
 }
