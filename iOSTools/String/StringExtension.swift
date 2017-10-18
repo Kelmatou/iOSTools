@@ -10,13 +10,28 @@ import Foundation
 
 public extension String {
   
-  /**
-   Get the length of the String encoded in UTF8
-   
-   - returns: the length of the String in UTF8
-  */
+  /// Get the length of the String encoded in UTF8
   public var length: Int {
     return self.lengthOfBytes(using: .utf8)
+  }
+  
+  /**
+   Operator '*' between String and Int
+   
+   - parameter left: the String to multiply
+   - parameter right: the coefficient
+   
+   - returns: A String containing 'right' times 'left'. If right <= 0, an empty String is returned
+   */
+  public static func *(left: String, right: Int) -> String {
+    if right <= 0 {
+      return ""
+    }
+    var result: String = left
+    for _ in 1..<right {
+      result += left
+    }
+    return result
   }
   
   /**

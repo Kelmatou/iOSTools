@@ -26,10 +26,17 @@ class StringExtensionTest: XCTestCase {
   // MARK: - Test case
   
   func testLength() {
-    XCTAssert("".length() == 0)
-    XCTAssert(" ".length() == 1)
-    XCTAssert("\"".length() == 1)
-    XCTAssert("Hello World!".length() == 12)
+    XCTAssert("".length == 0)
+    XCTAssert(" ".length == 1)
+    XCTAssert("\"".length == 1)
+    XCTAssert("Hello World!".length == 12)
+  }
+  
+  func testStringByInt() {
+    XCTAssert("" * 5 == "")
+    XCTAssert("Hello World!" * 0 == "")
+    XCTAssert("Hello World!" * -5 == "")
+    XCTAssert("Hello World!" * 5 == "Hello World!Hello World!Hello World!Hello World!Hello World!")
   }
   
   func testSubstringStartIndex() {

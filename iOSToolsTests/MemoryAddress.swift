@@ -30,48 +30,48 @@ class MemoryAddressTest: XCTestCase {
     let address1: String = address(of: int)
     let address2: String = address(of: str)
     let address3: String = address(of: cart)
-    XCTAssert(address1.length() > 0)
-    XCTAssert(address2.length() > 0)
-    XCTAssert(address3.length() > 0)
+    XCTAssert(address1.length > 0)
+    XCTAssert(address2.length > 0)
+    XCTAssert(address3.length > 0)
   }
   
   func testArray() {
     let array: [Int] = [42, 26, 3, 12, 103, 2]
     let address1: String = address(of: array)
     let address2: String = address(of: array[0])
-    XCTAssert(address1.length() > 0)
-    XCTAssert(address2.length() > 0)
+    XCTAssert(address1.length > 0)
+    XCTAssert(address2.length > 0)
   }
   
   class A {}
   func testClassObject() {
     let instance: A = A()
     let address1: String = address(of: instance)
-    XCTAssert(address1.length() > 0)
+    XCTAssert(address1.length > 0)
   }
   
   struct B {}
   func testStructInstance() {
     let instance: B = B()
     let address1: String = address(of: instance)
-    XCTAssert(address1.length() > 0)
+    XCTAssert(address1.length > 0)
   }
   
   func testSelf() {
     let address1: String = address(of: self)
-    XCTAssert(address1.length() > 0)
+    XCTAssert(address1.length > 0)
   }
   
   func testRawValue() {
     let address1: String = address(of: 42)
     let address2: String = address(of: "42")
-    XCTAssert(address1.length() > 0)
-    XCTAssert(address2.length() > 0)
+    XCTAssert(address1.length > 0)
+    XCTAssert(address2.length > 0)
   }
   
   func testNilObject() {
     let instance: A? = nil
     let address1: String = address(of: instance)
-    XCTAssert(address1.length() > 0)
+    XCTAssert(address1.length > 0)
   }
 }
