@@ -78,7 +78,7 @@ public class Datetime: Comparable, Equatable {
   }
   
   public convenience init?(string: String, format: String) {
-    guard Datetime.isValidCreationDateFormat(format) && string.length() == format.length() else {
+    guard Datetime.isValidCreationDateFormat(format) && string.length == format.length else {
       return nil
     }
     let indexYear: Int? = format.firstOccurencePosition(of: "yyyy")
@@ -204,21 +204,6 @@ public class Datetime: Comparable, Equatable {
   }
   
   /**
-   Get current Datetime with string format: "yyyy/MM/dd hh:mm:ss"
-   
-   - returns: a String representing Datetime object
-   */
-  /*public func toString() -> String {
-    let yearFormat: String = (year < 0 ? "-" : "") + (year.isBetween(min: -999, max: 999) ? year.isBetween(min: -99, max: 99) ? year.isBetween(min: -9, max: 9) ? "000" : "00" : "0" : "") + "\(year < 0 ? -year : year)"
-    let monthFormat: String = (month < 10 ? "0" : "") + "\(month)"
-    let dayFormat: String = (day < 10 ? "0" : "") + "\(day)"
-    let hourFormat: String = (hour < 10 ? "0" : "") + "\(hour)"
-    let minuteFormat: String = (minute < 10 ? "0" : "") + "\(minute)"
-    let secondFormat: String = (second < 10 ? "0" : "") + "\(second)"
-    return "\(yearFormat)/\(monthFormat)/\(dayFormat) \(hourFormat):\(minuteFormat):\(secondFormat)"
-  }*/
-  
-  /**
    Get current Datetime as String (default format is yyyy/MM/dd hh:mm:ss)
    
    - parameter format: the format of the String output
@@ -227,7 +212,7 @@ public class Datetime: Comparable, Equatable {
    */
   public func toString(format: String = "yyyy/MM/dd hh:mm:ss") -> String {
     let year4Format: String = (year < 0 ? "-" : "") + (year.isBetween(min: -999, max: 999) ? year.isBetween(min: -99, max: 99) ? year.isBetween(min: -9, max: 9) ? "000" : "00" : "0" : "") + "\(year < 0 ? -year : year)"
-    let year2Format: String = (year < 0 ? "-" : "") + (year4Format.substring(startIndex: year4Format.length() - 2 < 0 ? 0 : year4Format.length() - 2) ?? "")
+    let year2Format: String = (year < 0 ? "-" : "") + (year4Format.substring(startIndex: year4Format.length - 2 < 0 ? 0 : year4Format.length - 2) ?? "")
     let monthFormat: String = (month < 10 ? "0" : "") + "\(month)"
     let dayFormat: String = (day < 10 ? "0" : "") + "\(day)"
     let hourFormat: String = (hour < 10 ? "0" : "") + "\(hour)"
@@ -235,7 +220,7 @@ public class Datetime: Comparable, Equatable {
     let secondFormat: String = (second < 10 ? "0" : "") + "\(second)"
     var index: Int = 0
     var output: String = ""
-    while (index < format.length()) {
+    while (index < format.length) {
       if let token = Datetime.recognizeToken(format, at: index) {
         switch token {
         case "yyyy":
@@ -255,7 +240,7 @@ public class Datetime: Comparable, Equatable {
         default:
           continue
         }
-        index += token.length()
+        index += token.length
       }
       else {
         output.append(format[format.index(format.startIndex, offsetBy: index)])

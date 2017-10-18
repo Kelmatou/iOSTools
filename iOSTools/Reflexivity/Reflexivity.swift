@@ -30,8 +30,8 @@ public class Reflexivity {
       return nil
     }
     var type: String = "\(mirror.subjectType)"
-    if type.length() > 10 && type.substring(startIndex: 0, length: 9) == "Optional<" {
-      let typeLength: Int = type.length() - 10
+    if type.length > 10 && type.substring(startIndex: 0, length: 9) == "Optional<" {
+      let typeLength: Int = type.length - 10
       if let newType = type.substring(startIndex: 9, length: typeLength) {
         type = newType + "?"
       }
@@ -71,8 +71,8 @@ public class Reflexivity {
   public static func typeName<T>(_ instance: T) -> String {
     let mirror: Mirror = Mirror(reflecting: instance)
     var type: String = "\(mirror.subjectType)"
-    if type.length() > 10 && type.substring(startIndex: 0, length: 9) == "Optional<" {
-      let typeLength: Int = type.length() - 10
+    if type.length > 10 && type.substring(startIndex: 0, length: 9) == "Optional<" {
+      let typeLength: Int = type.length - 10
       if let newType = type.substring(startIndex: 9, length: typeLength) {
         type = newType + "?"
       }

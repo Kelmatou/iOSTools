@@ -56,6 +56,6 @@ public class Logs {
     }
     let tagFormat: String = tag == nil ? "" : "[\(tag!)]"
     let outputHeader: String = timeString + tagFormat
-    return "\(outputHeader)\(outputHeader.length() == 0 ? "" : ": ")\(message ?? "")"
+    return "\(outputHeader)\(outputHeader.length == 0 ? "" : ": ")\(message ?? "")"
   }
 }

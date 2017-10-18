@@ -15,7 +15,7 @@ public extension String {
    
    - returns: the length of the String in UTF8
   */
-  public func length() -> Int {
+  public var length: Int {
     return self.lengthOfBytes(using: .utf8)
   }
   
@@ -27,7 +27,7 @@ public extension String {
    - returns: a substring starting at start index and finishing at the end of current string. nil is returned if startIndex is out of range
   */
   public func substring(startIndex: Int) -> String? {
-    guard startIndex >= 0 && startIndex <= length() else {
+    guard startIndex >= 0 && startIndex <= length else {
       return nil
     }
     let startStringIndex: String.Index = self.index(self.startIndex, offsetBy: startIndex)
@@ -45,7 +45,7 @@ public extension String {
               nil is returned if startIndex is out of range or if a negative length was passed.
    */
   public func substring(startIndex: Int, length: Int) -> String? {
-    let strLength: Int = self.length()
+    let strLength: Int = self.length
     guard startIndex >= 0 && startIndex <= strLength && length >= 0 else {
       return nil
     }
@@ -66,8 +66,8 @@ public extension String {
    */
   public func numberOccurence(of pattern: String) -> Int {
     var occurences: Int = 0
-    let curLength: Int = length()
-    let patternLength: Int = pattern.length()
+    let curLength: Int = length
+    let patternLength: Int = pattern.length
     if curLength >= patternLength && patternLength > 0 {
       for index in 0...curLength - patternLength {
         if let substr = substring(startIndex: index, length: patternLength), substr == pattern {
@@ -86,8 +86,8 @@ public extension String {
    - returns: the index of occurence of pattern in current String
    */
   public func firstOccurencePosition(of pattern: String) -> Int? {
-    let curLength: Int = length()
-    let patternLength: Int = pattern.length()
+    let curLength: Int = length
+    let patternLength: Int = pattern.length
     if curLength >= patternLength && patternLength > 0 {
       for index in 0...curLength - patternLength {
         if let substr = substring(startIndex: index, length: patternLength), substr == pattern {
