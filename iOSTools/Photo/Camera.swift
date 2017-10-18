@@ -16,7 +16,7 @@ import AVFoundation
   @objc optional func willChangeCapturePosition(_ cameraView: CameraView, newOrientation: AVCaptureDevice.Position)
 }
 
-public class CameraView: UIView, UIImagePickerControllerDelegate {
+open class CameraView: UIView, UIImagePickerControllerDelegate {
   
   // MARK: - Variables
   

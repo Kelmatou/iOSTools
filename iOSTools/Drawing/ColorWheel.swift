@@ -13,7 +13,7 @@ import UIKit
   @objc optional func didSelectColor(_ colorWheel: ColorWheel, color: UIColor)
 }
 
-public class ColorWheel: UIView {
+open class ColorWheel: UIView {
   
   public enum ColorWheelOrientation {
     case Horizontal
@@ -25,7 +25,7 @@ public class ColorWheel: UIView {
   public weak var delegate: ColorWheelDelegate?
   private var needsUpdate: Bool = true
   public var orientation: ColorWheelOrientation = .Horizontal
-  override public var bounds: CGRect {
+  override open var bounds: CGRect {
     didSet {
       needsUpdate = true
     }
@@ -33,7 +33,7 @@ public class ColorWheel: UIView {
   
   // MARK: - Drawing
   
-  override public func draw(_ rect: CGRect) {
+  override open func draw(_ rect: CGRect) {
     if needsUpdate {
       needsUpdate = false
       drawColorWheel(rect)
@@ -110,7 +110,7 @@ public class ColorWheel: UIView {
   
   // MARK: - Interaction
   
-  override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+  override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     if let touch = touches.first {
       let position: CGPoint = touch.location(in: self)
       if let newColor = self.layer.colorOfPixel(point: position) {
@@ -119,7 +119,7 @@ public class ColorWheel: UIView {
     }
   }
   
-  override public func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+  override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
     if let touch = touches.first {
       let position: CGPoint = touch.location(in: self)
       if let newColor = self.layer.colorOfPixel(point: position) {
@@ -128,7 +128,7 @@ public class ColorWheel: UIView {
     }
   }
   
-  override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+  override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
     if let touch = touches.first {
       let position: CGPoint = touch.location(in: self)
       if let newColor = self.layer.colorOfPixel(point: position) {

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Logs {
+open class Logs {
   
   public static let iOSToolsVersion: String = "iOSTools - Version \(Bundle(identifier: "com.clop-a.iOSTools")?.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown")"
 

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Reflexivity {
+open class Reflexivity {
   
   // MARK: - Private attributes
   

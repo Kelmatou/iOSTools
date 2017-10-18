@@ -36,7 +36,7 @@ public struct GenericErrorStruct: LocalizedError
   }
 }
 
-public class GenericError {
+open class GenericError {
   
   public var internalError: GenericErrorStruct
   

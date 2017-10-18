@@ -10,7 +10,7 @@ import CoreML
 import Vision
 
 @available(iOS 11.0, *)
-public class ImageVision {
+open class ImageVision {
   
   /// Model used to recognize objects
   private var model: MLModel?

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Datetime: Comparable, Equatable {
+open class Datetime: Comparable, Equatable {
   
   // MARK: - Variable
   

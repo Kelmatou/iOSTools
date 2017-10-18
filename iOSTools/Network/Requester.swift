@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class Requester {
+open class Requester {
   
   public enum AccessMethod: String {
     case GET    = "GET"

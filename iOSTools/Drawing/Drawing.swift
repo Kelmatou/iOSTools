@@ -11,7 +11,7 @@ import Foundation
 /**
  All these functions MUST be called from a draw(_ rect) method to get a valid UIGraphicsGetCurrentContext
  */
-public class Drawer {
+open class Drawer {
   
   /**
    Will draw a line between 2 CGPoints

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class SavableObject: NSObject, NSCoding {
+open class SavableObject: NSObject, NSCoding {
   
   //MARK: - Archiving Paths
   
