@@ -71,4 +71,16 @@ class StringExtensionTest: XCTestCase {
     XCTAssert("hello".firstOccurencePosition(of: "l") == 2)
     XCTAssert("bonbon".firstOccurencePosition(of: "bon") == 0)
   }
+  
+  func testCapitalizeFirstLetter() {
+    XCTAssert("".capitalizeFirstLetter() == "")
+    XCTAssert("i".capitalizeFirstLetter() == "I")
+    XCTAssert("I".capitalizeFirstLetter() == "I")
+    XCTAssert("@".capitalizeFirstLetter() == "@")
+    XCTAssert("1".capitalizeFirstLetter() == "1")
+    XCTAssert("@hello world".capitalizeFirstLetter() == "@hello world")
+    XCTAssert("hello world".capitalizeFirstLetter() == "Hello world")
+    XCTAssert("Hello world".capitalizeFirstLetter() == "Hello world")
+    XCTAssert("hELLO WORLD".capitalizeFirstLetter() == "HELLO WORLD")
+  }
 }

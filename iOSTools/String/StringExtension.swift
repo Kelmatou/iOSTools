@@ -11,9 +11,9 @@ import Foundation
 public extension String {
   
   /**
-   Get the length of the string encoded in UTF8
+   Get the length of the String encoded in UTF8
    
-   - returns: the length of the string in UTF8
+   - returns: the length of the String in UTF8
   */
   public func length() -> Int {
     return self.lengthOfBytes(using: .utf8)
@@ -39,7 +39,7 @@ public extension String {
    Get a substring of current String object
    
    - parameter startIndex: the starting character position
-   - parameter length: the desired length of the new string
+   - parameter length: the desired length of the new String
    
    - returns: a substring starting at start index with a length() of length. If length parameter is too big, stops at the last character.
               nil is returned if startIndex is out of range or if a negative length was passed.
@@ -60,9 +60,9 @@ public extension String {
   /**
    Get the number of occurence of pattern in current String object
    
-   - parameter pattern: the string pattern
+   - parameter pattern: the String pattern
    
-   - returns: the number of occurence of pattern in current string
+   - returns: the number of occurence of pattern in current String
    */
   public func numberOccurence(of pattern: String) -> Int {
     var occurences: Int = 0
@@ -81,9 +81,9 @@ public extension String {
   /**
    Get the index of first occurence of pattern in current String object
    
-   - parameter pattern: the string pattern
+   - parameter pattern: the String pattern
    
-   - returns: the index of occurence of pattern in current string
+   - returns: the index of occurence of pattern in current String
    */
   public func firstOccurencePosition(of pattern: String) -> Int? {
     let curLength: Int = length()
@@ -96,5 +96,19 @@ public extension String {
       }
     }
     return nil
+  }
+  
+  /**
+   Get current String with first letter capitalized
+   
+   - returns: current String with first letter capitalized. If String is empty or nil returns the same String
+   */
+  func capitalizeFirstLetter() -> String {
+    if let firstLetter = self.first {
+      let start: String = "\(firstLetter)"
+      let remaining: String? = self.substring(startIndex: 1)
+      return start.capitalized + (remaining ?? "")
+    }
+    return self
   }
 }
