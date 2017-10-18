@@ -23,6 +23,11 @@ class LogsTest: XCTestCase {
     super.tearDown()
   }
   
+  func testVersion() {
+    Logs.print(message: Logs.iOSToolsVersion)
+    XCTAssert(Logs.iOSToolsVersion != "Version Unknown")
+  }
+  
   func testPrint() {
     let emptyMessage = Logs.outputMessage(message: nil)
     XCTAssert(emptyMessage == "")

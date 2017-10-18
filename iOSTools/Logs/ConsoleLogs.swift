@@ -10,6 +10,8 @@ import Foundation
 
 public class Logs {
   
+  public static let iOSToolsVersion: String = "iOSTools - Version \(Bundle(identifier: "com.clop-a.iOSTools")?.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown")"
+
   public static var alwaysPrintTime: Bool = false
   
   @discardableResult public static func print(message: String?, tag: String? = nil, time: Bool? = nil) -> String {
