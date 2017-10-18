@@ -12,6 +12,7 @@
 		5542450E1F223D5400D0E17A /* Datetime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5542450D1F223D5400D0E17A /* Datetime.swift */; };
 		554245131F224C8600D0E17A /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554245121F224C8600D0E17A /* IntExtension.swift */; };
 		554245181F22839B00D0E17A /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554245171F22839B00D0E17A /* StringExtension.swift */; };
+		556919791F9761140039143F /* DatetimeEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556919781F9761140039143F /* DatetimeEnums.swift */; };
 		557363F51F85365B0070922E /* ImageVision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557363F41F85365B0070922E /* ImageVision.swift */; };
 		557363F91F853ACD0070922E /* MobileNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 557363F81F853A990070922E /* MobileNet.mlmodel */; };
 		557363FA1F853ACD0070922E /* GoogLeNetPlaces.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 557363F71F853A8F0070922E /* GoogLeNetPlaces.mlmodel */; };
@@ -61,6 +62,7 @@
 		5542450D1F223D5400D0E17A /* Datetime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Datetime.swift; sourceTree = "<group>"; };
 		554245121F224C8600D0E17A /* IntExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
 		554245171F22839B00D0E17A /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		556919781F9761140039143F /* DatetimeEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatetimeEnums.swift; sourceTree = "<group>"; };
 		557363F41F85365B0070922E /* ImageVision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageVision.swift; sourceTree = "<group>"; };
 		557363F71F853A8F0070922E /* GoogLeNetPlaces.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = GoogLeNetPlaces.mlmodel; sourceTree = "<group>"; };
 		557363F81F853A990070922E /* MobileNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MobileNet.mlmodel; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				55FB431E1F9750ED00614D1C /* Datetime.swift */,
+				556919781F9761140039143F /* DatetimeEnums.swift */,
 			);
 			path = Datetime;
 			sourceTree = "<group>";
@@ -393,6 +396,7 @@
 				557363F51F85365B0070922E /* ImageVision.swift in Sources */,
 				55FB43151F9750D000614D1C /* Requester.swift in Sources */,
 				55FB431D1F9750E600614D1C /* IntExtension.swift in Sources */,
+				556919791F9761140039143F /* DatetimeEnums.swift in Sources */,
 				55FB430B1F9750B400614D1C /* Pixel.swift in Sources */,
 				557363FD1F8625E70070922E /* Error.swift in Sources */,
 				55FB43191F9750D700614D1C /* Reflexivity.swift in Sources */,

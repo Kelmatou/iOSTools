@@ -143,4 +143,43 @@ class DatetimeTest: XCTestCase {
       XCTAssert(date.toString() == "-0001/12/31 23:59:59")
     }
   }
+  
+  func testToStringWithFormat() {
+    if let date = Datetime(year: 1, month: 1, day: 1, hour: 1, minute: 1, second: 1) {
+      XCTAssert(date.toString(format: "") == "")
+    }
+    if let date = Datetime(year: 1492, month: 6, day: 30, hour: 14, minute: 42, second: 10) {
+      XCTAssert(date.toString(format: "dd/MM/yyyy at hh:mm") == "30/06/1492 at 14:42")
+    }
+    if let date = Datetime(year: -1492, month: 6, day: 30, hour: 14, minute: 42, second: 10) {
+      XCTAssert(date.toString(format: "year=yyyy, month=MM, day=dd, hour=hh, minutes=mm, second=ss") == "year=-1492, month=06, day=30, hour=14, minutes=42, second=10")
+    }
+    if let date = Datetime(year: -1492, month: 6, day: 30, hour: 14, minute: 42, second: 10) {
+      XCTAssert(date.toString(format: "year=yy, month=MM, day=dd, hour=hh, minutes=mm, second=ss") == "year=-92, month=06, day=30, hour=14, minutes=42, second=10")
+    }
+    if let date = Datetime(year: -1, month: 12, day: 31, hour: 23, minute: 59, second: 59) {
+      XCTAssert(date.toString(format: "yyyy:MM:dd hh/mm/ss") == "-0001:12:31 23/59/59")
+    }
+    if let date = Datetime(year: 2001, month: 9, day: 11, hour: 9, minute: 42, second: 10) {
+      XCTAssert(date.toString(format: "MM/dd") == "09/11")
+    }
+    if let date = Datetime(year: 2001, month: 9, day: 11, hour: 9, minute: 42, second: 10) {
+      XCTAssert(date.toString(format: "yyyy") == "2001")
+    }
+    if let date = Datetime(year: 2001, month: 9, day: 11, hour: 9, minute: 42, second: 10) {
+      XCTAssert(date.toString(format: "yyyyy") == "2001y")
+    }
+    if let date = Datetime(year: 2001, month: 9, day: 11, hour: 9, minute: 42, second: 10) {
+      XCTAssert(date.toString(format: "yyyyyy") == "200101")
+    }
+    if let date = Datetime(year: 2001, month: 9, day: 11, hour: 9, minute: 42, second: 10) {
+      XCTAssert(date.toString(format: "yyyyyyy") == "200101y")
+    }
+    if let date = Datetime(year: 2001, month: 9, day: 11, hour: 9, minute: 42, second: 10) {
+      XCTAssert(date.toString(format: "yyyyyyyy") == "20012001")
+    }
+    if let date = Datetime(year: 2001, month: 9, day: 11, hour: 9, minute: 42, second: 10) {
+      XCTAssert(date.toString(format: "hhmmssddMMyyyy") == "09421011092001")
+    }
+  }
 }

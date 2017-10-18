@@ -42,11 +42,11 @@ public class Datetime: Comparable, Equatable {
   }
   
   public var monthName: String {
-    return getMonthName()
+    return Datetime.monthFromInt(month)?.rawValue ?? ""
   }
   
   public var weekday: String {
-    return getWeekdayName()
+    return Datetime.weekDayFromInt(weekdayIndex)?.rawValue ??  ""
   }
   
   public var weekdayIndex: Int {
@@ -78,7 +78,7 @@ public class Datetime: Comparable, Equatable {
   }
   
   public convenience init?(string: String, format: String) {
-    guard Datetime.isValidDateFormat(format) && string.length() == format.length() else {
+    guard Datetime.isValidCreationDateFormat(format) && string.length() == format.length() else {
       return nil
     }
     let indexYear: Int? = format.firstOccurencePosition(of: "yyyy")
@@ -208,24 +208,7 @@ public class Datetime: Comparable, Equatable {
    
    - returns: a String representing Datetime object
    */
-  public func toString() -> String {
-    let yearFormat: String = (year < 0 ? "-" : "") + (year.isBetween(min: -999, max: 999) ? year.isBetween(min: -99, max: 99) ? year.isBetween(min: -9, max: 9) ? "000" : "00" : "0" : "") + "\(year < 0 ? -year : year)"
-    let monthFormat: String = (month < 10 ? "0" : "") + "\(month)"
-    let dayFormat: String = (day < 10 ? "0" : "") + "\(day)"
-    let hourFormat: String = (hour < 10 ? "0" : "") + "\(hour)"
-    let minuteFormat: String = (minute < 10 ? "0" : "") + "\(minute)"
-    let secondFormat: String = (second < 10 ? "0" : "") + "\(second)"
-    return "\(yearFormat)/\(monthFormat)/\(dayFormat) \(hourFormat):\(minuteFormat):\(secondFormat)"
-  }
-  
-  /**
-   Get current Datetime as String (default format is yyyy/MM/dd hh:mm:ss)
-   
-   - parameter format: the format of the String output
-   
-   - returns: a String representing Datetime object
-   */
-  /*public func toString(format: String = "yyyy/MM/dd hh:mm:ss") -> String {
+  /*public func toString() -> String {
     let yearFormat: String = (year < 0 ? "-" : "") + (year.isBetween(min: -999, max: 999) ? year.isBetween(min: -99, max: 99) ? year.isBetween(min: -9, max: 9) ? "000" : "00" : "0" : "") + "\(year < 0 ? -year : year)"
     let monthFormat: String = (month < 10 ? "0" : "") + "\(month)"
     let dayFormat: String = (day < 10 ? "0" : "") + "\(day)"
@@ -235,12 +218,77 @@ public class Datetime: Comparable, Equatable {
     return "\(yearFormat)/\(monthFormat)/\(dayFormat) \(hourFormat):\(minuteFormat):\(secondFormat)"
   }*/
   
+  /**
+   Get current Datetime as String (default format is yyyy/MM/dd hh:mm:ss)
+   
+   - parameter format: the format of the String output
+   
+   - returns: a String representing Datetime object
+   */
+  public func toString(format: String = "yyyy/MM/dd hh:mm:ss") -> String {
+    let year4Format: String = (year < 0 ? "-" : "") + (year.isBetween(min: -999, max: 999) ? year.isBetween(min: -99, max: 99) ? year.isBetween(min: -9, max: 9) ? "000" : "00" : "0" : "") + "\(year < 0 ? -year : year)"
+    let year2Format: String = (year < 0 ? "-" : "") + (year4Format.substring(startIndex: year4Format.length() - 2 < 0 ? 0 : year4Format.length() - 2) ?? "")
+    let monthFormat: String = (month < 10 ? "0" : "") + "\(month)"
+    let dayFormat: String = (day < 10 ? "0" : "") + "\(day)"
+    let hourFormat: String = (hour < 10 ? "0" : "") + "\(hour)"
+    let minuteFormat: String = (minute < 10 ? "0" : "") + "\(minute)"
+    let secondFormat: String = (second < 10 ? "0" : "") + "\(second)"
+    var index: Int = 0
+    var output: String = ""
+    while (index < format.length()) {
+      if let token = Datetime.recognizeToken(format, at: index) {
+        switch token {
+        case "yyyy":
+          output += year4Format
+        case "yy":
+          output += year2Format
+        case "MM":
+          output += monthFormat
+        case "dd":
+          output += dayFormat
+        case "hh":
+          output += hourFormat
+        case "mm":
+          output += minuteFormat
+        case "ss":
+          output += secondFormat
+        default:
+          continue
+        }
+        index += token.length()
+      }
+      else {
+        output.append(format[format.index(format.startIndex, offsetBy: index)])
+        index += 1
+      }
+    }
+    return output
+  }
+  
   // MARK: - Private methods
   
-  private static func isValidDateFormat(_ dateStr: String) -> Bool {
+  private static func isValidCreationDateFormat(_ dateStr: String) -> Bool {
     return dateStr.numberOccurence(of: "yyyy") == 1
         && dateStr.numberOccurence(of: "MM") == 1
         && dateStr.numberOccurence(of: "dd") == 1
+        && dateStr.numberOccurence(of: "hh") <= 1
+        && dateStr.numberOccurence(of: "mm") <= 1
+        && dateStr.numberOccurence(of: "ss") <= 1
+  }
+  
+  private static func recognizeToken(_ str: String, at index: Int) -> String? {
+    if let next4bytes = str.substring(startIndex: index, length: 4) {
+      if next4bytes == "yyyy" { return "yyyy" }
+    }
+    if let next2bytes = str.substring(startIndex: index, length: 2) {
+      if next2bytes == "yy" { return "yy" }
+      if next2bytes == "MM" { return "MM" }
+      if next2bytes == "dd" { return "dd" }
+      if next2bytes == "hh" { return "hh" }
+      if next2bytes == "mm" { return "mm" }
+      if next2bytes == "ss" { return "ss" }
+    }
+    return nil
   }
   
   /**
@@ -264,73 +312,6 @@ public class Datetime: Comparable, Equatable {
     }
     else {
       return firstWeekDay - 2
-    }
-  }
-  
-  /**
-   Returns the name of day in week
-   0 = Monday
-   6 = Sunday
-   
-   - returns: a String representing day's name
-   */
-  private func getWeekdayName() -> String {
-    let firstWeekDay = getDayIndexInWeek()
-    switch firstWeekDay {
-    case 0:
-      return "Monday"
-    case 1:
-      return "Tuesday"
-    case 2:
-      return "Wednesday"
-    case 3:
-      return "Thursday"
-    case 4:
-      return "Friday"
-    case 5:
-      return "Saturday"
-    case 6:
-      return "Sunday"
-    default:
-      return ""
-    }
-  }
-  
-  /**
-   Returns the name of month
-   1 = January
-   12 = December
-   
-   - returns: a String representing month's name
-   */
-  private func getMonthName() -> String {
-    switch month {
-    case 1:
-      return "January"
-    case 2:
-      return "February"
-    case 3:
-      return "March"
-    case 4:
-      return "April"
-    case 5:
-      return "May"
-    case 6:
-      return "June"
-    case 7:
-      return "July"
-    case 8:
-      return "August"
-    case 9:
-      return "Septembre"
-    case 10:
-      return "October"
-    case 11:
-      return "November"
-    case 12:
-      return "December"
-    default:
-      return ""
     }
   }
 }
