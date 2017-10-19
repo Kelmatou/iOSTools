@@ -1,10 +1,12 @@
 # :wrench:iOSTool:wrench:
 Framework for any Swift development. It provides many functionalities to speed up your application development
 
-## Getting Started
+## :rocket: Getting Started :rocket:
 
 To include iOSTools in your project follow these steps:
 
+ * Create a file named *Cartfile* at you project's root and write ```github "Kelmatou/iOSTools"``` in it.
+ * Run command: ```carthage bootstrap --platform iOS``` in Terminal
  * Go to target General settings
  * Add iOSTools.framework in Embedded Binaries
  * If you cannot import iOSTools your project, go back to target settings ->
@@ -14,9 +16,9 @@ To include iOSTools in your project follow these steps:
    must target iOS device or at least generic iOS device)
 
   iOSTools can now be used everywhere in your project's target.
-  Documentation is not yet written :grimacing:
+  Documentation is not yet finished but you can find it in [Wiki](https://github.com/Kelmatou/iOSTools/wiki)
 
-## Build Framework
+## :construction: Build Framework :construction:
 
 ### Requirement
 
@@ -40,7 +42,7 @@ To include iOSTools in your project follow these steps:
     Frameworks
   * Note: dSYMs may also be useful, they are also at archive's root -> dSYMs
 
-## Contributing
+## :punch: Contributing :punch:
 You are free to bring your own contribution, however please try to follow these
 development guidelines.
 
