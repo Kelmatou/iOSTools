@@ -18,8 +18,9 @@ open class Requester {
   }
   
   /**
-   Sends an HTTP GET request
+   Sends an HTTP request
    
+   - parameter method: the AccessMethod
    - parameter url: the targeted url
    - parameter headers: a dictionary of header [Value : HttpField]
    - parameter body: the content of the message
@@ -53,6 +54,15 @@ open class Requester {
     }
   }
   
+  /**
+   Sends an HTTP request and that will receive text
+   
+   - parameter method: the AccessMethod
+   - parameter url: the targeted url
+   - parameter headers: a dictionary of header [Value : HttpField]
+   - parameter body: the content of the message
+   - parameter handler: allows the user to make actions just after request ended (String, Error)
+   */
   public static func requestText(_ method: AccessMethod, url: String, headers: [String : String]? = nil, body: String? = nil, handler: @escaping (String?, GenericError?) -> Void) {
     request(method, url: url, headers: headers, body: body) {
       (data, error) in
@@ -64,6 +74,15 @@ open class Requester {
     }
   }
   
+  /**
+   Sends an HTTP request and that will receive an image
+   
+   - parameter method: the AccessMethod
+   - parameter url: the targeted url
+   - parameter headers: a dictionary of header [Value : HttpField]
+   - parameter body: the content of the message
+   - parameter handler: allows the user to make actions just after request ended (UIImage, Error)
+   */
   public static func requestImage(_ method: AccessMethod, url: String, headers: [String : String]? = nil, body: String? = nil, handler: @escaping (UIImage?, GenericError?) -> Void) {
     request(method, url: url, headers: headers, body: body) {
       (data, error) in

@@ -46,12 +46,18 @@ open class CameraView: UIView, UIImagePickerControllerDelegate {
   
   // MARK: - Setup
   
+  /**
+   Add double tap gesture to the view, allowing camera switch
+   */
   private func setupGesture() {
     let tap = UITapGestureRecognizer(target: self, action: #selector(switchCamera))
     tap.numberOfTapsRequired = 2
     self.addGestureRecognizer(tap)
   }
   
+  /**
+   Initialize camera
+   */
   private func setupCamera() {
     let deviceSession = AVCaptureDevice.DiscoverySession(deviceTypes: [AVCaptureDevice.DeviceType.builtInDualCamera, AVCaptureDevice.DeviceType.builtInTelephotoCamera, AVCaptureDevice.DeviceType.builtInWideAngleCamera], mediaType: AVMediaType.video, position: capturePosition)
     let devices = deviceSession.devices
@@ -82,6 +88,9 @@ open class CameraView: UIView, UIImagePickerControllerDelegate {
   
   // MARK: - Action
   
+  /**
+   Take a picture. Photo will be available in 'didFinishCapture' delegate
+   */
   public func capturePhoto() {
     let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey : sessionOutput.availablePhotoCodecTypes[0]])
     sessionOutput.capturePhoto(with: settings, delegate: self)
@@ -89,6 +98,9 @@ open class CameraView: UIView, UIImagePickerControllerDelegate {
   
   // MARK: - Camera
   
+  /**
+   Switch camera to back or front
+   */
   @objc public func switchCamera() {
     if captureSession.isRunning {
       let currentCameraInput: AVCaptureInput = captureSession.inputs[0]
@@ -119,9 +131,8 @@ open class CameraView: UIView, UIImagePickerControllerDelegate {
 }
 
 extension CameraView: AVCapturePhotoCaptureDelegate {
-  
-  public func photoOutput(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?, previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?)
-  {
+
+  public func photoOutput(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?, previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?) {
     if let photoSampleBuffer = photoSampleBuffer {
       let blockBuffer = CMSampleBufferGetDataBuffer(photoSampleBuffer)
       var len = CMBlockBufferGetDataLength(blockBuffer!)
@@ -136,6 +147,14 @@ extension CameraView: AVCapturePhotoCaptureDelegate {
     }
   }
   
+  /**
+   Apply a rotation on an image
+   
+   - parameter image: the image to rotate
+   - parameter angleDeg: the rotation angle
+   
+   - returns: a new UIImage rotated
+   */
   private func rotateUIImage(image: UIImage, angleDeg: CGFloat) -> UIImage {
     let size = CGSize(width: image.size.height, height: image.size.width)
     UIGraphicsBeginImageContext(size)
@@ -150,6 +169,13 @@ extension CameraView: AVCapturePhotoCaptureDelegate {
     return newImage!
   }
   
+  /**
+   Mirror image to display it on screen
+   
+   - parameter image: the image to mirror
+   
+   - returns: a new UIImage mirrored
+   */
   private func mirrorUIImage(image: UIImage) -> UIImage {
     let newImage = UIImage(cgImage: image.cgImage!, scale: image.scale, orientation: .upMirrored)
     return newImage

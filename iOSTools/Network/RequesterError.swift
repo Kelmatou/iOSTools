@@ -8,8 +8,8 @@
 
 import Foundation
 
-class RequesterError: GenericError
-{
+class RequesterError: GenericError {
+  
   override init(_ msg: String) {
     super.init(description: msg, failure: msg, recovery: "Try to replace special characters", help: "Some characters have special translation '(' = %28, ')' = %29...")
   }
