@@ -16,7 +16,7 @@ To include iOSTools in your project follow these steps:
    must target iOS device or at least generic iOS device)
 
   iOSTools can now be used everywhere in your project's target.
-  Documentation is not yet finished but you can find it in [Wiki](https://github.com/Kelmatou/iOSTools/wiki)
+  Documentation can be found in [Wiki](https://github.com/Kelmatou/iOSTools/wiki)
 
 ## :construction: Build Framework :construction:
 

@@ -24,7 +24,7 @@ open class Reachability {
   }
   
   public weak var delegate: ReachabilityDelegate?
-  open var autoUpdate: Bool = false {
+  open var autoUpdate: Bool = true {
     didSet {
       if autoUpdate {
         startAutoUpdate()
@@ -50,7 +50,7 @@ open class Reachability {
   
   // MARK: - Public
   
-  public init(autoUpdate: Bool = false) {
+  public init(autoUpdate: Bool = true) {
     checkReachability()
     initAutoUpdate()
     if autoUpdate {
@@ -65,7 +65,7 @@ open class Reachability {
    - returns: true if device has an internet connection
    */
   public func isConnectionAvailable() -> Bool {
-    return currentStatus == .WifiConnection || currentStatus == .CellularConnection
+    return checkReachability()
   }
   
   // MARK: - Static
