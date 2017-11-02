@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Error.swift
 //  iOSTools
 //
 //  Created by Antoine Clop on 10/5/17.

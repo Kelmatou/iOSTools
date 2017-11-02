@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AudioPlayer" customModule="iOSTools" customModuleProvider="target">
+            <connections>
+                <outlet property="audioPlayerView" destination="iN0-l3-epB" id="Fyd-QY-zy1"/>
+                <outlet property="forwardButton" destination="bXU-kg-mvu" id="LL0-F4-Y4e"/>
+                <outlet property="playButton" destination="d98-p7-Vvb" id="ebi-BS-Qk4"/>
+                <outlet property="playingNow" destination="KOE-Sf-xob" id="lqb-1w-14Y"/>
+                <outlet property="replayButton" destination="q91-Jz-P5c" id="dy9-3v-PaQ"/>
+                <outlet property="rewindButton" destination="3Y1-tV-pZn" id="49k-eb-qsa"/>
+                <outlet property="stopButton" destination="g0u-MC-nb4" id="QCs-s7-ZNc"/>
+                <outlet property="volumeSlider" destination="rF3-eh-utR" id="qYr-hT-MXt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="160"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Playing Now" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KOE-Sf-xob">
+                    <rect key="frame" x="0.0" y="15" width="300" height="39"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="rF3-eh-utR" userLabel="Volume">
+                    <rect key="frame" x="20.5" y="60" width="259" height="31"/>
+                    <connections>
+                        <action selector="volumeSliding:" destination="-1" eventType="valueChanged" id="Q0r-EA-GOh"/>
+                    </connections>
+                </slider>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g0u-MC-nb4" userLabel="Stop">
+                    <rect key="frame" x="10" y="100" width="50" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="g0u-MC-nb4" secondAttribute="height" multiplier="1:1" id="PHa-Jb-19Y"/>
+                        <constraint firstAttribute="width" relation="lessThanOrEqual" priority="750" constant="50" id="dAU-5k-p6Q"/>
+                        <constraint firstAttribute="height" relation="lessThanOrEqual" priority="750" constant="50" id="kQH-1K-r91"/>
+                    </constraints>
+                    <state key="normal" image="stop"/>
+                    <connections>
+                        <action selector="stopSong:" destination="-1" eventType="touchUpInside" id="xUI-Uh-Cci"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Y1-tV-pZn" userLabel="Rewind">
+                    <rect key="frame" x="68" y="100" width="50" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="lessThanOrEqual" priority="750" constant="50" id="2XX-Sp-uXt"/>
+                        <constraint firstAttribute="height" relation="lessThanOrEqual" priority="750" constant="50" id="rp2-WZ-xDl"/>
+                        <constraint firstAttribute="width" secondItem="3Y1-tV-pZn" secondAttribute="height" multiplier="1:1" id="rwC-GO-dvJ"/>
+                    </constraints>
+                    <state key="normal" image="rewind"/>
+                    <connections>
+                        <action selector="fastRewindSong:" destination="-1" eventType="touchUpInside" id="AvZ-Ni-F7S"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d98-p7-Vvb" userLabel="Play">
+                    <rect key="frame" x="125" y="100" width="50" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="lessThanOrEqual" priority="750" constant="50" id="6AI-Jt-LN2"/>
+                        <constraint firstAttribute="width" secondItem="d98-p7-Vvb" secondAttribute="height" multiplier="1:1" id="XBp-7i-cxw"/>
+                        <constraint firstAttribute="height" relation="lessThanOrEqual" priority="750" constant="50" id="vFe-Ce-4O5"/>
+                    </constraints>
+                    <state key="normal" image="play"/>
+                    <connections>
+                        <action selector="playSong:" destination="-1" eventType="touchUpInside" id="rP1-GW-TtA"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bXU-kg-mvu" userLabel="Forward">
+                    <rect key="frame" x="182" y="100" width="50" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="bXU-kg-mvu" secondAttribute="height" multiplier="1:1" id="Ndk-7e-YwG"/>
+                        <constraint firstAttribute="width" relation="lessThanOrEqual" priority="750" constant="50" id="SyZ-ax-OqT"/>
+                        <constraint firstAttribute="height" relation="lessThanOrEqual" priority="750" constant="50" id="ujF-9p-E9J"/>
+                    </constraints>
+                    <state key="normal" image="forward"/>
+                    <connections>
+                        <action selector="fastForwardSong:" destination="-1" eventType="touchUpInside" id="CHj-vE-mow"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q91-Jz-P5c" userLabel="Replay">
+                    <rect key="frame" x="240" y="100" width="50" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="lessThanOrEqual" priority="750" constant="50" id="0gY-At-cov"/>
+                        <constraint firstAttribute="width" secondItem="q91-Jz-P5c" secondAttribute="height" multiplier="1:1" id="OWw-Z0-Zex"/>
+                        <constraint firstAttribute="width" relation="lessThanOrEqual" priority="750" constant="50" id="RhM-vW-XYR"/>
+                    </constraints>
+                    <state key="normal" image="replay"/>
+                    <connections>
+                        <action selector="replaySong:" destination="-1" eventType="touchUpInside" id="pyu-wl-tQL"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="rF3-eh-utR" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="0wW-ht-12e"/>
+                <constraint firstItem="KOE-Sf-xob" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="15" id="2UR-G3-L3Y"/>
+                <constraint firstItem="q91-Jz-P5c" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.3125" id="4jg-Ib-UoJ"/>
+                <constraint firstItem="d98-p7-Vvb" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.3125" id="84n-H6-yWD"/>
+                <constraint firstItem="rF3-eh-utR" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.85" id="9UY-Io-Hcd"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="q91-Jz-P5c" secondAttribute="bottom" constant="10" id="9m1-6G-rqa"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="bXU-kg-mvu" secondAttribute="bottom" constant="10" id="9yU-vg-YOQ"/>
+                <constraint firstItem="d98-p7-Vvb" firstAttribute="top" secondItem="rF3-eh-utR" secondAttribute="bottom" constant="10" id="QYj-GY-HQf"/>
+                <constraint firstItem="g0u-MC-nb4" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.3125" id="dh8-YA-l5w"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="g0u-MC-nb4" secondAttribute="bottom" constant="10" id="dos-TC-vHt"/>
+                <constraint firstItem="bXU-kg-mvu" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.3125" id="fGl-56-gVX"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="d98-p7-Vvb" secondAttribute="bottom" constant="10" id="i0s-sh-LNb"/>
+                <constraint firstItem="g0u-MC-nb4" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="kKE-4G-nSE"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="3Y1-tV-pZn" secondAttribute="bottom" constant="10" id="lRl-BF-bdf"/>
+                <constraint firstItem="bXU-kg-mvu" firstAttribute="leading" secondItem="d98-p7-Vvb" secondAttribute="trailing" constant="7" id="lXO-fC-LBr"/>
+                <constraint firstItem="d98-p7-Vvb" firstAttribute="leading" secondItem="3Y1-tV-pZn" secondAttribute="trailing" constant="7" id="pg7-nS-463"/>
+                <constraint firstItem="KOE-Sf-xob" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="uSv-7f-wuw"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="KOE-Sf-xob" secondAttribute="trailing" id="vyC-Cr-Xfx"/>
+                <constraint firstAttribute="trailing" secondItem="q91-Jz-P5c" secondAttribute="trailing" constant="10" id="wqb-Qz-axS"/>
+                <constraint firstItem="d98-p7-Vvb" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="yhA-Gt-y7h"/>
+                <constraint firstItem="3Y1-tV-pZn" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.3125" id="yvy-p4-1eE"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="-1956" y="15"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="forward" width="400" height="400"/>
+        <image name="play" width="512" height="512"/>
+        <image name="replay" width="512" height="512"/>
+        <image name="rewind" width="400" height="400"/>
+        <image name="stop" width="512" height="512"/>
+    </resources>
+</document>
