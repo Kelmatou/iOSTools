@@ -28,6 +28,7 @@ import AVFoundation
   
   public weak var delegate: AudioPlayerDelegate?
   public var songQueue: AudioQueue = AudioQueue()
+  private var canReplaySong: Bool = true
   
   @IBInspectable public var autoPlay: Bool = true
   
@@ -46,6 +47,7 @@ import AVFoundation
   }
   
   private func initView() {
+    songQueue.delegate = self
     if let frameworkBundle: Bundle = Bundle(identifier: "com.clop-a.iOSTools") {
       frameworkBundle.loadNibNamed("AudioPlayer", owner: self, options: nil)
       addSubview(audioPlayerView)
@@ -57,7 +59,7 @@ import AVFoundation
   // MARK: - IBAction
   
   @IBAction func replaySong(_ sender: Any) {
-    guard songQueue.canReplaySong() else {
+    guard !songQueue.songQueue.isEmpty && canReplaySong else {
       debugPrint("[ERROR]: Cannot replay song")
       return
     }
@@ -139,7 +141,7 @@ import AVFoundation
    - parameter starting: if true, start song from the begining, if false resume playing song
    */
   internal func play(starting: Bool = false) {
-    if let nextSongURL = songQueue.getNextSongURL() {
+    if let nextSongURL = songQueue.getCurrentSongURL() {
       if player == nil || starting {
         initPlayer(withContent: nextSongURL)
       }
@@ -147,6 +149,7 @@ import AVFoundation
       player?.play()
       playButtonUpdate(playing: true)
       playingNow.text = songQueue.getCurrentSongName()
+      canReplaySong = true
     }
     else {
       debugPrint("[WARNING]: No song to be played")
@@ -160,15 +163,10 @@ import AVFoundation
    - parameter playing: if true, set pause icone else play icone
    */
   internal func playButtonUpdate(playing: Bool) {
-    if playing {
-      DispatchQueue.main.async {
-        self.playButton.imageView?.image = UIImage(named: "pause")
-      }
-    }
-    else {
-      DispatchQueue.main.async {
-        self.playButton.imageView?.image = UIImage(named: "play")
-      }
+    let imageToUse: String = playing ? "pause" : "play"
+    let image: UIImage? = UIImage(named: imageToUse, in: Bundle(for: AudioPlayer.self), compatibleWith: nil)
+    DispatchQueue.main.async {
+      self.playButton.setImage(image, for: .normal)
     }
   }
 }
@@ -190,5 +188,16 @@ extension AudioPlayer: AVAudioPlayerDelegate {
       songQueue.setCurrentSong(.Next)
       play(starting: true)
     }
+  }
+}
+
+extension AudioPlayer: AudioPlayerQueueDelegate {
+  
+  public func queueUpdate(_ audioQueue: AudioQueue, queue: [String]) {
+    queueUpdated(self, queue: queue)
+  }
+  
+  public func currentSongRemoved(_ audioQueue: AudioQueue, song: String) {
+    canReplaySong = false
   }
 }

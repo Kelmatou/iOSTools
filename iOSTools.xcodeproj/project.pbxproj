@@ -34,6 +34,8 @@
 		55A7A8741F8F737F00C5314D /* MemoryAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A7A8731F8F737F00C5314D /* MemoryAddress.swift */; };
 		55B700301F2773FE0086893F /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7002F1F2773FE0086893F /* Network.swift */; };
 		55B700641F29D9A10086893F /* iPhoneCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B700631F29D9A10086893F /* iPhoneCache.swift */; };
+		55F50F3E1FAC6C1000651B6E /* AudioPlayerQueueDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F50F3D1FAC6C1000651B6E /* AudioPlayerQueueDelegate.swift */; };
+		55F50F401FAC740500651B6E /* AudioSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F50F3F1FAC740500651B6E /* AudioSong.swift */; };
 		55FB43091F9750B400614D1C /* Drawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FB43061F9750B400614D1C /* Drawing.swift */; };
 		55FB430A1F9750B400614D1C /* ColorWheel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FB43071F9750B400614D1C /* ColorWheel.swift */; };
 		55FB430B1F9750B400614D1C /* Pixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FB43081F9750B400614D1C /* Pixel.swift */; };
@@ -89,6 +91,8 @@
 		55A7A8731F8F737F00C5314D /* MemoryAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryAddress.swift; sourceTree = "<group>"; };
 		55B7002F1F2773FE0086893F /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		55B700631F29D9A10086893F /* iPhoneCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iPhoneCache.swift; sourceTree = "<group>"; };
+		55F50F3D1FAC6C1000651B6E /* AudioPlayerQueueDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerQueueDelegate.swift; sourceTree = "<group>"; };
+		55F50F3F1FAC740500651B6E /* AudioSong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSong.swift; sourceTree = "<group>"; };
 		55FB43061F9750B400614D1C /* Drawing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Drawing.swift; sourceTree = "<group>"; };
 		55FB43071F9750B400614D1C /* ColorWheel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorWheel.swift; sourceTree = "<group>"; };
 		55FB43081F9750B400614D1C /* Pixel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pixel.swift; sourceTree = "<group>"; };
@@ -292,7 +296,9 @@
 			children = (
 				5569FCF71FAB6A2F00483B28 /* AudioPlayer.swift */,
 				5569FCF81FAB6A2F00483B28 /* AudioPlayerQueue.swift */,
+				55F50F3F1FAC740500651B6E /* AudioSong.swift */,
 				5569FCF91FAB6A2F00483B28 /* AudioPlayerDelegate.swift */,
+				55F50F3D1FAC6C1000651B6E /* AudioPlayerQueueDelegate.swift */,
 				5569FCFF1FAB6A7A00483B28 /* AudioPlayer.xib */,
 				5569FCFA1FAB6A2F00483B28 /* Ressources.xcassets */,
 			);
@@ -421,12 +427,14 @@
 				5569FCFC1FAB6A2F00483B28 /* AudioPlayerQueue.swift in Sources */,
 				55FB431F1F9750ED00614D1C /* Datetime.swift in Sources */,
 				55FB43091F9750B400614D1C /* Drawing.swift in Sources */,
+				55F50F3E1FAC6C1000651B6E /* AudioPlayerQueueDelegate.swift in Sources */,
 				557363FA1F853ACD0070922E /* GoogLeNetPlaces.mlmodel in Sources */,
 				557363F51F85365B0070922E /* ImageVision.swift in Sources */,
 				55FB43151F9750D000614D1C /* Requester.swift in Sources */,
 				55FB431D1F9750E600614D1C /* IntExtension.swift in Sources */,
 				556919791F9761140039143F /* DatetimeEnums.swift in Sources */,
 				55FB430B1F9750B400614D1C /* Pixel.swift in Sources */,
+				55F50F401FAC740500651B6E /* AudioSong.swift in Sources */,
 				557363FD1F8625E70070922E /* Error.swift in Sources */,
 				55FB43191F9750D700614D1C /* Reflexivity.swift in Sources */,
 				55FB431B1F9750DE00614D1C /* StringExtension.swift in Sources */,
