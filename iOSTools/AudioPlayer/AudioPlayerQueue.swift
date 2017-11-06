@@ -215,9 +215,18 @@ open class AudioQueue {
     guard src >= 0 && src < songQueue.count && dst >= 0 && dst < songQueue.count else {
       return
     }
-    insert(songQueue[src].name, at: dst)
-    songQueue.remove(at: src == dst ? src + 1 : src)
-    currentSong = dst
+    let songMoved: AudioSong = songQueue[src]
+    songQueue.remove(at: src)
+    songQueue.insert(songMoved, at: dst)
+    if currentSong == src {
+      currentSong = dst
+    }
+    else if currentSong > src && dst >= currentSong {
+      currentSong -= 1
+    }
+    else if currentSong < src && dst <= currentSong {
+      currentSong += 1
+    }
     queueUpdate(self, queue: AudioSong.toStringArray(songQueue))
   }
   
