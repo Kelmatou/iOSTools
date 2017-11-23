@@ -23,14 +23,18 @@ class MachineLearningTest: XCTestCase {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     super.tearDown()
   }
+
+  // MARK: - Assets
   
-  // NOTE: Due to Xcode 9 assets loading bug, we use UIImage(contentsOfFile:) method to load images
-  let pathToAssets: String = "/Users/antoine.clop/Projets/iOSTools/iOSToolsTests/Ressources/Assets.xcassets"
+  let catImage: UIImage = UIImage(named: "cat", in: Bundle(for: MachineLearningTest.self), compatibleWith: nil)!
+  let tigerImage: UIImage = UIImage(named: "tiger", in: Bundle(for: MachineLearningTest.self), compatibleWith: nil)!
+  let zebraImage: UIImage = UIImage(named: "zebra", in: Bundle(for: MachineLearningTest.self), compatibleWith: nil)!
+  let waterImage: UIImage = UIImage(named: "water", in: Bundle(for: MachineLearningTest.self), compatibleWith: nil)!
+  let sodaImage: UIImage = UIImage(named: "soda", in: Bundle(for: MachineLearningTest.self), compatibleWith: nil)!
+  let jellyfishImage: UIImage = UIImage(named: "jellyfish", in: Bundle(for: MachineLearningTest.self), compatibleWith: nil)!
   
   func testRecognizeCat() {
     let asyncRequest = expectation(description: "Recognition Succeeded")
-    let catImage: UIImage = UIImage(contentsOfFile: pathToAssets + "/cat.imageset/cat.jpg")!
-    //let catImage: UIImage = #imageLiteral(resourceName: "cat")
     ImageVision.detectObject(in: catImage, maxResult: 5) { (results, error) in
       XCTAssert(error == nil)
       XCTAssert(results != nil)
@@ -43,8 +47,6 @@ class MachineLearningTest: XCTestCase {
   
   func testRecognizeTiger() {
     let asyncRequest = expectation(description: "Recognition Succeeded")
-    let tigerImage: UIImage = UIImage(contentsOfFile: pathToAssets + "/tiger.imageset/tiger.jpg")!
-    //let tigerImage: UIImage = #imageLiteral(resourceName: "tiger")
     ImageVision.detectObject(in: tigerImage) { (results, error) in
       XCTAssert(error == nil)
       XCTAssert(results != nil)
@@ -56,8 +58,6 @@ class MachineLearningTest: XCTestCase {
   
   func testRecognizeZebra() {
     let asyncRequest = expectation(description: "Recognition Succeeded")
-    let zebraImage: UIImage = UIImage(contentsOfFile: pathToAssets + "/zebra.imageset/zebra.png")!
-    //let zebraImage: UIImage = #imageLiteral(resourceName: "zebra")
     ImageVision.detectObject(in: zebraImage, maxResult: nil) { (results, error) in
       XCTAssert(error == nil)
       XCTAssert(results != nil)
@@ -69,8 +69,6 @@ class MachineLearningTest: XCTestCase {
   
   func testRecognizeWater() {
     let asyncRequest = expectation(description: "Recognition Succeeded")
-    let waterImage: UIImage = UIImage(contentsOfFile: pathToAssets + "/water.imageset/water.jpg")!
-    //let waterImage: UIImage = #imageLiteral(resourceName: "water")
     ImageVision.detectObject(in: waterImage, maxResult: 10) { (results, error) in
       XCTAssert(error == nil)
       XCTAssert(results != nil)
@@ -83,8 +81,6 @@ class MachineLearningTest: XCTestCase {
   
   func testRecognizeSoda() {
     let asyncRequest = expectation(description: "Recognition Succeeded")
-    let sodaImage: UIImage = UIImage(contentsOfFile: pathToAssets + "/soda.imageset/soda.png")!
-    //let sodaImage: UIImage = #imageLiteral(resourceName: "soda")
     ImageVision.detectObject(in: sodaImage, maxResult: 2) { (results, error) in
       XCTAssert(error == nil)
       XCTAssert(results != nil)
@@ -97,8 +93,6 @@ class MachineLearningTest: XCTestCase {
   
   func testRecognizeJellyfish() {
     let asyncRequest = expectation(description: "Recognition Succeeded")
-    let jellyfishImage: UIImage = UIImage(contentsOfFile: pathToAssets + "/jellyfish.imageset/jellyfish.jpg")!
-    //let jellyfishImage: UIImage = #imageLiteral(resourceName: "jellyfish")
     ImageVision.detectObject(in: jellyfishImage, maxResult: 1) { (results, error) in
       XCTAssert(error == nil)
       XCTAssert(results != nil)
@@ -111,8 +105,6 @@ class MachineLearningTest: XCTestCase {
   
   func testRecognizeNoResult() {
     let asyncRequest = expectation(description: "Recognition Succeeded")
-    let jellyfishImage: UIImage = UIImage(contentsOfFile: pathToAssets + "/jellyfish.imageset/jellyfish.jpg")!
-    //let jellyfishImage: UIImage = #imageLiteral(resourceName: "jellyfish")
     ImageVision.detectObject(in: jellyfishImage, maxResult: 0) { (results, error) in
       XCTAssert(error == nil)
       XCTAssert(results != nil)
@@ -124,8 +116,6 @@ class MachineLearningTest: XCTestCase {
   
   func testRecognizeResultNeg() {
     let asyncRequest = expectation(description: "Recognition Succeeded")
-    let jellyfishImage: UIImage = UIImage(contentsOfFile: pathToAssets + "/jellyfish.imageset/jellyfish.jpg")!
-    //let jellyfishImage: UIImage = #imageLiteral(resourceName: "jellyfish")
     ImageVision.detectObject(in: jellyfishImage, maxResult: -12) { (results, error) in
       XCTAssert(error == nil)
       XCTAssert(results != nil)
