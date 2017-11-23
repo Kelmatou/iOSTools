@@ -51,12 +51,12 @@ open class AudioQueue {
     var nextSongURL: URL?
     let startIndex: Int = currentSong // Prevent infinite loop if canLoop option is enabled
     while (nextSongURL == nil) {
-      let nextSongFile = songQueue[currentSong].name
-      if let path = Bundle.main.path(forResource: nextSongFile, ofType: nil) {
+      let nextSong = songQueue[currentSong]
+      if !nextSong.removed, let path = Bundle.main.path(forResource: nextSong.name, ofType: nil) {
         nextSongURL = URL(fileURLWithPath: path)
       }
       else {
-        debugPrint("[ERROR]: Cannot find file " + nextSongFile)
+        debugPrint("[ERROR]: Cannot find file " + nextSong.name)
         if !setCurrentSong(.Next) || startIndex == currentSong {
           return nil
         }
@@ -279,6 +279,7 @@ open class AudioQueue {
    Remove all songs from queue that are marked as removed
    */
   private func cleanQueue() {
+    printQueue("Before cleaning: \(songQueue.count)")
     guard songQueue.count > 0 else {
       return
     }
@@ -289,6 +290,14 @@ open class AudioQueue {
           currentSong -= 1
         }
       }
+    }
+    printQueue("After cleaning: \(songQueue.count)")
+  }
+  
+  func printQueue(_ title: String) {
+    debugPrint(title)
+    for (index, song) in songQueue.enumerated() {
+      debugPrint("\(index) - \(song.name)" + (song.removed ? " - Removed" : ""))
     }
   }
 }
