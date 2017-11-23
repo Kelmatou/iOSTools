@@ -34,6 +34,7 @@
 		55A15D341F73BA9400A3E442 /* ConsoleLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A15D331F73BA9400A3E442 /* ConsoleLogs.swift */; };
 		55A15D381F73BF6800A3E442 /* Logs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A15D371F73BF6800A3E442 /* Logs.swift */; };
 		55A7A8741F8F737F00C5314D /* MemoryAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A7A8731F8F737F00C5314D /* MemoryAddress.swift */; };
+		55AD96D81FC6D4B70094F9C3 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AD96D71FC6D4B70094F9C3 /* AudioPlayer.swift */; };
 		55B700301F2773FE0086893F /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7002F1F2773FE0086893F /* Network.swift */; };
 		55B700641F29D9A10086893F /* iPhoneCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B700631F29D9A10086893F /* iPhoneCache.swift */; };
 		55F50F3E1FAC6C1000651B6E /* AudioPlayerQueueDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F50F3D1FAC6C1000651B6E /* AudioPlayerQueueDelegate.swift */; };
@@ -93,6 +94,7 @@
 		55A15D331F73BA9400A3E442 /* ConsoleLogs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsoleLogs.swift; sourceTree = "<group>"; };
 		55A15D371F73BF6800A3E442 /* Logs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logs.swift; sourceTree = "<group>"; };
 		55A7A8731F8F737F00C5314D /* MemoryAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryAddress.swift; sourceTree = "<group>"; };
+		55AD96D71FC6D4B70094F9C3 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		55B7002F1F2773FE0086893F /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		55B700631F29D9A10086893F /* iPhoneCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iPhoneCache.swift; sourceTree = "<group>"; };
 		55F50F3D1FAC6C1000651B6E /* AudioPlayerQueueDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerQueueDelegate.swift; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 				55A15D371F73BF6800A3E442 /* Logs.swift */,
 				557364021F8663550070922E /* Error.swift */,
 				557364041F87B8380070922E /* MachineLearning.swift */,
+				55AD96D71FC6D4B70094F9C3 /* AudioPlayer.swift */,
 			);
 			path = iOSToolsTests;
 			sourceTree = "<group>";
@@ -466,6 +469,7 @@
 			files = (
 				557364031F8663550070922E /* Error.swift in Sources */,
 				557364051F87B8380070922E /* MachineLearning.swift in Sources */,
+				55AD96D81FC6D4B70094F9C3 /* AudioPlayer.swift in Sources */,
 				55B700301F2773FE0086893F /* Network.swift in Sources */,
 				5542450E1F223D5400D0E17A /* Datetime.swift in Sources */,
 				554245131F224C8600D0E17A /* IntExtension.swift in Sources */,

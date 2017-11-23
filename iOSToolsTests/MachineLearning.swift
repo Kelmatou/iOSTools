@@ -25,7 +25,7 @@ class MachineLearningTest: XCTestCase {
   }
   
   // NOTE: Due to Xcode 9 assets loading bug, we use UIImage(contentsOfFile:) method to load images
-  let pathToAssets: String = "/Users/antoine.clop/Projets/iOSTools/iOSToolsTests/Assets.xcassets"
+  let pathToAssets: String = "/Users/antoine.clop/Projets/iOSTools/iOSToolsTests/Ressources/Assets.xcassets"
   
   func testRecognizeCat() {
     let asyncRequest = expectation(description: "Recognition Succeeded")

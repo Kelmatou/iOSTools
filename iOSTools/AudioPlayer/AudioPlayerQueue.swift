@@ -44,7 +44,7 @@ open class AudioQueue {
    - returns: the path of the song, nil if file was not found
    */
   public func getCurrentSongURL() -> URL? {
-    cleanQueue()
+    clean()
     guard songQueue.count > 0 else {
       return nil
     }
@@ -165,7 +165,10 @@ open class AudioQueue {
   }
   
   /**
-   Remove song at a specified position. If no song are found at index, does nothing
+   Remove song at a specified position. If no song are found at index, does nothing.
+   NOTE: If removing current song, song will be marked as 'removed' but is still in the queue!
+   Multiple calls to remove(at: x) will remove the same element at index 'x'.
+   You should instead call 'clean()' to remove marked song or increment 'x'.
    
    - parameter index: the index of song to remove
    */
@@ -189,14 +192,20 @@ open class AudioQueue {
   
   /**
    Remove songs by name. Can also specify if it should remove first match only
+   NOTE: If removing current song, song will be marked as 'removed' but is still in the queue!
+   Multiple calls to remove(named: x) will remove the same element at named 'x'.
+   You should instead call 'clean()' to remove marked song.
    
    - parameter named: the name of songs to remove
-   - parameter firstOnly: if true, will only remove first match
+   - parameter firstOnly: if true, will only remove first match. Default is false
    */
   public func remove(named: String, firstOnly: Bool = false) {
+    var songsRemoved: Int = 0
     for (index, song) in songQueue.enumerated() {
+      let indexAdjusted: Int = index - songsRemoved
       if song.name == named {
-        remove(at: index)
+        remove(at: indexAdjusted)
+        songsRemoved += (currentSong == indexAdjusted ? 0 : 1)
         if firstOnly {
           break
         }
@@ -206,10 +215,10 @@ open class AudioQueue {
   }
   
   /**
-   Move a song from a position to another
+   Move a song from a position to another. Even when moved, current song remains selected
    
-   - parameter src: the current index of the song
-   - parameter dst: the destination index
+   - parameter src: the current index of the song if out of range, does nothing
+   - parameter dst: the destination index, if out of range, does nothing
    */
   public func moveSong(at src: Int, to dst: Int) {
     guard src >= 0 && src < songQueue.count && dst >= 0 && dst < songQueue.count else {
@@ -278,8 +287,7 @@ open class AudioQueue {
   /**
    Remove all songs from queue that are marked as removed
    */
-  private func cleanQueue() {
-    printQueue("Before cleaning: \(songQueue.count)")
+  public func clean() {
     guard songQueue.count > 0 else {
       return
     }
@@ -290,14 +298,6 @@ open class AudioQueue {
           currentSong -= 1
         }
       }
-    }
-    printQueue("After cleaning: \(songQueue.count)")
-  }
-  
-  func printQueue(_ title: String) {
-    debugPrint(title)
-    for (index, song) in songQueue.enumerated() {
-      debugPrint("\(index) - \(song.name)" + (song.removed ? " - Removed" : ""))
     }
   }
 }
