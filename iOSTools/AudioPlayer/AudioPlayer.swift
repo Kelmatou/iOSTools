@@ -48,6 +48,7 @@ open class AudioPlayer: NSObject {
    */
   internal func initPlayer(withContent: URL) {
     do {
+      try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
       player = try AVAudioPlayer(contentsOf: withContent)
       player?.delegate = self
     }
