@@ -11,6 +11,7 @@ import Foundation
 @objc public protocol AudioPlayerDelegate: class {
   
   @objc optional func queueUpdated(_ player: AudioPlayer, queue: [String])
+  @objc optional func songLoaded(_ player: AudioPlayer, song: String)
   @objc optional func willStartPlaying(_ player: AudioPlayer, song: String)
   @objc optional func didFinishPlaying(_ player: AudioPlayer, song: String)
   @objc optional func didReachEndOfQueue(_ player: AudioPlayer)
@@ -27,6 +28,12 @@ extension AudioPlayer: AudioPlayerDelegate {
   public func queueUpdated(_ player: AudioPlayer, queue: [String]) {
     if let delegate = self.delegate, let queueUpdated = delegate.queueUpdated {
       queueUpdated(player, queue)
+    }
+  }
+  
+  public func songLoaded(_ player: AudioPlayer, song: String) {
+    if let delegate = self.delegate, let songLoaded = delegate.songLoaded {
+      songLoaded(player, song)
     }
   }
   

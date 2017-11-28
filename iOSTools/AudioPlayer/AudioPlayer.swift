@@ -15,7 +15,7 @@ open class AudioPlayer: NSObject {
   public enum PlayerState {
     case Playing // Audio is being played
     case Paused  // Audio is stopped but player is ready to play()
-    case Stopped  // Audio is stopped, player may be ready or not. Must call prepareCurrentSong()
+    case Stopped // Audio is stopped, player may be ready or not. Must call prepareCurrentSong()
   }
   
   public enum AudioUsage {
@@ -74,6 +74,9 @@ open class AudioPlayer: NSObject {
       initPlayer(withContent: nextSongURL)
       canReplaySong = true
       status = .Stopped
+      if let song = songQueue.getCurrentSongName() {
+        songLoaded(self, song: song)
+      }
     }
     else {
       player = nil

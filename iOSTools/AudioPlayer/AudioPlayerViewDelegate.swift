@@ -16,6 +16,12 @@ extension AudioPlayerView: AudioPlayerDelegate {
     }
   }
   
+  public func songLoaded(_ player: AudioPlayer, song: String) {
+    if let delegate = self.delegate, let songLoaded = delegate.songLoaded {
+      songLoaded(player, song)
+    }
+  }
+  
   public func willStartPlaying(_ player: AudioPlayer, song: String) {
     playingNow.text = player.songQueue.getCurrentSongName()
     playButtonUpdate(playing: true)
