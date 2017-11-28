@@ -25,11 +25,34 @@ class AudioPlayerTest: XCTestCase {
   
   // MARK: - Queue
   
+  func testAccessQueue() {
+    let queue: AudioQueue = AudioQueue()
+    XCTAssert(queue.songQueue.count == 0)
+    queue.append("single.mp3")
+    queue.append("tube.mp3")
+    queue.append("ending.mp3")
+    XCTAssert(queue.songQueue.count == 3)
+    XCTAssert(queue.songQueue.first!.name == "single.mp3")
+    XCTAssert(queue.songQueue[0].name == "single.mp3")
+    XCTAssert(queue.songQueue[1].name == "tube.mp3")
+    XCTAssert(queue.songQueue[2].name == "ending.mp3")
+  }
+  
   func testGetCurrentSong() {
     let queue: AudioQueue = AudioQueue()
     XCTAssert(queue.getCurrentSongName() == nil)
     queue.append("single.mp3")
     queue.append("tube.mp3")
+    XCTAssert(queue.getCurrentSongName() == "single.mp3")
+    queue.setCurrentSong(.Next)
+    XCTAssert(queue.getCurrentSongName() == "tube.mp3")
+  }
+  
+  func testGetCurrentSongRemove() {
+    let queue: AudioQueue = AudioQueue()
+    queue.append("single.mp3")
+    queue.append("tube.mp3")
+    queue.remove(at: 0)
     XCTAssert(queue.getCurrentSongName() == "single.mp3")
     queue.setCurrentSong(.Next)
     XCTAssert(queue.getCurrentSongName() == "tube.mp3")
@@ -58,6 +81,34 @@ class AudioPlayerTest: XCTestCase {
     XCTAssert(queue.currentSong == 1)
   }
   
+  func testSetCurrentSongRemove() {
+    let queue: AudioQueue = AudioQueue()
+    queue.append("single.mp3")
+    queue.append("tube.mp3")
+    queue.append("ending.mp3")
+    queue.remove(at: 0)
+    XCTAssert(!queue.setCurrentSong(.Prev) && queue.currentSong == 0)
+    XCTAssert(queue.setCurrentSong(.Next) && queue.currentSong == 0)
+    XCTAssert(queue.setCurrentSong(.Next) && queue.currentSong == 1)
+    XCTAssert(!queue.setCurrentSong(.Next) && queue.currentSong == 1)
+    XCTAssert(queue.setCurrentSong(.Next, allowLoop: true) && queue.currentSong == 0)
+    XCTAssert(queue.setCurrentSong(.Prev, allowLoop: true) && queue.currentSong == 1)
+    queue.insert("single.mp3", at: 0)
+    XCTAssert(queue.currentSong == 2)
+    queue.setCurrentSong(at: -1)
+    XCTAssert(queue.currentSong == 2)
+    queue.setCurrentSong(at: 3)
+    XCTAssert(queue.currentSong == 2)
+    queue.remove(at: 2)
+    XCTAssert(queue.currentSong == 2 && queue.internalSongQueue.count == 3)
+    XCTAssert(queue.setCurrentSong(.Prev) && queue.currentSong == 1 && queue.internalSongQueue.count == 2)
+    queue.remove(at: 1)
+    XCTAssert(queue.currentSong == 1 && queue.internalSongQueue.count == 2)
+    XCTAssert(queue.setCurrentSong(.Prev) && queue.currentSong == 0 && queue.internalSongQueue.count == 1)
+    queue.remove(at: 0)
+    XCTAssert(!queue.setCurrentSong(.Prev) && queue.currentSong == 0 && queue.internalSongQueue.count == 1 && queue.internalSongQueue[0].removed)
+  }
+  
   func testAppend() {
     let queue: AudioQueue = AudioQueue()
     queue.append(["single.mp3", "tube.mp3", "ending.mp3"])
@@ -76,6 +127,24 @@ class AudioPlayerTest: XCTestCase {
     XCTAssert(queue.songQueue.count == 3 && queue.songQueue[1].name == "middle.mp3")
   }
   
+  func testInsertRemove() {
+    let queue: AudioQueue = AudioQueue()
+    queue.insert("single.mp3", at: 42)
+    XCTAssert(queue.songQueue.count == 1 && queue.songQueue[0].name == "single.mp3")
+    queue.insert("tube.mp3", at: -1)
+    XCTAssert(queue.songQueue.count == 2 && queue.songQueue[0].name == "tube.mp3")
+    queue.insert("middle.mp3", at: 1)
+    XCTAssert(queue.songQueue.count == 3 && queue.songQueue[1].name == "middle.mp3")
+    queue.setCurrentSong(at: 1)
+    queue.remove(at: 1)
+    queue.insert("open.mp3", at: 0)
+    XCTAssert(queue.internalSongQueue.count == 4 && queue.internalSongQueue[0].name == "open.mp3" && queue.internalSongQueue[1].name == "tube.mp3" && queue.internalSongQueue[2].name == "middle.mp3")
+    XCTAssert(queue.songQueue.count == 3 && queue.songQueue[0].name == "open.mp3" && queue.songQueue[1].name == "tube.mp3" && queue.songQueue[2].name == "single.mp3")
+    queue.insert("hit.mp3", at: 2)
+    XCTAssert(queue.internalSongQueue.count == 5 && queue.internalSongQueue[1].name == "tube.mp3" && queue.internalSongQueue[2].name == "hit.mp3" && queue.internalSongQueue[3].name == "middle.mp3")
+    XCTAssert(queue.songQueue.count == 4 && queue.songQueue[1].name == "tube.mp3" && queue.songQueue[2].name == "hit.mp3" && queue.songQueue[3].name == "single.mp3")
+  }
+  
   func testRemoveAll() {
     let queue: AudioQueue = AudioQueue()
     queue.removeAll()
@@ -84,6 +153,7 @@ class AudioPlayerTest: XCTestCase {
     queue.append("ending.mp3")
     XCTAssert(queue.songQueue.count == 3)
     queue.removeAll()
+    XCTAssert(queue.internalSongQueue.count == 0)
     XCTAssert(queue.songQueue.count == 0)
   }
   
@@ -102,9 +172,11 @@ class AudioPlayerTest: XCTestCase {
     queue.remove(at: 1)
     XCTAssert(queue.songQueue.count == 2 && queue.songQueue[0].name == "single.mp3" && queue.songQueue[1].name == "ending.mp3")
     queue.remove(at: 0)
-    XCTAssert(queue.songQueue.count == 2 && queue.songQueue[0].removed)
+    XCTAssert(queue.internalSongQueue.count == 2 && queue.internalSongQueue[0].removed)
+    XCTAssert(queue.songQueue.count == 1 && queue.songQueue[0].name == "ending.mp3")
     queue.remove(at: 0)
-    XCTAssert(queue.songQueue.count == 1 && queue.songQueue[0].removed && queue.songQueue[0].name == "single.mp3")
+    XCTAssert(queue.internalSongQueue.count == 1 && queue.internalSongQueue[0].removed && queue.internalSongQueue[0].name == "single.mp3")
+    XCTAssert(queue.songQueue.count == 0)
   }
   
   func testRemoveName() {
@@ -123,9 +195,11 @@ class AudioPlayerTest: XCTestCase {
     queue.remove(named: "404NotFound.mp3")
     XCTAssert(queue.songQueue.count == 3)
     queue.remove(named: "single.mp3")
-    XCTAssert(queue.songQueue.count == 2 && queue.songQueue[0].removed)
+    XCTAssert(queue.internalSongQueue.count == 2 && queue.internalSongQueue[0].removed)
+    XCTAssert(queue.songQueue.count == 1 && queue.songQueue[0].name == "tube.mp3")
     queue.remove(named: "tube.mp3")
-    XCTAssert(queue.songQueue.count == 1 && queue.songQueue[0].removed)
+    XCTAssert(queue.internalSongQueue.count == 1 && queue.internalSongQueue[0].removed)
+    XCTAssert(queue.songQueue.count == 0)
   }
   
   func testMove() {
@@ -142,6 +216,28 @@ class AudioPlayerTest: XCTestCase {
     XCTAssert(queue.songQueue.count == 3 && queue.songQueue[0].name == "tube.mp3" && queue.songQueue[1].name == "single.mp3" && queue.songQueue[2].name == "ending.mp3" && queue.currentSong == 1)
     queue.moveSong(at: -1, to: 0)
     XCTAssert(queue.songQueue.count == 3 && queue.songQueue[0].name == "tube.mp3" && queue.songQueue[1].name == "single.mp3" && queue.songQueue[2].name == "ending.mp3" && queue.currentSong == 1)
+  }
+  
+  func testMoveRemove() {
+    let queue: AudioQueue = AudioQueue()
+    queue.append("single.mp3")
+    queue.append("hit.mp3")
+    queue.append("tube.mp3")
+    queue.append("ending.mp3")
+    queue.setCurrentSong(at: 1)
+    queue.remove(at: 1)
+    queue.moveSong(at: 0, to: 0)
+    XCTAssert(queue.internalSongQueue.count == 4 && queue.internalSongQueue[0].name == "single.mp3" && queue.internalSongQueue[1].name == "hit.mp3" && queue.internalSongQueue[2].name == "tube.mp3")
+    XCTAssert(queue.songQueue.count == 3 && queue.songQueue[0].name == "single.mp3" && queue.songQueue[1].name == "tube.mp3" && queue.songQueue[2].name == "ending.mp3")
+    queue.moveSong(at: 0, to: 1)
+    XCTAssert(queue.internalSongQueue.count == 4 && queue.internalSongQueue[0].name == "hit.mp3" && queue.internalSongQueue[1].name == "tube.mp3" && queue.internalSongQueue[2].name == "single.mp3")
+    XCTAssert(queue.songQueue.count == 3 && queue.songQueue[0].name == "tube.mp3" && queue.songQueue[1].name == "single.mp3" && queue.songQueue[2].name == "ending.mp3" && queue.currentSong == 0)
+    queue.moveSong(at: 1, to: 0)
+    XCTAssert(queue.internalSongQueue.count == 4 && queue.internalSongQueue[0].name == "hit.mp3" && queue.internalSongQueue[1].name == "single.mp3" && queue.internalSongQueue[2].name == "tube.mp3")
+    XCTAssert(queue.songQueue.count == 3 && queue.songQueue[0].name == "single.mp3" && queue.songQueue[1].name == "tube.mp3" && queue.songQueue[2].name == "ending.mp3")
+    queue.moveSong(at: 1, to: 2)
+    XCTAssert(queue.internalSongQueue.count == 4 && queue.internalSongQueue[0].name == "hit.mp3" && queue.internalSongQueue[2].name == "ending.mp3" && queue.internalSongQueue[3].name == "tube.mp3")
+    XCTAssert(queue.songQueue.count == 3 && queue.songQueue[0].name == "single.mp3" && queue.songQueue[1].name == "ending.mp3" && queue.songQueue[2].name == "tube.mp3")
   }
   
   func testFirstLastEmptySong() {
