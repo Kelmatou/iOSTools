@@ -19,16 +19,16 @@ open class AudioQueue {
   // MARK: - Properties
   
   internal weak var delegate: AudioPlayerQueueDelegate?
-  public var songQueue: [AudioSong] {
+  public var songs: [AudioSong] {
     var songs: [AudioSong] = []
-    for song in internalSongQueue {
+    for song in internalSongs {
       if !song.removed {
         songs.append(song)
       }
     }
     return songs
   }
-  internal var internalSongQueue: [AudioSong] = []
+  internal var internalSongs: [AudioSong] = []
   private(set) public var currentSong: Int = 0
   
   public var canLoop: Bool = false
@@ -41,10 +41,10 @@ open class AudioQueue {
    - returns: the name of the song at currently selected to be played. Return nil if songQueue is empty.
    */
   public func getCurrentSongName() -> String? {
-    guard !internalSongQueue.isEmpty else {
+    guard !internalSongs.isEmpty else {
       return nil
     }
-    return internalSongQueue[currentSong].name
+    return internalSongs[currentSong].name
   }
   
   /**
@@ -53,13 +53,13 @@ open class AudioQueue {
    - returns: the path of the song, nil if file was not found
    */
   public func getCurrentSongURL() -> URL? {
-    guard internalSongQueue.count > 0 else {
+    guard internalSongs.count > 0 else {
       return nil
     }
     var nextSongURL: URL?
     let startIndex: Int = currentSong // Prevent infinite loop if canLoop option is enabled
     while (nextSongURL == nil) {
-      let nextSong = internalSongQueue[currentSong]
+      let nextSong = internalSongs[currentSong]
       if !nextSong.removed, let path = Bundle.main.path(forResource: nextSong.name, ofType: nil) {
         nextSongURL = URL(fileURLWithPath: path)
       }
@@ -86,13 +86,13 @@ open class AudioQueue {
     let loopAllowed: Bool = allowLoop == nil ? canLoop : allowLoop!
     switch move {
     case .Prev:
-      currentSong = currentSong == 0 ? loopAllowed && internalSongQueue.count > 0 ? internalSongQueue.count - 1 : 0 : currentSong - 1
+      currentSong = currentSong == 0 ? loopAllowed && internalSongs.count > 0 ? internalSongs.count - 1 : 0 : currentSong - 1
     case .Next:
-      currentSong = currentSong + 1 >= internalSongQueue.count ? loopAllowed ? 0 : currentSong : currentSong + 1
+      currentSong = currentSong + 1 >= internalSongs.count ? loopAllowed ? 0 : currentSong : currentSong + 1
     }
     let indexChanged: Bool = startIndex != currentSong
-    if indexChanged && internalSongQueue[startIndex].removed {
-      internalSongQueue.remove(at: startIndex)
+    if indexChanged && internalSongs[startIndex].removed {
+      internalSongs.remove(at: startIndex)
       if startIndex < currentSong {
         currentSong -= 1
       }
@@ -106,10 +106,10 @@ open class AudioQueue {
    - parameter index: the way index should move. If index is out of range, does nothing
    */
   public func setCurrentSong(at index: Int) {
-    let currentSongIsRemoved: Bool = currentSong < internalSongQueue.count && internalSongQueue[currentSong].removed
-    if index >= 0 && index < internalSongQueue.count - (currentSongIsRemoved ? 1 : 0) {
+    let currentSongIsRemoved: Bool = currentSong < internalSongs.count && internalSongs[currentSong].removed
+    if index >= 0 && index < internalSongs.count - (currentSongIsRemoved ? 1 : 0) {
       if currentSongIsRemoved {
-        internalSongQueue.remove(at: currentSong)
+        internalSongs.remove(at: currentSong)
       }
       currentSong = index
     }
@@ -124,11 +124,11 @@ open class AudioQueue {
    */
   public init(songs: [String] = []) {
     currentSong = 0
-    self.internalSongQueue = []
+    self.internalSongs = []
     for song in songs {
-      self.internalSongQueue.append(AudioSong(song))
+      self.internalSongs.append(AudioSong(song))
     }
-    queueUpdate(self, queue: AudioSong.toStringArray(internalSongQueue))
+    queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
   }
   
   /**
@@ -137,8 +137,8 @@ open class AudioQueue {
    - parameter song: the song to append to songQueue
    */
   public func append(_ song: String) {
-    internalSongQueue.append(AudioSong(song))
-    queueUpdate(self, queue: AudioSong.toStringArray(internalSongQueue))
+    internalSongs.append(AudioSong(song))
+    queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
   }
   
   /**
@@ -148,9 +148,9 @@ open class AudioQueue {
    */
   public func append(_ songs: [String]) {
     for song in songs {
-      internalSongQueue.append(AudioSong(song))
+      internalSongs.append(AudioSong(song))
     }
-    queueUpdate(self, queue: AudioSong.toStringArray(internalSongQueue))
+    queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
   }
   
   /**
@@ -163,13 +163,13 @@ open class AudioQueue {
     if index <= currentSong {
       currentSong += 1
     }
-    if index < internalSongQueue.count {
-      internalSongQueue.insert(AudioSong(song), at: index < 0 ? 0 : currentSong < index ? index + 1 : index)
+    if index < internalSongs.count {
+      internalSongs.insert(AudioSong(song), at: index < 0 ? 0 : currentSong < index ? index + 1 : index)
     }
     else {
-      internalSongQueue.append(AudioSong(song))
+      internalSongs.append(AudioSong(song))
     }
-    queueUpdate(self, queue: AudioSong.toStringArray(internalSongQueue))
+    queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
   }
   
   /**
@@ -177,11 +177,11 @@ open class AudioQueue {
    */
   public func removeAll() {
     guard !isEmpty() else { return }
-    let currentSongName: String = internalSongQueue[currentSong].name
+    let currentSongName: String = internalSongs[currentSong].name
     currentSong = 0
-    internalSongQueue.removeAll()
+    internalSongs.removeAll()
     currentSongRemoved(self, song: currentSongName)
-    queueUpdate(self, queue: AudioSong.toStringArray(internalSongQueue))
+    queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
   }
   
   /**
@@ -190,24 +190,24 @@ open class AudioQueue {
    - parameter index: the index of song to remove
    */
   public func remove(at index: Int) {
-    let currentSongIsRemoved: Bool = currentSong < internalSongQueue.count && internalSongQueue[currentSong].removed
-    let maxIndex: Int = internalSongQueue.count - (currentSongIsRemoved ? 1 : 0)
+    let currentSongIsRemoved: Bool = currentSong < internalSongs.count && internalSongs[currentSong].removed
+    let maxIndex: Int = internalSongs.count - (currentSongIsRemoved ? 1 : 0)
     guard index >= 0 && index < maxIndex else {
       return
     }
     if index == currentSong && !currentSongIsRemoved {
-      let currentSongName: String = internalSongQueue[currentSong].name
-      internalSongQueue[index].removed = true
+      let currentSongName: String = internalSongs[currentSong].name
+      internalSongs[index].removed = true
       currentSongRemoved(self, song: currentSongName)
     }
     else {
       let removingIndex: Int = index + (currentSongIsRemoved ? 1 : 0)
-      internalSongQueue.remove(at: removingIndex)
+      internalSongs.remove(at: removingIndex)
       if removingIndex < currentSong {
         currentSong -= 1
       }
     }
-    queueUpdate(self, queue: AudioSong.toStringArray(internalSongQueue))
+    queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
   }
   
   /**
@@ -218,7 +218,7 @@ open class AudioQueue {
    */
   public func remove(named: String, firstOnly: Bool = false) {
     var songsRemoved: Int = 0
-    for (index, song) in internalSongQueue.enumerated() {
+    for (index, song) in internalSongs.enumerated() {
       let indexAdjusted: Int = index - songsRemoved
       if song.name == named && !song.removed {
         remove(at: indexAdjusted)
@@ -231,7 +231,7 @@ open class AudioQueue {
         songsRemoved += 1
       }
     }
-    queueUpdate(self, queue: AudioSong.toStringArray(internalSongQueue))
+    queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
   }
   
   /**
@@ -241,16 +241,16 @@ open class AudioQueue {
    - parameter dst: the destination index, if out of range, does nothing
    */
   public func moveSong(at src: Int, to dst: Int) {
-    let currentSongIsRemoved: Bool = currentSong < internalSongQueue.count && internalSongQueue[currentSong].removed
-    let maxIndex: Int = internalSongQueue.count - (currentSongIsRemoved ? 1 : 0)
+    let currentSongIsRemoved: Bool = currentSong < internalSongs.count && internalSongs[currentSong].removed
+    let maxIndex: Int = internalSongs.count - (currentSongIsRemoved ? 1 : 0)
     guard src >= 0 && src < maxIndex && dst >= 0 && dst < maxIndex else {
       return
     }
     let srcAdjusted: Int = currentSongIsRemoved && currentSong <= src ? src + 1 : src
     let dstAdjusted: Int = currentSongIsRemoved && currentSong <= dst ? dst + 1 : dst
-    let songMoved: AudioSong = internalSongQueue[srcAdjusted]
-    internalSongQueue.remove(at: srcAdjusted)
-    internalSongQueue.insert(songMoved, at: dstAdjusted)
+    let songMoved: AudioSong = internalSongs[srcAdjusted]
+    internalSongs.remove(at: srcAdjusted)
+    internalSongs.insert(songMoved, at: dstAdjusted)
     if currentSong == srcAdjusted {
       currentSong = dstAdjusted
     }
@@ -260,7 +260,7 @@ open class AudioQueue {
     else if currentSong < srcAdjusted && dstAdjusted <= currentSong {
       currentSong += 1
     }
-    queueUpdate(self, queue: AudioSong.toStringArray(internalSongQueue))
+    queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
   }
   
   /**
@@ -268,17 +268,17 @@ open class AudioQueue {
    */
   public func shuffle() {
     var newQueue: [AudioSong] = []
-    for _ in 0 ..< internalSongQueue.count {
-      let randomIndex: Int = Int(arc4random_uniform(UInt32(internalSongQueue.count)))
-      let randomSong: AudioSong = internalSongQueue[randomIndex]
+    for _ in 0 ..< internalSongs.count {
+      let randomIndex: Int = Int(arc4random_uniform(UInt32(internalSongs.count)))
+      let randomSong: AudioSong = internalSongs[randomIndex]
       if randomIndex == currentSong {
         currentSong = newQueue.count
       }
       newQueue.append(randomSong)
-      internalSongQueue.remove(at: randomIndex)
+      internalSongs.remove(at: randomIndex)
     }
-    internalSongQueue = newQueue
-    queueUpdate(self, queue: AudioSong.toStringArray(internalSongQueue))
+    internalSongs = newQueue
+    queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
   }
   
   /**
@@ -287,7 +287,7 @@ open class AudioQueue {
    returns: true if currentSong is first in songQueue or queue is empty
    */
   public func currentIsFirstSong() -> Bool {
-    return internalSongQueue.isEmpty || currentSong == 0
+    return internalSongs.isEmpty || currentSong == 0
   }
   
   /**
@@ -296,7 +296,7 @@ open class AudioQueue {
    returns: true if currentSong is last in songQueue or queue is empty
    */
   public func currentIsLastSong() -> Bool {
-    return internalSongQueue.isEmpty || currentSong + 1 >= internalSongQueue.count
+    return internalSongs.isEmpty || currentSong + 1 >= internalSongs.count
   }
   
   /**
@@ -305,6 +305,6 @@ open class AudioQueue {
    returns: true if songQueue is empty
    */
   public func isEmpty() -> Bool {
-    return internalSongQueue.isEmpty || (internalSongQueue.count == 1 && internalSongQueue[0].removed)
+    return internalSongs.isEmpty || (internalSongs.count == 1 && internalSongs[0].removed)
   }
 }

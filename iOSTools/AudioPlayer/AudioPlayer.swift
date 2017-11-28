@@ -86,7 +86,7 @@ open class AudioPlayer: NSObject {
    Play currently selected track
    */
   public func play() {
-    guard !songQueue.songQueue.isEmpty && status != .Playing else {
+    guard !songQueue.songs.isEmpty && status != .Playing else {
       return
     }
     if status == .Stoped {
