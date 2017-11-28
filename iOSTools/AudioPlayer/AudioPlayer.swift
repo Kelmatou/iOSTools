@@ -18,12 +18,18 @@ open class AudioPlayer: NSObject {
     case Stoped  // Audio is stoped, player may be ready or not. Must call prepareCurrentSong()
   }
   
+  public enum AudioUsage {
+    case Foreground // Audio will be heard even in silent mode
+    case Background // Audio will be heard only if silent mode is disabled. When possible, use it!
+  }
+  
   // MARK: - Variables
   internal var player: AVAudioPlayer?
   
   public weak var delegate: AudioPlayerDelegate?
   public var songQueue: AudioQueue = AudioQueue()
   public var autoPlay: Bool = true
+  public var audioUsage: AudioUsage = .Foreground
   private(set) public var status: PlayerState = .Stoped
   private var canReplaySong: Bool = true
   
@@ -34,11 +40,12 @@ open class AudioPlayer: NSObject {
     songQueue.delegate = self
   }
   
-  convenience init(withSongs: [String] = [], autoPlay: Bool = true) {
+  convenience init(withSongs: [String] = [], autoPlay: Bool = true, audioUsage: AudioUsage = .Foreground) {
     self.init()
     songQueue.append(withSongs)
     songQueue.delegate = self
     self.autoPlay = autoPlay
+    self.audioUsage = audioUsage
   }
   
   /**
@@ -48,7 +55,7 @@ open class AudioPlayer: NSObject {
    */
   internal func initPlayer(withContent: URL) {
     do {
-      try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+      try AVAudioSession.sharedInstance().setCategory(audioUsage == .Foreground ? AVAudioSessionCategoryPlayback : AVAudioSessionCategorySoloAmbient)
       player = try AVAudioPlayer(contentsOf: withContent)
       player?.delegate = self
     }
