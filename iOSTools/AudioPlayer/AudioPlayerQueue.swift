@@ -29,7 +29,7 @@ open class AudioQueue {
   /**
    Get current song's name
    
-   - returns: the name of the song at currentSong index. Return nil if songQueue is empty. NOTE: If currentSong was removed, then name might not correspond!
+   - returns: the name of the song at currently selected to be played. Return nil if songQueue is empty.
    */
   public func getCurrentSongName() -> String? {
     guard !songQueue.isEmpty else {
@@ -44,7 +44,6 @@ open class AudioQueue {
    - returns: the path of the song, nil if file was not found
    */
   public func getCurrentSongURL() -> URL? {
-    clean()
     guard songQueue.count > 0 else {
       return nil
     }
@@ -82,6 +81,12 @@ open class AudioQueue {
     case .Next:
       currentSong = currentSong + 1 >= songQueue.count ? loopAllowed ? 0 : currentSong : currentSong + 1
     }
+    if startIndex != currentSong && songQueue[startIndex].removed {
+      songQueue.remove(at: startIndex)
+      if startIndex < currentSong {
+        currentSong -= 1
+      }
+    }
     return startIndex != currentSong
   }
   
@@ -91,7 +96,11 @@ open class AudioQueue {
    - parameter index: the way index should move. If index is out of range, does nothing
    */
   public func setCurrentSong(at index: Int) {
-    if index >= 0 && index < songQueue.count {
+    let currentSongIsRemoved: Bool = currentSong < songQueue.count && songQueue[currentSong].removed
+    if index >= 0 && index < songQueue.count - (currentSongIsRemoved ? 1 : 0) {
+      if currentSongIsRemoved {
+        songQueue.remove(at: currentSong)
+      }
       currentSong = index
     }
   }
@@ -145,7 +154,7 @@ open class AudioQueue {
       currentSong += 1
     }
     if index < songQueue.count {
-      songQueue.insert(AudioSong(song), at: index < 0 ? 0 : index)
+      songQueue.insert(AudioSong(song), at: index < 0 ? 0 : currentSong < index ? index + 1 : index)
     }
     else {
       songQueue.append(AudioSong(song))
@@ -157,6 +166,7 @@ open class AudioQueue {
    Remove all songs from queue
    */
   public func removeAll() {
+    guard !isEmpty() else { return }
     let currentSongName: String = songQueue[currentSong].name
     currentSong = 0
     songQueue.removeAll()
@@ -166,24 +176,24 @@ open class AudioQueue {
   
   /**
    Remove song at a specified position. If no song are found at index, does nothing.
-   NOTE: If removing current song, song will be marked as 'removed' but is still in the queue!
-   Multiple calls to remove(at: x) will remove the same element at index 'x'.
-   You should instead call 'clean()' to remove marked song or increment 'x'.
    
    - parameter index: the index of song to remove
    */
   public func remove(at index: Int) {
-    guard index >= 0 && index < songQueue.count else {
+    let currentSongIsRemoved: Bool = currentSong < songQueue.count && songQueue[currentSong].removed
+    let maxIndex: Int = songQueue.count - (currentSongIsRemoved ? 1 : 0)
+    guard index >= 0 && index < maxIndex else {
       return
     }
-    let currentSongName: String = songQueue[currentSong].name
-    if index == currentSong {
+    if index == currentSong && !currentSongIsRemoved {
+      let currentSongName: String = songQueue[currentSong].name
       songQueue[index].removed = true
       currentSongRemoved(self, song: currentSongName)
     }
     else {
-      songQueue.remove(at: index)
-      if index < currentSong {
+      let removingIndex: Int = index + (currentSongIsRemoved ? 1 : 0)
+      songQueue.remove(at: removingIndex)
+      if removingIndex < currentSong {
         currentSong -= 1
       }
     }
@@ -192,9 +202,6 @@ open class AudioQueue {
   
   /**
    Remove songs by name. Can also specify if it should remove first match only
-   NOTE: If removing current song, song will be marked as 'removed' but is still in the queue!
-   Multiple calls to remove(named: x) will remove the same element at named 'x'.
-   You should instead call 'clean()' to remove marked song.
    
    - parameter named: the name of songs to remove
    - parameter firstOnly: if true, will only remove first match. Default is false
@@ -203,12 +210,15 @@ open class AudioQueue {
     var songsRemoved: Int = 0
     for (index, song) in songQueue.enumerated() {
       let indexAdjusted: Int = index - songsRemoved
-      if song.name == named {
+      if song.name == named && !song.removed {
         remove(at: indexAdjusted)
-        songsRemoved += (currentSong == indexAdjusted ? 0 : 1)
+        songsRemoved += 1
         if firstOnly {
           break
         }
+      }
+      else if song.removed {
+        songsRemoved += 1
       }
     }
     queueUpdate(self, queue: AudioSong.toStringArray(songQueue))
@@ -221,19 +231,23 @@ open class AudioQueue {
    - parameter dst: the destination index, if out of range, does nothing
    */
   public func moveSong(at src: Int, to dst: Int) {
-    guard src >= 0 && src < songQueue.count && dst >= 0 && dst < songQueue.count else {
+    let currentSongIsRemoved: Bool = currentSong < songQueue.count && songQueue[currentSong].removed
+    let maxIndex: Int = songQueue.count - (currentSongIsRemoved ? 1 : 0)
+    guard src >= 0 && src < maxIndex && dst >= 0 && dst < maxIndex else {
       return
     }
-    let songMoved: AudioSong = songQueue[src]
-    songQueue.remove(at: src)
-    songQueue.insert(songMoved, at: dst)
-    if currentSong == src {
-      currentSong = dst
+    let srcAdjusted: Int = currentSongIsRemoved && currentSong <= src ? src + 1 : src
+    let dstAdjusted: Int = currentSongIsRemoved && currentSong <= dst ? dst + 1 : dst
+    let songMoved: AudioSong = songQueue[srcAdjusted]
+    songQueue.remove(at: srcAdjusted)
+    songQueue.insert(songMoved, at: dstAdjusted)
+    if currentSong == srcAdjusted {
+      currentSong = dstAdjusted
     }
-    else if currentSong > src && dst >= currentSong {
+    else if currentSong > srcAdjusted && dstAdjusted >= currentSong {
       currentSong -= 1
     }
-    else if currentSong < src && dst <= currentSong {
+    else if currentSong < srcAdjusted && dstAdjusted <= currentSong {
       currentSong += 1
     }
     queueUpdate(self, queue: AudioSong.toStringArray(songQueue))
@@ -282,22 +296,5 @@ open class AudioQueue {
    */
   public func isEmpty() -> Bool {
     return songQueue.isEmpty || (songQueue.count == 1 && songQueue[0].removed)
-  }
-  
-  /**
-   Remove all songs from queue that are marked as removed
-   */
-  public func clean() {
-    guard songQueue.count > 0 else {
-      return
-    }
-    for (index, song) in songQueue.enumerated() {
-      if song.removed {
-        songQueue.remove(at: index)
-        if index < currentSong {
-          currentSong -= 1
-        }
-      }
-    }
   }
 }

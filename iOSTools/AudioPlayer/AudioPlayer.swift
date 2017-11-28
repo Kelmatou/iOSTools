@@ -82,10 +82,6 @@ open class AudioPlayer: NSObject {
     guard !songQueue.songQueue.isEmpty && status != .Playing else {
       return
     }
-    debugPrint("Current track: \(songQueue.currentSong)")
-    for song in songQueue.songQueue {
-      debugPrint("Song: \(song.name)")
-    }
     if status == .Stoped {
       prepareCurrentSong()
     }

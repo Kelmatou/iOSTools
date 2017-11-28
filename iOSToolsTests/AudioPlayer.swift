@@ -37,6 +37,10 @@ class AudioPlayerTest: XCTestCase {
   
   func testSetCurrentSong() {
     let queue: AudioQueue = AudioQueue()
+    XCTAssert(!queue.setCurrentSong(.Next))
+    XCTAssert(!queue.setCurrentSong(.Prev))
+    queue.setCurrentSong(at: 0)
+    queue.setCurrentSong(at: 1)
     queue.append("single.mp3")
     queue.append("tube.mp3")
     queue.append("ending.mp3")
@@ -74,6 +78,7 @@ class AudioPlayerTest: XCTestCase {
   
   func testRemoveAll() {
     let queue: AudioQueue = AudioQueue()
+    queue.removeAll()
     queue.append("single.mp3")
     queue.append("tube.mp3")
     queue.append("ending.mp3")
@@ -84,6 +89,7 @@ class AudioPlayerTest: XCTestCase {
   
   func testRemoveAt() {
     let queue: AudioQueue = AudioQueue()
+    queue.remove(at: 0)
     queue.append("single.mp3")
     queue.append("single2.mp3")
     queue.append("tube.mp3")
@@ -98,11 +104,12 @@ class AudioPlayerTest: XCTestCase {
     queue.remove(at: 0)
     XCTAssert(queue.songQueue.count == 2 && queue.songQueue[0].removed)
     queue.remove(at: 0)
-    XCTAssert(queue.songQueue.count == 2 && queue.songQueue[0].removed && !queue.songQueue[1].removed)
+    XCTAssert(queue.songQueue.count == 1 && queue.songQueue[0].removed && queue.songQueue[0].name == "single.mp3")
   }
   
   func testRemoveName() {
     let queue: AudioQueue = AudioQueue()
+    queue.remove(named: "single.mp3")
     queue.append("single.mp3")
     queue.append("ending.mp3")
     queue.append("tube.mp3")
@@ -123,6 +130,7 @@ class AudioPlayerTest: XCTestCase {
   
   func testMove() {
     let queue: AudioQueue = AudioQueue()
+    queue.moveSong(at: 0, to: 0)
     queue.append("single.mp3")
     queue.append("tube.mp3")
     queue.append("ending.mp3")
@@ -151,24 +159,4 @@ class AudioPlayerTest: XCTestCase {
     XCTAssert(!queue.currentIsFirstSong() && queue.currentIsLastSong())
     XCTAssert(!queue.isEmpty())
   }
-  
-  func testClean() {
-    let queue: AudioQueue = AudioQueue()
-    queue.clean()
-    XCTAssert(queue.songQueue.count == 0)
-    queue.append("single.mp3")
-    queue.append("tube.mp3")
-    queue.append("ending.mp3")
-    queue.clean()
-    XCTAssert(queue.songQueue.count == 3)
-    queue.remove(at: 0)
-    queue.clean()
-    XCTAssert(queue.songQueue.count == 2)
-    queue.remove(at: 1)
-    XCTAssert(queue.songQueue.count == 1)
-    queue.remove(at: 0)
-    XCTAssert(queue.songQueue.count == 1)
-    queue.clean()
-    XCTAssert(queue.songQueue.count == 0)
-  }  
 }

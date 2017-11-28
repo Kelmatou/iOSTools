@@ -13,7 +13,7 @@ open class AudioSong {
   // MARK: - Properties
   
   public var name: String
-  public var removed: Bool = false
+  internal var removed: Bool = false
   
   // MARK: - Initializer
   
