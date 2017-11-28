@@ -14,8 +14,8 @@ open class AudioPlayer: NSObject {
   
   public enum PlayerState {
     case Playing // Audio is being played
-    case Paused  // Audio is stoped but player is ready to play()
-    case Stoped  // Audio is stoped, player may be ready or not. Must call prepareCurrentSong()
+    case Paused  // Audio is stopped but player is ready to play()
+    case Stopped  // Audio is stopped, player may be ready or not. Must call prepareCurrentSong()
   }
   
   public enum AudioUsage {
@@ -30,7 +30,7 @@ open class AudioPlayer: NSObject {
   public var songQueue: AudioQueue = AudioQueue()
   public var autoPlay: Bool = true
   public var audioUsage: AudioUsage = .Foreground
-  private(set) public var status: PlayerState = .Stoped
+  private(set) public var status: PlayerState = .Stopped
   private var canReplaySong: Bool = true
   
   // MARK: - Init Player
@@ -73,7 +73,7 @@ open class AudioPlayer: NSObject {
     if let nextSongURL = songQueue.getCurrentSongURL() {
       initPlayer(withContent: nextSongURL)
       canReplaySong = true
-      status = .Stoped
+      status = .Stopped
     }
     else {
       player = nil
@@ -86,10 +86,11 @@ open class AudioPlayer: NSObject {
    Play currently selected track
    */
   public func play() {
-    guard !songQueue.songs.isEmpty && status != .Playing else {
+    guard !songQueue.internalSongs.isEmpty && status != .Playing else {
+      debugPrint("[ERROR]: No songs in queue to be played")
       return
     }
-    if status == .Stoped {
+    if status == .Stopped {
       prepareCurrentSong()
     }
     guard let player = player else {
@@ -122,14 +123,15 @@ open class AudioPlayer: NSObject {
    Stop currently selected track and selected first track in queue
    */
   public func stop() {
-    guard status != .Stoped else {
+    guard status != .Stopped else {
+      debugPrint("[ERROR]: Already stopped")
       return
     }
     if let player = player {
       player.stop()
     }
     songQueue.setCurrentSong(at: 0)
-    status = .Stoped
+    status = .Stopped
     didStop(self)
   }
   
@@ -137,16 +139,14 @@ open class AudioPlayer: NSObject {
    Pause currently playing track
    */
   public func pause() {
-    guard status == .Playing else {
+    guard status == .Playing, let player = player else {
       debugPrint("[ERROR]: Cannot pause song")
       return
     }
-    if let player = player {
-      player.pause()
-      status = .Paused
-      if let song = songQueue.getCurrentSongName() {
-        didPause(self, song: song)
-      }
+    player.pause()
+    status = .Paused
+    if let song = songQueue.getCurrentSongName() {
+      didPause(self, song: song)
     }
   }
   
@@ -154,6 +154,10 @@ open class AudioPlayer: NSObject {
    Jump to the previous track (does nothing if already first track). If player status was Playing, start new track
    */
   public func fastRewind() {
+    guard !songQueue.currentIsFirstSong() || songQueue.canLoop else {
+      debugPrint("[ERROR]: Cannot rewind: already first song")
+      return
+    }
     let currentStatus: PlayerState = status
     songQueue.setCurrentSong(.Prev)
     prepareCurrentSong()
@@ -169,6 +173,10 @@ open class AudioPlayer: NSObject {
    Jump to the next track (Stop player if already last track). If player status was Playing, start new track
    */
   public func fastFoward() {
+    guard !songQueue.currentIsLastSong() || songQueue.canLoop else {
+      debugPrint("[ERROR]: Cannot forward: already last song")
+      return
+    }
     let currentStatus: PlayerState = status
     if songQueue.setCurrentSong(.Next) {
       didMoveForward(self, song: songQueue.getCurrentSongName())
@@ -194,13 +202,16 @@ open class AudioPlayer: NSObject {
       player.volume = volume
       didChangeVolume(self, newVolume: volume)
     }
+    else {
+      debugPrint("[ERROR]: Cannot set volume before player started")
+    }
   }
 }
 
 extension AudioPlayer: AVAudioPlayerDelegate {
   
   public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-    status = .Stoped
+    status = .Stopped
     if let song = songQueue.getCurrentSongName() {
       didFinishPlaying(self, song: song)
     }

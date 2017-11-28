@@ -106,7 +106,7 @@ class AudioPlayerTest: XCTestCase {
     XCTAssert(queue.currentSong == 1 && queue.internalSongs.count == 2)
     XCTAssert(queue.setCurrentSong(.Prev) && queue.currentSong == 0 && queue.internalSongs.count == 1)
     queue.remove(at: 0)
-    XCTAssert(!queue.setCurrentSong(.Prev) && queue.currentSong == 0 && queue.internalSongs.count == 1 && queue.internalSongs[0].removed)
+    XCTAssert(!queue.setCurrentSong(.Prev) && queue.currentSong == 0 && queue.internalSongs.count == 0)
   }
   
   func testAppend() {

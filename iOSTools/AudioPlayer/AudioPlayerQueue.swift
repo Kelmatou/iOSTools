@@ -28,7 +28,7 @@ open class AudioQueue {
     }
     return songs
   }
-  internal var internalSongs: [AudioSong] = []
+  public var internalSongs: [AudioSong] = []
   private(set) public var currentSong: Int = 0
   
   public var canLoop: Bool = false
@@ -57,15 +57,18 @@ open class AudioQueue {
       return nil
     }
     var nextSongURL: URL?
-    let startIndex: Int = currentSong // Prevent infinite loop if canLoop option is enabled
+    var attempsAvailable: Int = internalSongs.count // Prevent infinite loop if canLoop option is enabled
     while (nextSongURL == nil) {
       let nextSong = internalSongs[currentSong]
       if !nextSong.removed, let path = Bundle.main.path(forResource: nextSong.name, ofType: nil) {
         nextSongURL = URL(fileURLWithPath: path)
       }
       else {
-        debugPrint("[ERROR]: Cannot find file " + nextSong.name)
-        if !setCurrentSong(.Next) || startIndex == currentSong {
+        attempsAvailable -= 1
+        if !nextSong.removed {
+          debugPrint("[ERROR]: Cannot find file " + nextSong.name)
+        }
+        if !setCurrentSong(.Next) || attempsAvailable == 0 {
           return nil
         }
       }
@@ -91,7 +94,7 @@ open class AudioQueue {
       currentSong = currentSong + 1 >= internalSongs.count ? loopAllowed ? 0 : currentSong : currentSong + 1
     }
     let indexChanged: Bool = startIndex != currentSong
-    if indexChanged && internalSongs[startIndex].removed {
+    if (indexChanged || internalSongs.count == 1) && internalSongs[startIndex].removed {
       internalSongs.remove(at: startIndex)
       if startIndex < currentSong {
         currentSong -= 1
