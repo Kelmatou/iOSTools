@@ -27,7 +27,7 @@ open class AudioPlayer: NSObject {
   internal var player: AVAudioPlayer?
   
   public weak var delegate: AudioPlayerDelegate?
-  public var songQueue: AudioQueue = AudioQueue()
+  public var songQueue: AudioQueue = AudioQueue(audioSongs: [])
   public var autoPlay: Bool = true
   public var audioUsage: AudioUsage = .Foreground
   private(set) public var status: PlayerState = .Stopped
@@ -74,8 +74,8 @@ open class AudioPlayer: NSObject {
       initPlayer(withContent: nextSongURL)
       canReplaySong = true
       status = .Stopped
-      if let song = songQueue.getCurrentSongName() {
-        songLoaded(self, song: song)
+      if let filename = songQueue.getCurrentSongFile() {
+        songLoaded(self, song: filename)
       }
     }
     else {
@@ -100,8 +100,8 @@ open class AudioPlayer: NSObject {
       debugPrint("[ERROR]: Cannot play song")
       return
     }
-    if let song = songQueue.getCurrentSongName() {
-      willStartPlaying(self, song: song)
+    if let filename = songQueue.getCurrentSongFile() {
+      willStartPlaying(self, song: filename)
     }
     player.play()
     status = .Playing
@@ -117,8 +117,8 @@ open class AudioPlayer: NSObject {
     }
     prepareCurrentSong()
     play()
-    if let song = songQueue.getCurrentSongName() {
-      didReplay(self, song: song)
+    if let filename = songQueue.getCurrentSongFile() {
+      didReplay(self, song: filename)
     }
   }
   
@@ -148,8 +148,8 @@ open class AudioPlayer: NSObject {
     }
     player.pause()
     status = .Paused
-    if let song = songQueue.getCurrentSongName() {
-      didPause(self, song: song)
+    if let filename = songQueue.getCurrentSongFile() {
+      didPause(self, song: filename)
     }
   }
   
@@ -164,8 +164,8 @@ open class AudioPlayer: NSObject {
     let currentStatus: PlayerState = status
     songQueue.setCurrentSong(.Prev)
     prepareCurrentSong()
-    if let song = songQueue.getCurrentSongName() {
-      didMoveRewind(self, song: song)
+    if let filename = songQueue.getCurrentSongFile() {
+      didMoveRewind(self, song: filename)
     }
     if currentStatus == .Playing {
       play()
@@ -182,14 +182,13 @@ open class AudioPlayer: NSObject {
     }
     let currentStatus: PlayerState = status
     if songQueue.setCurrentSong(.Next) {
-      didMoveForward(self, song: songQueue.getCurrentSongName())
+      didMoveForward(self, song: songQueue.getCurrentSongFile())
       prepareCurrentSong()
       if currentStatus == .Playing {
         play()
       }
     }
     else {
-      didMoveForward(self, song: nil)
       didReachEndOfQueue(self)
       stop()
     }
@@ -215,8 +214,8 @@ extension AudioPlayer: AVAudioPlayerDelegate {
   
   public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
     status = .Stopped
-    if let song = songQueue.getCurrentSongName() {
-      didFinishPlaying(self, song: song)
+    if let filename = songQueue.getCurrentSongFile() {
+      didFinishPlaying(self, song: filename)
     }
     if songQueue.currentIsLastSong() {
       didReachEndOfQueue(self)
@@ -242,3 +241,4 @@ extension AudioPlayer: AudioPlayerQueueDelegate {
     canReplaySong = false
   }
 }
+

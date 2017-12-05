@@ -48,6 +48,18 @@ open class AudioQueue {
   }
   
   /**
+   Get current song's filename
+   
+   - returns: the file's name of the song at currently selected to be played. Return nil if songQueue is empty.
+   */
+  public func getCurrentSongFile() -> String? {
+    guard !internalSongs.isEmpty else {
+      return nil
+    }
+    return internalSongs[currentSong].filename
+  }
+  
+  /**
    Get next song file path
    
    - returns: the path of the song, nil if file was not found
@@ -60,13 +72,13 @@ open class AudioQueue {
     var attempsAvailable: Int = internalSongs.count // Prevent infinite loop if canLoop option is enabled
     while (nextSongURL == nil) {
       let nextSong = internalSongs[currentSong]
-      if !nextSong.removed, let path = Bundle.main.path(forResource: nextSong.name, ofType: nil) {
+      if !nextSong.removed, let path = Bundle.main.path(forResource: nextSong.filename, ofType: nil) {
         nextSongURL = URL(fileURLWithPath: path)
       }
       else {
         attempsAvailable -= 1
         if !nextSong.removed {
-          debugPrint("[ERROR]: Cannot find file " + nextSong.name)
+          debugPrint("[ERROR]: Cannot find file " + nextSong.filename)
         }
         if !setCurrentSong(.Next) || attempsAvailable == 0 {
           return nil
@@ -75,7 +87,7 @@ open class AudioQueue {
     }
     return nextSongURL
   }
-
+  
   /**
    Change currentSong index in queue
    
@@ -135,12 +147,36 @@ open class AudioQueue {
   }
   
   /**
+   Initialize queue with songs
+   
+   - parameter songs: the list of songs
+   */
+  public init(audioSongs: [AudioSong]) {
+    currentSong = 0
+    self.internalSongs = []
+    for song in audioSongs {
+      self.internalSongs.append(song)
+    }
+    queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
+  }
+  
+  /**
    Add a song to the queue
    
    - parameter song: the song to append to songQueue
    */
   public func append(_ song: String) {
     internalSongs.append(AudioSong(song))
+    queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
+  }
+  
+  /**
+   Add a song to the queue
+   
+   - parameter song: the song to append to songQueue
+   */
+  public func append(_ song: AudioSong) {
+    internalSongs.append(song)
     queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
   }
   
@@ -152,6 +188,18 @@ open class AudioQueue {
   public func append(_ songs: [String]) {
     for song in songs {
       internalSongs.append(AudioSong(song))
+    }
+    queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
+  }
+  
+  /**
+   Add a songs to the queue
+   
+   - parameter songs: the songs to append to songQueue
+   */
+  public func append(_ songs: [AudioSong]) {
+    for song in songs {
+      internalSongs.append(song)
     }
     queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
   }
@@ -171,6 +219,25 @@ open class AudioQueue {
     }
     else {
       internalSongs.append(AudioSong(song))
+    }
+    queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
+  }
+  
+  /**
+   Add a song to the queue at a specified position
+   
+   - parameter song: the song to add into songQueue
+   - parameter index: the position of sound. If lower than 0, index = 0, if greater than songQueue.count, has the same behavior as append(song:)
+   */
+  public func insert(_ song: AudioSong, at index: Int) {
+    if index <= currentSong {
+      currentSong += 1
+    }
+    if index < internalSongs.count {
+      internalSongs.insert(song, at: index < 0 ? 0 : currentSong < index ? index + 1 : index)
+    }
+    else {
+      internalSongs.append(song)
     }
     queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
   }
@@ -311,3 +378,4 @@ open class AudioQueue {
     return internalSongs.isEmpty || (internalSongs.count == 1 && internalSongs[0].removed)
   }
 }
+
