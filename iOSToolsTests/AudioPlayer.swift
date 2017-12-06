@@ -23,6 +23,8 @@ class AudioPlayerTest: XCTestCase {
     super.tearDown()
   }
   
+  let audioSongs: [AudioSong] = [AudioSong("1.mp3"), AudioSong("2.mp3"), AudioSong("3.mp3"), AudioSong("4.mp3")]
+  
   // MARK: - Queue
   
   func testAccessQueue() {
@@ -115,6 +117,42 @@ class AudioPlayerTest: XCTestCase {
     XCTAssert(queue.songs.count == 3 && queue.songs[0].name == "single.mp3")
     queue.append(["ending.mp3", "tube.mp3", "single.mp3"])
     XCTAssert(queue.songs.count == 6 && queue.songs[3].name == "ending.mp3")
+  }
+  
+  func testAppendAudioSong() {
+    let queue: AudioQueue = AudioQueue()
+    queue.append(audioSongs)
+    XCTAssert(queue.songs.count == 4 && queue.songs[0].name == "1.mp3" && queue.songs[3].name == "4.mp3")
+    queue.append(audioSongs.reversed())
+    XCTAssert(queue.songs.count == 8 && queue.songs[4].name == "4.mp3" && queue.songs[7].name == "1.mp3")
+  }
+  
+  func testAppendRemove() {
+    let queue: AudioQueue = AudioQueue()
+    queue.append("single.mp3")
+    XCTAssert(queue.songs.count == 1 && queue.songs[0].name == "single.mp3")
+    queue.remove(at: 0)
+    XCTAssert(queue.songs.count == 0 && queue.internalSongs.count == 1 && queue.internalSongs[0].removed)
+    queue.append(["ending.mp3", "tube.mp3", "single.mp3"])
+    XCTAssert(queue.songs.count == 3 && queue.songs[2].name == "single.mp3")
+    queue.removeAll()
+    XCTAssert(queue.songs.count == 0 && queue.internalSongs.count == 0)
+    queue.append("ending.mp3")
+    XCTAssert(queue.songs.count == 1 && queue.songs[0].name == "ending.mp3")
+  }
+  
+  func testAppendAudioSongsRemove() {
+    let queue: AudioQueue = AudioQueue()
+    queue.append(audioSongs[0])
+    XCTAssert(queue.songs.count == 1 && queue.songs[0].name == "1.mp3")
+    queue.remove(at: 0)
+    XCTAssert(queue.songs.count == 0 && queue.internalSongs.count == 1 && queue.internalSongs[0].removed && audioSongs.count == 4)
+    queue.append(audioSongs)
+    XCTAssert(queue.songs.count == 4 && queue.songs[3].name == "4.mp3")
+    queue.removeAll()
+    XCTAssert(queue.songs.count == 0 && queue.internalSongs.count == 0 && audioSongs.count == 4)
+    queue.append(audioSongs[1])
+    XCTAssert(queue.songs.count == 1 && queue.songs[0].name == "2.mp3")
   }
   
   func testInsert() {

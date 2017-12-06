@@ -17,13 +17,14 @@ extension AudioPlayerView: AudioPlayerDelegate {
   }
   
   public func songLoaded(_ player: AudioPlayer, song: String) {
+    playingNow.text = player.songQueue.getCurrentSongName()
     if let delegate = self.delegate, let songLoaded = delegate.songLoaded {
       songLoaded(player, song)
     }
   }
   
   public func willStartPlaying(_ player: AudioPlayer, song: String) {
-    playingNow.text = player.songQueue.getCurrentSongName()
+    timerUpdate(running: true)
     playButtonUpdate(playing: true)
     if let delegate = self.delegate, let willStartPlaying = delegate.willStartPlaying {
       willStartPlaying(player, song)
@@ -31,6 +32,7 @@ extension AudioPlayerView: AudioPlayerDelegate {
   }
   
   public func didFinishPlaying(_ player: AudioPlayer, song: String) {
+    progressBar.setProgress(0, animated: false)
     if let delegate = self.delegate, let didFinishPlaying = delegate.didFinishPlaying {
       didFinishPlaying(player, song)
     }
@@ -50,6 +52,7 @@ extension AudioPlayerView: AudioPlayerDelegate {
   
   public func didPause(_ player: AudioPlayer, song: String) {
     playButtonUpdate(playing: false)
+    timerUpdate(running: false)
     if let delegate = self.delegate, let didPause = delegate.didPause {
       didPause(player, song)
     }
@@ -57,6 +60,8 @@ extension AudioPlayerView: AudioPlayerDelegate {
   
   public func didStop(_ player: AudioPlayer) {
     playingNow.text = noSongTitle
+    timerUpdate(running: false)
+    progressBar.setProgress(0, animated: false)
     playButtonUpdate(playing: false)
     if let delegate = self.delegate, let didStop = delegate.didStop {
       didStop(player)
@@ -70,12 +75,14 @@ extension AudioPlayerView: AudioPlayerDelegate {
   }
   
   public func didMoveForward(_ player: AudioPlayer, song: String?) {
+    progressBar.setProgress(0, animated: false)
     if let delegate = self.delegate, let didMoveForward = delegate.didMoveForward {
       didMoveForward(player, song)
     }
   }
   
   public func didMoveRewind(_ player: AudioPlayer, song: String) {
+    progressBar.setProgress(0, animated: false)
     if let delegate = self.delegate, let didMoveRewind = delegate.didMoveRewind {
       didMoveRewind(player, song)
     }

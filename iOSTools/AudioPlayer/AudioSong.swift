@@ -13,8 +13,7 @@ open class AudioSong {
   // MARK: - Properties
   
   public var name: String
-  internal var filename: String
-  internal var removed: Bool = false
+  public var filename: String
   
   // MARK: - Initializer
   
@@ -29,20 +28,6 @@ open class AudioSong {
     else {
       self.name = filename
     }
-  }
-  
-  // MARK: - Static
-  
-  public static func toStringArray(_ songs: [AudioSong]) -> [String] {
-    var songsString: [String] = []
-    if songs.count > 0 {
-      for song in songs {
-        if !song.removed {
-          songsString.append(song.filename)
-        }
-      }
-    }
-    return songsString
   }
 }
 

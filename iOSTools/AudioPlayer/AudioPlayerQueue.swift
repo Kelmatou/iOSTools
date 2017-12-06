@@ -23,12 +23,12 @@ open class AudioQueue {
     var songs: [AudioSong] = []
     for song in internalSongs {
       if !song.removed {
-        songs.append(song)
+        songs.append(song.title)
       }
     }
     return songs
   }
-  public var internalSongs: [AudioSong] = []
+  public var internalSongs: [AudioTrack] = []
   private(set) public var currentSong: Int = 0
   
   public var canLoop: Bool = false
@@ -141,9 +141,9 @@ open class AudioQueue {
     currentSong = 0
     self.internalSongs = []
     for song in songs {
-      self.internalSongs.append(AudioSong(song))
+      self.internalSongs.append(AudioTrack(song))
     }
-    queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
+    queueUpdate(self, queue: AudioTrack.toStringArray(internalSongs))
   }
   
   /**
@@ -155,9 +155,9 @@ open class AudioQueue {
     currentSong = 0
     self.internalSongs = []
     for song in audioSongs {
-      self.internalSongs.append(song)
+      self.internalSongs.append(AudioTrack(song))
     }
-    queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
+    queueUpdate(self, queue: AudioTrack.toStringArray(internalSongs))
   }
   
   /**
@@ -166,8 +166,8 @@ open class AudioQueue {
    - parameter song: the song to append to songQueue
    */
   public func append(_ song: String) {
-    internalSongs.append(AudioSong(song))
-    queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
+    internalSongs.append(AudioTrack(song))
+    queueUpdate(self, queue: AudioTrack.toStringArray(internalSongs))
   }
   
   /**
@@ -176,8 +176,8 @@ open class AudioQueue {
    - parameter song: the song to append to songQueue
    */
   public func append(_ song: AudioSong) {
-    internalSongs.append(song)
-    queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
+    internalSongs.append(AudioTrack(song))
+    queueUpdate(self, queue: AudioTrack.toStringArray(internalSongs))
   }
   
   /**
@@ -187,9 +187,9 @@ open class AudioQueue {
    */
   public func append(_ songs: [String]) {
     for song in songs {
-      internalSongs.append(AudioSong(song))
+      internalSongs.append(AudioTrack(song))
     }
-    queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
+    queueUpdate(self, queue: AudioTrack.toStringArray(internalSongs))
   }
   
   /**
@@ -199,9 +199,9 @@ open class AudioQueue {
    */
   public func append(_ songs: [AudioSong]) {
     for song in songs {
-      internalSongs.append(song)
+      internalSongs.append(AudioTrack(song))
     }
-    queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
+    queueUpdate(self, queue: AudioTrack.toStringArray(internalSongs))
   }
   
   /**
@@ -215,12 +215,12 @@ open class AudioQueue {
       currentSong += 1
     }
     if index < internalSongs.count {
-      internalSongs.insert(AudioSong(song), at: index < 0 ? 0 : currentSong < index ? index + 1 : index)
+      internalSongs.insert(AudioTrack(song), at: index < 0 ? 0 : currentSong < index ? index + 1 : index)
     }
     else {
-      internalSongs.append(AudioSong(song))
+      internalSongs.append(AudioTrack(song))
     }
-    queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
+    queueUpdate(self, queue: AudioTrack.toStringArray(internalSongs))
   }
   
   /**
@@ -234,12 +234,12 @@ open class AudioQueue {
       currentSong += 1
     }
     if index < internalSongs.count {
-      internalSongs.insert(song, at: index < 0 ? 0 : currentSong < index ? index + 1 : index)
+      internalSongs.insert(AudioTrack(song), at: index < 0 ? 0 : currentSong < index ? index + 1 : index)
     }
     else {
-      internalSongs.append(song)
+      internalSongs.append(AudioTrack(song))
     }
-    queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
+    queueUpdate(self, queue: AudioTrack.toStringArray(internalSongs))
   }
   
   /**
@@ -251,7 +251,7 @@ open class AudioQueue {
     currentSong = 0
     internalSongs.removeAll()
     currentSongRemoved(self, song: currentSongName)
-    queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
+    queueUpdate(self, queue: AudioTrack.toStringArray(internalSongs))
   }
   
   /**
@@ -277,7 +277,7 @@ open class AudioQueue {
         currentSong -= 1
       }
     }
-    queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
+    queueUpdate(self, queue: AudioTrack.toStringArray(internalSongs))
   }
   
   /**
@@ -301,7 +301,7 @@ open class AudioQueue {
         songsRemoved += 1
       }
     }
-    queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
+    queueUpdate(self, queue: AudioTrack.toStringArray(internalSongs))
   }
   
   /**
@@ -318,7 +318,7 @@ open class AudioQueue {
     }
     let srcAdjusted: Int = currentSongIsRemoved && currentSong <= src ? src + 1 : src
     let dstAdjusted: Int = currentSongIsRemoved && currentSong <= dst ? dst + 1 : dst
-    let songMoved: AudioSong = internalSongs[srcAdjusted]
+    let songMoved: AudioTrack = internalSongs[srcAdjusted]
     internalSongs.remove(at: srcAdjusted)
     internalSongs.insert(songMoved, at: dstAdjusted)
     if currentSong == srcAdjusted {
@@ -330,17 +330,17 @@ open class AudioQueue {
     else if currentSong < srcAdjusted && dstAdjusted <= currentSong {
       currentSong += 1
     }
-    queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
+    queueUpdate(self, queue: AudioTrack.toStringArray(internalSongs))
   }
   
   /**
    Randomly shuffle queue songs
    */
   public func shuffle() {
-    var newQueue: [AudioSong] = []
+    var newQueue: [AudioTrack] = []
     for _ in 0 ..< internalSongs.count {
       let randomIndex: Int = Int(arc4random_uniform(UInt32(internalSongs.count)))
-      let randomSong: AudioSong = internalSongs[randomIndex]
+      let randomSong: AudioTrack = internalSongs[randomIndex]
       if randomIndex == currentSong {
         currentSong = newQueue.count
       }
@@ -348,7 +348,7 @@ open class AudioQueue {
       internalSongs.remove(at: randomIndex)
     }
     internalSongs = newQueue
-    queueUpdate(self, queue: AudioSong.toStringArray(internalSongs))
+    queueUpdate(self, queue: AudioTrack.toStringArray(internalSongs))
   }
   
   /**

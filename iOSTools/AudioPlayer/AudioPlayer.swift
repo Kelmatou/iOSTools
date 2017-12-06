@@ -32,6 +32,7 @@ open class AudioPlayer: NSObject {
   public var audioUsage: AudioUsage = .Foreground
   private(set) public var status: PlayerState = .Stopped
   private var canReplaySong: Bool = true
+  private var volume: Float = 1
   
   // MARK: - Init Player
   
@@ -58,6 +59,7 @@ open class AudioPlayer: NSObject {
       try AVAudioSession.sharedInstance().setCategory(audioUsage == .Foreground ? AVAudioSessionCategoryPlayback : AVAudioSessionCategorySoloAmbient)
       player = try AVAudioPlayer(contentsOf: withContent)
       player?.delegate = self
+      player?.volume = volume
     }
     catch {
       debugPrint("[ERROR]: Cannot create player")
@@ -98,6 +100,7 @@ open class AudioPlayer: NSObject {
     }
     guard let player = player else {
       debugPrint("[ERROR]: Cannot play song")
+      didStop(self)
       return
     }
     if let filename = songQueue.getCurrentSongFile() {
@@ -200,12 +203,10 @@ open class AudioPlayer: NSObject {
    - parameter volume: the coefficient of current device's volume
    */
   public func setVolume(_ volume: Float) {
+    self.volume = volume
+    didChangeVolume(self, newVolume: volume)
     if let player = player {
       player.volume = volume
-      didChangeVolume(self, newVolume: volume)
-    }
-    else {
-      debugPrint("[ERROR]: Cannot set volume before player started")
     }
   }
 }

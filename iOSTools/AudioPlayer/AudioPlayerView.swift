@@ -19,12 +19,18 @@ public class AudioPlayerView: UIView {
   @IBOutlet weak var replayButton: UIButton!
   @IBOutlet weak var rewindButton: UIButton!
   @IBOutlet weak var forwardButton: UIButton!
-  @IBOutlet weak var volumeSlider: UISlider!
+  @IBOutlet weak var speakerButton: UIButton!
+  @IBOutlet weak var progressBar: UIProgressView!
   
   // MARK: - Property
+  
   private(set) public var player: AudioPlayer = AudioPlayer()
   public weak var delegate: AudioPlayerDelegate?
   public var noSongTitle: String = "AudioPlayer"
+  
+  private var muted: Bool = false
+  private var timerRunning: Bool = false
+  internal let timer: DispatchSourceTimer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.main)
   
   // MARK: - UIView
   
@@ -47,6 +53,25 @@ public class AudioPlayerView: UIView {
       addSubview(audioPlayerView)
       audioPlayerView.frame = self.bounds
       audioPlayerView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+      setupProgressBar()
+      setupUpdater()
+    }
+  }
+  
+  // MARK: - Setup
+  
+  internal func setupProgressBar() {
+    progressBar.transform = CGAffineTransform(scaleX: 1, y: 4)
+    progressBar.setProgress(0, animated: false)
+  }
+  
+  func setupUpdater() {
+    timer.schedule(deadline: .now(), repeating: .milliseconds(100))
+    timer.setEventHandler {
+      if let player = self.player.player {
+        let percentageProgression: Float = Float(player.currentTime / player.duration)
+        self.progressBar.setProgress(percentageProgression, animated: true)
+      }
     }
   }
   
@@ -60,6 +85,35 @@ public class AudioPlayerView: UIView {
     let image: UIImage? = UIImage(named: imageToUse, in: Bundle(for: AudioPlayer.self), compatibleWith: nil)
     DispatchQueue.main.async {
       self.playButton.setImage(image, for: .normal)
+    }
+  }
+  
+  /**
+   Update icon of speaker button
+   */
+  internal func speakerButtonUpdate() {
+    let imageToUse: String = muted ? "mute" : "speaker"
+    let image: UIImage? = UIImage(named: imageToUse, in: Bundle(for: AudioPlayer.self), compatibleWith: nil)
+    DispatchQueue.main.async {
+      self.speakerButton.setImage(image, for: .normal)
+    }
+  }
+  
+  /**
+   Update timer status
+   
+   - parameter running: if true, resume timer, if false suspend it
+   */
+  internal func timerUpdate(running: Bool) {
+    guard running != timerRunning else {
+      return
+    }
+    timerRunning = running
+    if timerRunning {
+      timer.resume()
+    }
+    else {
+      timer.suspend()
     }
   }
   
@@ -90,9 +144,9 @@ public class AudioPlayerView: UIView {
     player.fastFoward()
   }
   
-  @IBAction func volumeSliding(_ sender: Any) {
-    if let volumeSlider = sender as? UISlider {
-      player.setVolume(volumeSlider.value)
-    }
+  @IBAction func muteSong(_ sender: Any) {
+    muted = !muted
+    speakerButtonUpdate()
+    player.setVolume(muted ? 0 : 1)
   }
 }
