@@ -8,19 +8,19 @@
 
 import UIKit
 
-public class AudioPlayerView: UIView {
+@IBDesignable public class AudioPlayerView: UIView {
   
   // MARK: IBOutlet
   
   @IBOutlet var audioPlayerView: UIView!
-  @IBOutlet weak var playingNow: UILabel!
-  @IBOutlet weak var playButton: UIButton!
-  @IBOutlet weak var stopButton: UIButton!
-  @IBOutlet weak var replayButton: UIButton!
-  @IBOutlet weak var rewindButton: UIButton!
-  @IBOutlet weak var forwardButton: UIButton!
-  @IBOutlet weak var speakerButton: UIButton!
-  @IBOutlet weak var progressBar: UIProgressView!
+  @IBOutlet public weak var playingNow: UILabel!
+  @IBOutlet public weak var playButton: UIButton!
+  @IBOutlet public weak var stopButton: UIButton!
+  @IBOutlet public weak var replayButton: UIButton!
+  @IBOutlet public weak var rewindButton: UIButton!
+  @IBOutlet public weak var forwardButton: UIButton!
+  @IBOutlet public weak var speakerButton: UIButton!
+  @IBOutlet public weak var progressBar: UIProgressView!
   
   // MARK: - Property
   
