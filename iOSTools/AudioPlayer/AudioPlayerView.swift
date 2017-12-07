@@ -20,7 +20,7 @@ import UIKit
   @IBOutlet public weak var rewindButton: UIButton!
   @IBOutlet public weak var forwardButton: UIButton!
   @IBOutlet public weak var speakerButton: UIButton!
-  @IBOutlet public weak var progressBar: UIProgressView!
+  @IBOutlet public weak var progressBar: SongProgressView!
   
   // MARK: - Property
   
@@ -47,9 +47,10 @@ import UIKit
   }
   
   private func initView() {
-    player.delegate = self
     if let frameworkBundle: Bundle = Bundle(identifier: "com.clop-a.iOSTools") {
       frameworkBundle.loadNibNamed("AudioPlayerView", owner: self, options: nil)
+      player.delegate = self
+      progressBar.delegate = self
       addSubview(audioPlayerView)
       audioPlayerView.frame = self.bounds
       audioPlayerView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
@@ -148,5 +149,17 @@ import UIKit
     muted = !muted
     speakerButtonUpdate()
     player.setVolume(muted ? 0 : 1)
+  }
+}
+
+extension AudioPlayerView: SongProgressViewDelegate {
+  
+  public func touchEnded(_ view: SongProgressView, touch: UITouch) {
+    guard let player = player.player else {
+      return
+    }
+    let progress: Float = progressBar.progress
+    let timeInSong: TimeInterval = player.duration * Double(progress)
+    self.player.setCurrentTime(timeInSong)
   }
 }

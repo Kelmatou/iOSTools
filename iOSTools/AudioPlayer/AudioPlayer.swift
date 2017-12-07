@@ -209,6 +209,20 @@ open class AudioPlayer: NSObject {
       player.volume = volume
     }
   }
+  
+  /**
+   Set current time in song
+   
+   - parameter time: the number of second from song's beginning
+   */
+  public func setCurrentTime(_ time: TimeInterval) {
+    if let player = player {
+      player.currentTime = time
+    }
+    else {
+      debugPrint("[ERROR]: Cannot set current time if no song are loaded")
+    }
+  }
 }
 
 extension AudioPlayer: AVAudioPlayerDelegate {

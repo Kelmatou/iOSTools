@@ -18,7 +18,7 @@
                 <outlet property="forwardButton" destination="bXU-kg-mvu" id="vwi-j7-9T4"/>
                 <outlet property="playButton" destination="d98-p7-Vvb" id="Vcq-Lg-1HN"/>
                 <outlet property="playingNow" destination="KOE-Sf-xob" id="YXm-BQ-yMd"/>
-                <outlet property="progressBar" destination="3dS-hj-xL4" id="RQx-N6-krD"/>
+                <outlet property="progressBar" destination="3dS-hj-xL4" id="F8t-5h-rnt"/>
                 <outlet property="replayButton" destination="q91-Jz-P5c" id="2vd-XH-pSN"/>
                 <outlet property="rewindButton" destination="3Y1-tV-pZn" id="oAN-y7-kuh"/>
                 <outlet property="speakerButton" destination="lXa-Cg-Lyb" id="eEi-xy-07N"/>
@@ -36,7 +36,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="3dS-hj-xL4">
+                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="3dS-hj-xL4" customClass="SongProgressView" customModule="iOSTools" customModuleProvider="target">
                     <rect key="frame" x="10" y="78" width="243" height="2"/>
                 </progressView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g0u-MC-nb4" userLabel="Stop">

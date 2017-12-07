@@ -25,6 +25,7 @@ extension AudioPlayerView: AudioPlayerDelegate {
   
   public func willStartPlaying(_ player: AudioPlayer, song: String) {
     timerUpdate(running: true)
+    progressBar.enable()
     playButtonUpdate(playing: true)
     if let delegate = self.delegate, let willStartPlaying = delegate.willStartPlaying {
       willStartPlaying(player, song)
@@ -61,7 +62,7 @@ extension AudioPlayerView: AudioPlayerDelegate {
   public func didStop(_ player: AudioPlayer) {
     playingNow.text = noSongTitle
     timerUpdate(running: false)
-    progressBar.setProgress(0, animated: false)
+    progressBar.resetAndDisable()
     playButtonUpdate(playing: false)
     if let delegate = self.delegate, let didStop = delegate.didStop {
       didStop(player)
