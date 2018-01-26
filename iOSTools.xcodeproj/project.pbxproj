@@ -21,6 +21,24 @@
 		5569FCFD1FAB6A2F00483B28 /* AudioPlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5569FCF91FAB6A2F00483B28 /* AudioPlayerDelegate.swift */; };
 		5569FCFE1FAB6A2F00483B28 /* Ressources.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5569FCFA1FAB6A2F00483B28 /* Ressources.xcassets */; };
 		5569FD001FAB6A7A00483B28 /* AudioPlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5569FCFF1FAB6A7A00483B28 /* AudioPlayerView.xib */; };
+		556E1A6A201A330400D1696F /* Screenshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E1A69201A330400D1696F /* Screenshot.swift */; };
+		556E1A74201B986300D1696F /* ARObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E1A6C201B986200D1696F /* ARObject.swift */; };
+		556E1A75201B986300D1696F /* ARView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E1A6D201B986200D1696F /* ARView.swift */; };
+		556E1A76201B986300D1696F /* ARViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E1A6E201B986200D1696F /* ARViewDelegate.swift */; };
+		556E1A77201B986300D1696F /* ARViewHitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E1A6F201B986200D1696F /* ARViewHitTest.swift */; };
+		556E1A78201B986300D1696F /* ARHitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E1A70201B986200D1696F /* ARHitTest.swift */; };
+		556E1A79201B986300D1696F /* ARGestureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E1A71201B986200D1696F /* ARGestureManager.swift */; };
+		556E1A7A201B986300D1696F /* ARObjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E1A72201B986300D1696F /* ARObjectManager.swift */; };
+		556E1A9B201B9C4700D1696F /* Gestures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E1A97201B9C4700D1696F /* Gestures.swift */; };
+		556E1A9C201B9C4700D1696F /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E1A98201B9C4700D1696F /* Shape.swift */; };
+		556E1A9D201B9C4700D1696F /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E1A99201B9C4700D1696F /* Matrix.swift */; };
+		556E1A9E201B9C4700D1696F /* Vector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E1A9A201B9C4700D1696F /* Vector.swift */; };
+		556E1AA5201B9C5A00D1696F /* Sphere.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E1A9F201B9C5A00D1696F /* Sphere.swift */; };
+		556E1AA6201B9C5A00D1696F /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E1AA0201B9C5A00D1696F /* Plane.swift */; };
+		556E1AA7201B9C5A00D1696F /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E1AA1201B9C5A00D1696F /* Shape.swift */; };
+		556E1AA8201B9C5A00D1696F /* ShapeSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E1AA2201B9C5A00D1696F /* ShapeSize.swift */; };
+		556E1AA9201B9C5A00D1696F /* ShapeProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E1AA3201B9C5A00D1696F /* ShapeProperties.swift */; };
+		556E1AAA201B9C5A00D1696F /* Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E1AA4201B9C5A00D1696F /* Cube.swift */; };
 		557363F51F85365B0070922E /* ImageVision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557363F41F85365B0070922E /* ImageVision.swift */; };
 		557363F91F853ACD0070922E /* MobileNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 557363F81F853A990070922E /* MobileNet.mlmodel */; };
 		557363FA1F853ACD0070922E /* GoogLeNetPlaces.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 557363F71F853A8F0070922E /* GoogLeNetPlaces.mlmodel */; };
@@ -85,6 +103,24 @@
 		5569FCF91FAB6A2F00483B28 /* AudioPlayerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioPlayerDelegate.swift; sourceTree = "<group>"; };
 		5569FCFA1FAB6A2F00483B28 /* Ressources.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Ressources.xcassets; sourceTree = "<group>"; };
 		5569FCFF1FAB6A7A00483B28 /* AudioPlayerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioPlayerView.xib; sourceTree = "<group>"; };
+		556E1A69201A330400D1696F /* Screenshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screenshot.swift; sourceTree = "<group>"; };
+		556E1A6C201B986200D1696F /* ARObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ARObject.swift; path = iOSTools/ARView/ARObject.swift; sourceTree = SOURCE_ROOT; };
+		556E1A6D201B986200D1696F /* ARView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ARView.swift; path = iOSTools/ARView/ARView.swift; sourceTree = SOURCE_ROOT; };
+		556E1A6E201B986200D1696F /* ARViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ARViewDelegate.swift; path = iOSTools/ARView/ARViewDelegate.swift; sourceTree = SOURCE_ROOT; };
+		556E1A6F201B986200D1696F /* ARViewHitTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ARViewHitTest.swift; path = iOSTools/ARView/ARViewHitTest.swift; sourceTree = SOURCE_ROOT; };
+		556E1A70201B986200D1696F /* ARHitTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ARHitTest.swift; path = iOSTools/ARView/ARHitTest.swift; sourceTree = SOURCE_ROOT; };
+		556E1A71201B986200D1696F /* ARGestureManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ARGestureManager.swift; path = iOSTools/ARView/ARGestureManager.swift; sourceTree = SOURCE_ROOT; };
+		556E1A72201B986300D1696F /* ARObjectManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ARObjectManager.swift; path = iOSTools/ARView/ARObjectManager.swift; sourceTree = SOURCE_ROOT; };
+		556E1A97201B9C4700D1696F /* Gestures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Gestures.swift; path = iOSTools/ARView/ARTools/Gestures.swift; sourceTree = SOURCE_ROOT; };
+		556E1A98201B9C4700D1696F /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Shape.swift; path = iOSTools/ARView/ARTools/Shape.swift; sourceTree = SOURCE_ROOT; };
+		556E1A99201B9C4700D1696F /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Matrix.swift; path = iOSTools/ARView/ARTools/Matrix.swift; sourceTree = SOURCE_ROOT; };
+		556E1A9A201B9C4700D1696F /* Vector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Vector.swift; path = iOSTools/ARView/ARTools/Vector.swift; sourceTree = SOURCE_ROOT; };
+		556E1A9F201B9C5A00D1696F /* Sphere.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Sphere.swift; path = iOSTools/ARView/ARTools/Shapes/Sphere.swift; sourceTree = SOURCE_ROOT; };
+		556E1AA0201B9C5A00D1696F /* Plane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Plane.swift; path = iOSTools/ARView/ARTools/Shapes/Plane.swift; sourceTree = SOURCE_ROOT; };
+		556E1AA1201B9C5A00D1696F /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Shape.swift; path = iOSTools/ARView/ARTools/Shapes/Shape.swift; sourceTree = SOURCE_ROOT; };
+		556E1AA2201B9C5A00D1696F /* ShapeSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShapeSize.swift; path = iOSTools/ARView/ARTools/Shapes/ShapeSize.swift; sourceTree = SOURCE_ROOT; };
+		556E1AA3201B9C5A00D1696F /* ShapeProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShapeProperties.swift; path = iOSTools/ARView/ARTools/Shapes/ShapeProperties.swift; sourceTree = SOURCE_ROOT; };
+		556E1AA4201B9C5A00D1696F /* Cube.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Cube.swift; path = iOSTools/ARView/ARTools/Shapes/Cube.swift; sourceTree = SOURCE_ROOT; };
 		557363F41F85365B0070922E /* ImageVision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageVision.swift; sourceTree = "<group>"; };
 		557363F71F853A8F0070922E /* GoogLeNetPlaces.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = GoogLeNetPlaces.mlmodel; sourceTree = "<group>"; };
 		557363F81F853A990070922E /* MobileNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MobileNet.mlmodel; sourceTree = "<group>"; };
@@ -223,6 +259,7 @@
 			children = (
 				55FB430F1F9750C900614D1C /* Camera.swift */,
 				55FB430E1F9750C900614D1C /* PhotoLibrary.swift */,
+				556E1A69201A330400D1696F /* Screenshot.swift */,
 			);
 			path = Photo;
 			sourceTree = "<group>";
@@ -266,6 +303,7 @@
 		554244F01F223AC900D0E17A /* iOSTools */ = {
 			isa = PBXGroup;
 			children = (
+				556E1A6B201B984F00D1696F /* ARView */,
 				5569FCF61FAB6A2F00483B28 /* AudioPlayer */,
 				5513E0AC1F974E8A00137CEB /* Error */,
 				5513E0AD1F974EA900137CEB /* MachineLearning */,
@@ -321,6 +359,48 @@
 				5569FCFA1FAB6A2F00483B28 /* Ressources.xcassets */,
 			);
 			path = AudioPlayer;
+			sourceTree = "<group>";
+		};
+		556E1A6B201B984F00D1696F /* ARView */ = {
+			isa = PBXGroup;
+			children = (
+				556E1A7C201B987A00D1696F /* ARTools */,
+				556E1A71201B986200D1696F /* ARGestureManager.swift */,
+				556E1A70201B986200D1696F /* ARHitTest.swift */,
+				556E1A6C201B986200D1696F /* ARObject.swift */,
+				556E1A72201B986300D1696F /* ARObjectManager.swift */,
+				556E1A6D201B986200D1696F /* ARView.swift */,
+				556E1A6E201B986200D1696F /* ARViewDelegate.swift */,
+				556E1A6F201B986200D1696F /* ARViewHitTest.swift */,
+			);
+			name = ARView;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		556E1A7C201B987A00D1696F /* ARTools */ = {
+			isa = PBXGroup;
+			children = (
+				556E1A97201B9C4700D1696F /* Gestures.swift */,
+				556E1A99201B9C4700D1696F /* Matrix.swift */,
+				556E1A98201B9C4700D1696F /* Shape.swift */,
+				556E1A9A201B9C4700D1696F /* Vector.swift */,
+				556E1A96201B9A6200D1696F /* Shapes */,
+			);
+			path = ARTools;
+			sourceTree = "<group>";
+		};
+		556E1A96201B9A6200D1696F /* Shapes */ = {
+			isa = PBXGroup;
+			children = (
+				556E1AA4201B9C5A00D1696F /* Cube.swift */,
+				556E1AA0201B9C5A00D1696F /* Plane.swift */,
+				556E1AA1201B9C5A00D1696F /* Shape.swift */,
+				556E1AA3201B9C5A00D1696F /* ShapeProperties.swift */,
+				556E1AA2201B9C5A00D1696F /* ShapeSize.swift */,
+				556E1A9F201B9C5A00D1696F /* Sphere.swift */,
+			);
+			name = Shapes;
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -446,31 +526,49 @@
 				55FB431F1F9750ED00614D1C /* Datetime.swift in Sources */,
 				55FB43091F9750B400614D1C /* Drawing.swift in Sources */,
 				55F50F3E1FAC6C1000651B6E /* AudioPlayerQueueDelegate.swift in Sources */,
+				556E1A75201B986300D1696F /* ARView.swift in Sources */,
 				557363FA1F853ACD0070922E /* GoogLeNetPlaces.mlmodel in Sources */,
 				557363F51F85365B0070922E /* ImageVision.swift in Sources */,
 				55FB43151F9750D000614D1C /* Requester.swift in Sources */,
+				556E1AA8201B9C5A00D1696F /* ShapeSize.swift in Sources */,
 				55FB431D1F9750E600614D1C /* IntExtension.swift in Sources */,
+				556E1A6A201A330400D1696F /* Screenshot.swift in Sources */,
 				556919791F9761140039143F /* DatetimeEnums.swift in Sources */,
+				556E1A79201B986300D1696F /* ARGestureManager.swift in Sources */,
 				55FB430B1F9750B400614D1C /* Pixel.swift in Sources */,
+				556E1A9D201B9C4700D1696F /* Matrix.swift in Sources */,
 				55F50F401FAC740500651B6E /* AudioSong.swift in Sources */,
 				557363FD1F8625E70070922E /* Error.swift in Sources */,
 				55FB43191F9750D700614D1C /* Reflexivity.swift in Sources */,
+				556E1AAA201B9C5A00D1696F /* Cube.swift in Sources */,
 				55993F0D1FD9365700EE2676 /* SongProgressView.swift in Sources */,
 				55993F0F1FD93C8500EE2676 /* SongProgressViewDelegate.swift in Sources */,
 				55FB431B1F9750DE00614D1C /* StringExtension.swift in Sources */,
 				55FB43141F9750D000614D1C /* RequesterError.swift in Sources */,
 				5569FCFD1FAB6A2F00483B28 /* AudioPlayerDelegate.swift in Sources */,
 				5569FCFB1FAB6A2F00483B28 /* AudioPlayer.swift in Sources */,
+				556E1A76201B986300D1696F /* ARViewDelegate.swift in Sources */,
 				55FB43101F9750C900614D1C /* PhotoLibrary.swift in Sources */,
+				556E1A74201B986300D1696F /* ARObject.swift in Sources */,
+				556E1AA7201B9C5A00D1696F /* Shape.swift in Sources */,
 				55993F0B1FD8420300EE2676 /* AudioTrack.swift in Sources */,
+				556E1A9C201B9C4700D1696F /* Shape.swift in Sources */,
+				556E1A9B201B9C4700D1696F /* Gestures.swift in Sources */,
 				5569197B1F979C290039143F /* Reachability.swift in Sources */,
 				55FB430D1F9750C100614D1C /* CacheManager.swift in Sources */,
 				55FB43111F9750C900614D1C /* Camera.swift in Sources */,
+				556E1A7A201B986300D1696F /* ARObjectManager.swift in Sources */,
 				55A15D341F73BA9400A3E442 /* ConsoleLogs.swift in Sources */,
 				552D57AD1FB0B0B200C02084 /* AudioPlayerView.swift in Sources */,
 				557363FF1F862B1A0070922E /* ImageVisionError.swift in Sources */,
+				556E1AA6201B9C5A00D1696F /* Plane.swift in Sources */,
+				556E1A78201B986300D1696F /* ARHitTest.swift in Sources */,
+				556E1AA5201B9C5A00D1696F /* Sphere.swift in Sources */,
 				552D57B71FB20DD200C02084 /* AudioPlayerViewDelegate.swift in Sources */,
+				556E1A77201B986300D1696F /* ARViewHitTest.swift in Sources */,
 				55FB430A1F9750B400614D1C /* ColorWheel.swift in Sources */,
+				556E1A9E201B9C4700D1696F /* Vector.swift in Sources */,
+				556E1AA9201B9C5A00D1696F /* ShapeProperties.swift in Sources */,
 				55FB43181F9750D700614D1C /* MemoryAddress.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
