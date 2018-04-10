@@ -8,6 +8,7 @@
 
 import ARKit
 
+@available(iOS 11.0, *)
 extension ARView {
     
     /**
@@ -59,7 +60,7 @@ extension ARView {
         }
         let maxAngleInDegrees: Float = min(coneOpeningAngleInDegrees, 360) / 2
         let maxAngle: Float = (maxAngleInDegrees / 180) * .pi
-        let results: [FeatureHitTestResult] = features.points.flatMap { featurePosition -> FeatureHitTestResult? in
+        let results: [FeatureHitTestResult] = features.points.compactMap { featurePosition -> FeatureHitTestResult? in
             let originToFeature: Position = featurePosition - ray.origin
             let crossPosition: Position = simd_cross(originToFeature, ray.direction)
             let featureDistanceFromResult: Float = simd_length(crossPosition)

@@ -30,7 +30,6 @@
 		556E1A79201B986300D1696F /* ARGestureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E1A71201B986200D1696F /* ARGestureManager.swift */; };
 		556E1A7A201B986300D1696F /* ARObjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E1A72201B986300D1696F /* ARObjectManager.swift */; };
 		556E1A9B201B9C4700D1696F /* Gestures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E1A97201B9C4700D1696F /* Gestures.swift */; };
-		556E1A9C201B9C4700D1696F /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E1A98201B9C4700D1696F /* Shape.swift */; };
 		556E1A9D201B9C4700D1696F /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E1A99201B9C4700D1696F /* Matrix.swift */; };
 		556E1A9E201B9C4700D1696F /* Vector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E1A9A201B9C4700D1696F /* Vector.swift */; };
 		556E1AA5201B9C5A00D1696F /* Sphere.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556E1A9F201B9C5A00D1696F /* Sphere.swift */; };
@@ -48,6 +47,7 @@
 		557364051F87B8380070922E /* MachineLearning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557364041F87B8380070922E /* MachineLearning.swift */; };
 		5573641A1F87CE670070922E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 557364191F87CE670070922E /* Assets.xcassets */; };
 		5573641B1F87D04A0070922E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 557364191F87CE670070922E /* Assets.xcassets */; };
+		5573EE91207CC521004258DB /* DateToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5573EE90207CC521004258DB /* DateToken.swift */; };
 		5574E5BE1F25EEC0009A51D0 /* Reflexivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5574E5BD1F25EEC0009A51D0 /* Reflexivity.swift */; };
 		55993F0B1FD8420300EE2676 /* AudioTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55993F0A1FD8420300EE2676 /* AudioTrack.swift */; };
 		55993F0D1FD9365700EE2676 /* SongProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55993F0C1FD9365700EE2676 /* SongProgressView.swift */; };
@@ -73,6 +73,7 @@
 		55FB431B1F9750DE00614D1C /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FB431A1F9750DE00614D1C /* StringExtension.swift */; };
 		55FB431D1F9750E600614D1C /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FB431C1F9750E500614D1C /* IntExtension.swift */; };
 		55FB431F1F9750ED00614D1C /* Datetime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FB431E1F9750ED00614D1C /* Datetime.swift */; };
+		55FBF952207CB1A500E218CE /* ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FBF951207CB1A500E218CE /* ObjectMapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,7 +113,6 @@
 		556E1A71201B986200D1696F /* ARGestureManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ARGestureManager.swift; path = iOSTools/ARView/ARGestureManager.swift; sourceTree = SOURCE_ROOT; };
 		556E1A72201B986300D1696F /* ARObjectManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ARObjectManager.swift; path = iOSTools/ARView/ARObjectManager.swift; sourceTree = SOURCE_ROOT; };
 		556E1A97201B9C4700D1696F /* Gestures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Gestures.swift; path = iOSTools/ARView/ARTools/Gestures.swift; sourceTree = SOURCE_ROOT; };
-		556E1A98201B9C4700D1696F /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Shape.swift; path = iOSTools/ARView/ARTools/Shape.swift; sourceTree = SOURCE_ROOT; };
 		556E1A99201B9C4700D1696F /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Matrix.swift; path = iOSTools/ARView/ARTools/Matrix.swift; sourceTree = SOURCE_ROOT; };
 		556E1A9A201B9C4700D1696F /* Vector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Vector.swift; path = iOSTools/ARView/ARTools/Vector.swift; sourceTree = SOURCE_ROOT; };
 		556E1A9F201B9C5A00D1696F /* Sphere.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Sphere.swift; path = iOSTools/ARView/ARTools/Shapes/Sphere.swift; sourceTree = SOURCE_ROOT; };
@@ -129,6 +129,7 @@
 		557364021F8663550070922E /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		557364041F87B8380070922E /* MachineLearning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineLearning.swift; sourceTree = "<group>"; };
 		557364191F87CE670070922E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5573EE90207CC521004258DB /* DateToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateToken.swift; sourceTree = "<group>"; };
 		5574E5BD1F25EEC0009A51D0 /* Reflexivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reflexivity.swift; sourceTree = "<group>"; };
 		55993F0A1FD8420300EE2676 /* AudioTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTrack.swift; sourceTree = "<group>"; };
 		55993F0C1FD9365700EE2676 /* SongProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongProgressView.swift; sourceTree = "<group>"; };
@@ -154,6 +155,7 @@
 		55FB431A1F9750DE00614D1C /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		55FB431C1F9750E500614D1C /* IntExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
 		55FB431E1F9750ED00614D1C /* Datetime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Datetime.swift; sourceTree = "<group>"; };
+		55FBF951207CB1A500E218CE /* ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectMapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,6 +217,7 @@
 			children = (
 				55FB431E1F9750ED00614D1C /* Datetime.swift */,
 				556919781F9761140039143F /* DatetimeEnums.swift */,
+				5573EE90207CC521004258DB /* DateToken.swift */,
 			);
 			path = Datetime;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 		5513E0B51F974F9200137CEB /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				55FBF951207CB1A500E218CE /* ObjectMapper.swift */,
 				55FB43131F9750D000614D1C /* Requester.swift */,
 				55FB43121F9750D000614D1C /* RequesterError.swift */,
 				5569197A1F979C290039143F /* Reachability.swift */,
@@ -382,7 +386,6 @@
 			children = (
 				556E1A97201B9C4700D1696F /* Gestures.swift */,
 				556E1A99201B9C4700D1696F /* Matrix.swift */,
-				556E1A98201B9C4700D1696F /* Shape.swift */,
 				556E1A9A201B9C4700D1696F /* Vector.swift */,
 				556E1A96201B9A6200D1696F /* Shapes */,
 			);
@@ -460,7 +463,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = clop_a;
 				TargetAttributes = {
 					554244ED1F223AC900D0E17A = {
@@ -530,6 +533,7 @@
 				557363FA1F853ACD0070922E /* GoogLeNetPlaces.mlmodel in Sources */,
 				557363F51F85365B0070922E /* ImageVision.swift in Sources */,
 				55FB43151F9750D000614D1C /* Requester.swift in Sources */,
+				55FBF952207CB1A500E218CE /* ObjectMapper.swift in Sources */,
 				556E1AA8201B9C5A00D1696F /* ShapeSize.swift in Sources */,
 				55FB431D1F9750E600614D1C /* IntExtension.swift in Sources */,
 				556E1A6A201A330400D1696F /* Screenshot.swift in Sources */,
@@ -549,10 +553,10 @@
 				5569FCFB1FAB6A2F00483B28 /* AudioPlayer.swift in Sources */,
 				556E1A76201B986300D1696F /* ARViewDelegate.swift in Sources */,
 				55FB43101F9750C900614D1C /* PhotoLibrary.swift in Sources */,
+				5573EE91207CC521004258DB /* DateToken.swift in Sources */,
 				556E1A74201B986300D1696F /* ARObject.swift in Sources */,
 				556E1AA7201B9C5A00D1696F /* Shape.swift in Sources */,
 				55993F0B1FD8420300EE2676 /* AudioTrack.swift in Sources */,
-				556E1A9C201B9C4700D1696F /* Shape.swift in Sources */,
 				556E1A9B201B9C4700D1696F /* Gestures.swift in Sources */,
 				5569197B1F979C290039143F /* Reachability.swift in Sources */,
 				55FB430D1F9750C100614D1C /* CacheManager.swift in Sources */,
@@ -616,6 +620,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -623,6 +628,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -676,6 +682,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -683,6 +690,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

@@ -78,49 +78,49 @@ open class Datetime: Comparable, Equatable {
     }
     
     public convenience init?(string: String, format: String) {
-        debugPrint(string)
-        guard Datetime.isValidCreationDateFormat(format) else { return nil }
-        debugPrint("Format OK")
-        // Year extraction
-        guard let indexYear = format.firstOccurencePosition(of: DateToken.Year4Digits.rawValue) else { return nil }
-        guard let yearStr = string.substring(startIndex: indexYear, length: 4), let year = Int(yearStr) else { return nil }
-        debugPrint("Year OK")
-        // Month extraction
-        guard let indexMonth = format.firstOccurencePosition(of: DateToken.MonthDigits.rawValue) ?? format.firstOccurencePosition(of: DateToken.MonthShort.rawValue) ?? format.firstOccurencePosition(of: DateToken.MonthLong.rawValue) else { return nil }
-        guard let monthToken = Datetime.recognizeToken(format, at: indexMonth) else { return nil }
-        var month: Int = 1
-        if monthToken == .MonthDigits {
-            guard let monthStr = string.substring(startIndex: indexMonth, length: 2) else { return nil }
-            month = Int(monthStr) ?? 1
+        // Get Token list
+        let listOfTokens: [DateToken] = DateToken.tokenList(from: format)
+        // Check validity
+        guard Datetime.isValidCreationDateFormat(listOfTokens) else { return nil }
+        // Get Match list
+        if (DateToken.match(tokens: listOfTokens, with: string)) {
+            // Convert and create
+            var year: Int = 0
+            var month: Int = 0
+            var day: Int = 0
+            var hour: Int = 0
+            var minute: Int = 0
+            var second: Int = 0
+            for token in listOfTokens {
+                switch token.type {
+                case .Year4Digits:
+                    guard let yearInt = Int(token.match) else { return nil }
+                    year = yearInt
+                case .MonthDigits:
+                    guard let monthInt = Int(token.match) else { return nil }
+                    month = monthInt
+                case .MonthShort, .MonthLong:
+                    guard let shortMonth = token.match.substring(startIndex: 0, length: 3) else { return nil }
+                    guard let longMonth = Datetime.shortToLongMonth(shortMonth) else { return nil }
+                    month = Datetime.intFromMonth(longMonth)
+                case .DayDigits:
+                    guard let dayInt = Int(token.match) else { return nil }
+                    day = dayInt
+                case .HourDigits:
+                    hour = Int(token.match) ?? 0
+                case .MinuteDigits:
+                    minute = Int(token.match) ?? 0
+                case .SecondDigits:
+                    second = Int(token.match) ?? 0
+                default:
+                    continue
+                }
+            }
+            self.init(year: year, month: month, day: day, hour: hour, minute: minute, second: second)
         }
         else {
-            guard let monthStr = string.substring(startIndex: indexMonth, length: 3), let monthLong = Datetime.shortToLongMonth(monthStr) else { return nil }
-            if monthToken == .MonthShort || monthLong.rawValue == string.substring(startIndex: indexMonth, length: monthLong.rawValue.count) {
-                month = Datetime.intFromMonth(monthLong)
-            }
-            else {
-                return nil
-            }
+            return nil
         }
-        debugPrint("Month OK")
-        // Day extraction
-        guard let indexDay = format.firstOccurencePosition(of: DateToken.DayDigits.rawValue) else { return nil }
-        guard let dayStr = string.substring(startIndex: indexDay, length: 2), let day = Int(dayStr) else { return nil }
-        debugPrint("Day OK")
-        // Time extraction (optional)
-        var hour: Int = 0
-        var minute: Int = 0
-        var second: Int = 0
-        if let indexHour = format.firstOccurencePosition(of: DateToken.HourDigits.rawValue), let hourStr = string.substring(startIndex: indexHour, length: 2) {
-            hour = Int(hourStr) ?? 0
-        }
-        if let indexMinute = format.firstOccurencePosition(of: DateToken.MinuteDigits.rawValue), let minuteStr = string.substring(startIndex: indexMinute, length: 2) {
-            minute = Int(minuteStr) ?? 0
-        }
-        if let indexSecond = format.firstOccurencePosition(of: DateToken.SecondDigits.rawValue), let secondStr = string.substring(startIndex: indexSecond, length: 2) {
-            second = Int(secondStr) ?? 0
-        }
-        self.init(year: year, month: month, day: day, hour: hour, minute: minute, second: second)
     }
     
     // MARK: - Public methods
@@ -230,7 +230,7 @@ open class Datetime: Comparable, Equatable {
         var index: Int = 0
         var output: String = ""
         while (index < format.length) {
-            if let token = Datetime.recognizeToken(format, at: index) {
+            if let token = DateToken.recognizeToken(format, at: index), token != .Other {
                 switch token {
                 case .Year4Digits:
                     output += year4Format
@@ -254,6 +254,8 @@ open class Datetime: Comparable, Equatable {
                     output += weekday.substring(startIndex: 0, length: 3) ?? weekday
                 case .DayLong:
                     output += weekday
+                case .Other:
+                    continue
                 }
                 index += token.rawValue.length
             }
@@ -267,32 +269,13 @@ open class Datetime: Comparable, Equatable {
     
     // MARK: - Private methods
     
-    private static func isValidCreationDateFormat(_ dateStr: String) -> Bool {
-        return dateStr.numberOccurence(of: DateToken.Year4Digits.rawValue) == 1
-            && (dateStr.numberOccurence(of: DateToken.MonthDigits.rawValue) + dateStr.numberOccurence(of: DateToken.MonthShort.rawValue) + dateStr.numberOccurence(of: DateToken.MonthLong.rawValue) == 1)
-            && dateStr.numberOccurence(of: DateToken.DayDigits.rawValue) == 1
-            && dateStr.numberOccurence(of: DateToken.HourDigits.rawValue) <= 1
-            && dateStr.numberOccurence(of: DateToken.MinuteDigits.rawValue) <= 1
-            && dateStr.numberOccurence(of: DateToken.SecondDigits.rawValue) <= 1
-    }
-    
-    private static func recognizeToken(_ str: String, at index: Int) -> DateToken? {
-        if let next4bytes = str.substring(startIndex: index, length: 4) {
-            if next4bytes == DateToken.Year4Digits.rawValue { return DateToken.Year4Digits }
-        }
-        if let next2bytes = str.substring(startIndex: index, length: 2) {
-            if next2bytes == DateToken.Year2Digits.rawValue { return DateToken.Year2Digits }
-            if next2bytes == DateToken.MonthDigits.rawValue { return DateToken.MonthDigits }
-            if next2bytes == DateToken.DayDigits.rawValue { return DateToken.DayDigits }
-            if next2bytes == DateToken.HourDigits.rawValue { return DateToken.HourDigits }
-            if next2bytes == DateToken.MinuteDigits.rawValue { return DateToken.MinuteDigits }
-            if next2bytes == DateToken.SecondDigits.rawValue { return DateToken.SecondDigits }
-            if next2bytes == DateToken.MonthShort.rawValue { return DateToken.MonthShort }
-            if next2bytes == DateToken.MonthLong.rawValue { return DateToken.MonthLong }
-            if next2bytes == DateToken.DayShort.rawValue { return DateToken.DayShort }
-            if next2bytes == DateToken.DayLong.rawValue { return DateToken.DayLong }
-        }
-        return nil
+    private static func isValidCreationDateFormat(_ tokenList: [DateToken]) -> Bool {
+        return tokenList.filter { $0.type == DateToken.Tokens.Year4Digits }.count == 1
+            && tokenList.filter { $0.type == DateToken.Tokens.MonthDigits || $0.type == DateToken.Tokens.MonthShort || $0.type == DateToken.Tokens.MonthLong }.count == 1
+            && tokenList.filter { $0.type == DateToken.Tokens.DayDigits }.count == 1
+            && tokenList.filter { $0.type == DateToken.Tokens.HourDigits }.count <= 1
+            && tokenList.filter { $0.type == DateToken.Tokens.MinuteDigits }.count <= 1
+            && tokenList.filter { $0.type == DateToken.Tokens.SecondDigits }.count <= 1
     }
     
     /**

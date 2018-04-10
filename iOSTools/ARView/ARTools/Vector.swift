@@ -39,6 +39,7 @@ extension SCNView {
 extension CGPoint {
     
     init(_ vector: SCNVector3) {
+        self.init()
         x = CGFloat(vector.x)
         y = CGFloat(vector.y)
     }

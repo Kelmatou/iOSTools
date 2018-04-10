@@ -9,6 +9,7 @@
 import UIKit
 import ARKit
 
+@available(iOS 11.0, *)
 open class ARView: ARSCNView {
     
     // MARK: - Properties

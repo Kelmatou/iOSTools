@@ -35,20 +35,6 @@ extension Datetime {
         case Sunday = "Sunday"
     }
     
-    public enum DateToken: String {
-        case Year4Digits = "yyyy"
-        case Year2Digits = "yy"
-        case MonthDigits = "MM"
-        case DayDigits = "dd"
-        case HourDigits = "hh"
-        case MinuteDigits = "mm"
-        case SecondDigits = "ss"
-        case MonthShort = "MS"
-        case MonthLong = "ML"
-        case DayShort = "dS"
-        case DayLong = "dL"
-    }
-    
     /**
      Returns the name of month in year
      

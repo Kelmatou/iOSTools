@@ -8,6 +8,7 @@
 
 import ARKit
 
+@available(iOS 11.0, *)
 open class ARGestureManager: NSObject, UIGestureRecognizerDelegate {
     
     // MARK: - Properties

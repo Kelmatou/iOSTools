@@ -8,6 +8,7 @@
 
 import Foundation
 
+@available(iOS 11.0, *)
 @objc public protocol ARViewDelegate: class {
     
     @objc optional func didCreate(object: ARObject)
@@ -19,6 +20,7 @@ import Foundation
     @objc optional func didRelease(object: ARObject)
 }
 
+@available(iOS 11.0, *)
 extension ARView: ARViewDelegate {
     
     public func didCreate(object: ARObject) {
