@@ -11,10 +11,15 @@ import UIKit
 open class Requester {
     
     public enum AccessMethod: String {
-        case GET    = "GET"
-        case POST   = "POST"
-        case PUT    = "PUT"
-        case DELETE = "DELETE"
+        case GET     = "GET"
+        case POST    = "POST"
+        case PUT     = "PUT"
+        case HEAD    = "HEAD"
+        case DELETE  = "DELETE"
+        case PATCH   = "PATCH"
+        case TRACE   = "TRACE"
+        case OPTIONS = "OPTIONS"
+        case CONNECT = "CONNECT"
     }
     
     /**
@@ -94,6 +99,16 @@ open class Requester {
         }
     }
     
+    /**
+     Sends an HTTP request and that will receive an object of type T
+     
+     - parameter method: the AccessMethod
+     - parameter url: the targeted url
+     - parameter headers: a dictionary of header [Value : HttpField]
+     - parameter body: the content of the message
+     - parameter asType: the type of the output object
+     - parameter handler: allows the user to make actions just after request ended (UIImage, Error)
+     */
     public static func requestObject<T: Decodable>(_ method: AccessMethod, url: String, headers: [String : String]? = nil, body: String? = nil, asType: T.Type, handler: @escaping (T?, GenericError?) -> Void) {
         request(method, url: url, headers: headers, body: body) {
             (data, error) in

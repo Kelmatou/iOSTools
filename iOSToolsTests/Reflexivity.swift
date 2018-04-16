@@ -95,7 +95,6 @@ class ReflexivityTest: XCTestCase {
   func testParentInstance() {
     let var1: A = B()
     let reflexivity: Reflexivity = Reflexivity(var1)
-    debugPrint(reflexivity.parent()?.typeName() == "A")
     XCTAssert(reflexivity.parent()?.typeName() == "A")
   }
 }
